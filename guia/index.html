@@ -64,7 +64,7 @@ h1,h2{font-family:var(--serif);font-weight:500;font-variation-settings:"SOFT" 10
 main{padding:72px 18px 92px;max-width:1080px;margin:0 auto;min-height:100%;display:grid;align-items:center}
 .pg{display:none;gap:22px;align-items:center;scroll-margin-top:80px}
 .pg.atual{display:grid}
-@media(min-width:900px){.pg{grid-template-columns:.9fr 1.1fr;gap:48px}.pg.capa,.pg.fim{grid-template-columns:1.05fr .95fr}}
+@media(min-width:900px){.pg{grid-template-columns:.9fr 1.1fr;gap:48px}.pg.fim{grid-template-columns:1.05fr .95fr}.pg.abre{row-gap:30px}}
 .passo-n{width:42px;height:42px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(135deg,var(--rose),var(--lilac-d));color:#fff;font:600 20px var(--serif);margin-bottom:12px}
 .txt h2{font-size:clamp(28px,6.6vw,42px)}
 .txt p.apoio{margin:10px 0 0;color:var(--ink2);font-size:17px;max-width:44ch}
@@ -238,6 +238,14 @@ main{padding:72px 18px 92px;max-width:1080px;margin:0 auto;min-height:100%;displ
 .loja.conf .okp{opacity:1}
 
 /* motivo */
+.abre h1{font-size:clamp(30px,7.2vw,48px)}
+.abre .kick{margin:0 0 6px;font-size:24px}
+.abre .acoes{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px}
+.abre .fluxo{margin-top:6px}
+.fala{display:flex;gap:8px;align-items:flex-end;justify-content:flex-end}
+.fala .av{flex:none;width:40px;height:40px;border-radius:50%;object-fit:cover;object-position:50% 22%;border:2px solid #fff;box-shadow:0 4px 10px -4px rgba(46,33,64,.5);opacity:0}
+.pg.atual .fala .av{animation:aparece .4s .5s forwards}
+.fala .balao{max-width:none}
 .c-motivo{display:grid;gap:12px;align-content:center}
 .balao.ela{margin-left:auto;border-radius:18px 4px 18px 18px}
 .balao.jo{background:var(--lav)}.balao.jo .quem{color:var(--lilac-d)}
@@ -278,6 +286,7 @@ main{padding:72px 18px 92px;max-width:1080px;margin:0 auto;min-height:100%;displ
   .pg:not(.capa):not(.fim) .cena{order:4}
   .pg:not(.capa):not(.fim) .pontos{order:5;margin-top:18px}
   .pg:not(.capa):not(.fim) .denovo{order:6;justify-self:start}
+  .abre .kick{order:1}.abre h1{order:2}.abre .acoes{order:6;margin-bottom:22px}.abre .fluxo{order:7}
   .fluxo button{font-size:11.5px}
   .fluxo button i{width:42px;height:42px}
   .fluxo::before{top:20px}.fluxo .bola{top:14px}
@@ -297,48 +306,33 @@ main{padding:72px 18px 92px;max-width:1080px;margin:0 auto;min-height:100%;displ
 
 <header class="topo">
   <div class="marca"><svg viewBox="0 0 64 64" aria-hidden="true"><g fill="#B596E0"><circle cx="32" cy="18" r="11"/><circle cx="46" cy="29" r="11"/><circle cx="40" cy="45" r="11"/><circle cx="24" cy="45" r="11"/><circle cx="18" cy="29" r="11"/></g><circle cx="32" cy="33" r="7" fill="#DDB36A"/></svg><span>Guia<span class="so-g"> da sua página</span></span></div>
-  <div class="onde"><b id="onde-nome">Início</b>, <span id="onde-n">1 de 9</span></div>
+  <div class="onde"><b id="onde-nome">Início</b>, <span id="onde-n">1 de 8</span></div>
   <a class="abrir" href="../">Abrir a página</a>
 </header>
 
 <main>
-  <section class="pg capa" id="inicio" data-rot="Início">
+  <section class="pg abre" id="inicio" data-rot="Início">
     <div class="txt">
-      <p class="mao" style="margin:0 0 6px">Mari, é rapidinho</p>
-      <h1>Como usar a sua página <i>em 2 minutos</i></h1>
-      <p class="apoio">Você vai aprender a ler a flor, o preço e o histórico. Depois é só abrir a página uma vez por dia.</p>
-      <div class="fichas"><span><b>Para</b> Mari</span><span><b>Onde</b> mari.onmoov.com.br</span><span><b>Leitura</b> 2 minutos</span></div>
-      <div class="acoes"><button class="btn primary" data-ir="1">Começar</button><button class="btn suave" data-ir="8">Pular para o final</button></div>
-    </div>
-    <div class="retrato">
-      <div class="arco"><img src="../hero.jpg" alt="Mari sorrindo"></div>
-      <div class="flores buque" data-b="cacho"></div>
-      <div class="mao">o seu celular novo</div>
-    </div>
-    <div class="fluxo" aria-label="Partes do guia">
-      <i class="bola"></i>
-      <button data-ir="2"><i><svg><use href="#i-flor"/></svg></i>Flor</button>
-      <button data-ir="3"><i><svg><use href="#i-preco"/></svg></i>Preço</button>
-      <button data-ir="4"><i><svg><use href="#i-graf"/></svg></i>Gráfico</button>
-      <button data-ir="5"><i><svg><use href="#i-cel"/></svg></i>Celulares</button>
-      <button data-ir="6"><i><svg><use href="#i-lupa"/></svg></i>Testes</button>
-      <button data-ir="7"><i><svg><use href="#i-sacola"/></svg></i>Compra</button>
-    </div>
-  </section>
-
-  <section class="pg" id="motivo" data-rot="Motivo">
-    <div class="txt">
-      <p class="mao passo-n" style="background:none;color:var(--lilac-d);width:auto;height:auto;border-radius:0;font:600 24px var(--mao);display:block;margin:0 0 4px">antes de começar</p>
-      <h2>Por que eu fiz esta página</h2>
+      <p class="mao kick">Mari, antes de tudo</p>
+      <h1>Por que eu fiz esta página</h1>
       <p class="apoio">Você me pediu ajuda para trocar de celular e queria saber se comprava agora ou esperava a Black Friday.</p>
       <ul class="pontos"><li>O preço muda várias vezes por dia, até de madrugada. Mandar link não ia resolver.</li><li>Então pensei numa página que confere tudo sozinha, com as suas regras.</li><li>Assim você não precisa pesquisar: é só abrir e olhar.</li></ul>
-      <button class="denovo" data-denovo>↺ Ver de novo</button>
+      <div class="acoes"><button class="btn primary" data-ir="1">Ver como usar (2 minutos)</button><button class="btn suave" data-ir="7">Pular para o final</button></div>
     </div>
     <div class="cena c-motivo">
-      <div class="balao ela b1"><b class="quem">Você</b>Jô, me ajuda a trocar de celular? Compro agora ou espero a Black Friday?</div>
+      <div class="fala"><div class="balao ela b1"><b class="quem">Você</b>Jô, me ajuda a trocar de celular? Compro agora ou espero a Black Friday?</div><img class="av" src="../hero.jpg" alt=""></div>
       <div class="regras"><span>Android</span><span>Câmera top</span><span>Até R$ 5.000</span><span>Parcelado sem juros</span></div>
       <div class="balao jo b2"><b class="quem">Jô</b>Deixa comigo. Tive uma ideia melhor do que ficar te mandando link.</div>
       <div class="site-mini"><div class="f" id="mot-flor"></div><div><b>mari.onmoov.com.br</b><span>Confere o preço 5 vezes por dia e avisa a hora de comprar.</span></div></div>
+    </div>
+    <div class="fluxo" aria-label="Partes do guia">
+      <i class="bola"></i>
+      <button data-ir="1"><i><svg><use href="#i-flor"/></svg></i>Flor</button>
+      <button data-ir="2"><i><svg><use href="#i-preco"/></svg></i>Preço</button>
+      <button data-ir="3"><i><svg><use href="#i-graf"/></svg></i>Gráfico</button>
+      <button data-ir="4"><i><svg><use href="#i-cel"/></svg></i>Celulares</button>
+      <button data-ir="5"><i><svg><use href="#i-lupa"/></svg></i>Testes</button>
+      <button data-ir="6"><i><svg><use href="#i-sacola"/></svg></i>Compra</button>
     </div>
   </section>
 
@@ -536,7 +530,7 @@ function dedo(cena,alvo,quando,depois){
 }
 function zeraDedo(cena){const d=cena.querySelector('.dedo'); if(d){d.classList.remove('on','toque'); d.style.left='50%'; d.style.top='110%';}}
 const CENAS={
-  motivo(){ const f=$('#mot-flor'); f.innerHTML=florSVG(.1); T(()=>abre(f,.5),5200); },
+  inicio(){ const f=$('#mot-flor'); f.innerHTML=florSVG(.1); T(()=>abre(f,.5),5200); },
   flor(){
     const palco=$('#flor-palco'), est=$('#flor-estado'), tres=[...document.querySelectorAll('#flor-tres span')];
     palco.innerHTML=florSVG(.08);
