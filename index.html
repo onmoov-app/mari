@@ -62,7 +62,12 @@ h2{font-size:clamp(28px,5.4vw,42px)}
 .canto{position:absolute;z-index:0}
 .canto.c1{top:-6px;right:-10px;width:min(52vw,300px)}
 .hero .wrap{position:relative;z-index:1}
-.topbar{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:22px}
+.topbar{display:grid;grid-template-columns:1fr auto;align-items:center;gap:10px;margin-bottom:20px}
+.topbar .pill{grid-column:1/-1;justify-self:start}
+.como-btn{display:inline-flex;align-items:center;gap:7px;padding:7px 14px 7px 8px;border-radius:99px;border:0;background:var(--ink);color:#fff;font-weight:700;font-size:13.5px;white-space:nowrap;box-shadow:0 10px 20px -12px var(--ink);transition:transform .15s}
+.como-btn:hover{transform:translateY(-2px)}
+.como-btn i{width:22px;height:22px;border-radius:50%;background:var(--gold);color:var(--ink);display:grid;place-items:center;font:700 14px var(--sans)}
+@media(min-width:880px){.topbar{display:flex}.topbar .sig{margin-right:auto}.topbar .pill{order:2}.como-btn{order:3}}
 .sig{display:flex;align-items:center;gap:10px}
 .sig img{width:40px;height:40px;border-radius:50%;object-fit:cover;border:2px solid #fff;box-shadow:0 0 0 2px var(--lilac)}
 .sig span{font-family:var(--mao);font-size:19px;line-height:1;color:var(--ink2)}
@@ -77,10 +82,10 @@ h2{font-size:clamp(28px,5.4vw,42px)}
 .cena{position:relative;display:grid;grid-template-columns:1.12fr .88fr;gap:6px;align-items:end;max-width:520px;margin:6px auto 0;width:100%}
 .arch{position:relative}
 .arch .frame{border-radius:999px 999px 22px 22px;overflow:hidden;aspect-ratio:4/5;border:4px solid #fff;box-shadow:0 26px 50px -26px rgba(107,79,168,.6)}
-.arch .frame img{width:100%;height:100%;object-fit:cover;object-position:30% 60%;animation:respira 14s ease-in-out infinite alternate}
-@keyframes respira{from{transform:scale(1.03)}to{transform:scale(1.12)}}
-.arch .fa{position:absolute;width:74%;left:-16%;bottom:-9%;--ox:10%;--oy:95%}
-.arch .fb{position:absolute;width:52%;right:-12%;top:-3%;transform:scaleX(-1) rotate(-14deg)}
+.arch .frame img{width:100%;height:100%;object-fit:cover;object-position:50% 50%;animation:respira 14s ease-in-out infinite alternate}
+@keyframes respira{from{transform:scale(1)}to{transform:scale(1.06)}}
+.arch .fa{position:absolute;width:58%;left:-21%;bottom:-9%;--ox:10%;--oy:95%}
+.arch .fb{position:absolute;width:44%;left:-15%;top:1%;transform:rotate(-10deg)}
 .vaso{position:relative;text-align:center;padding-bottom:4px}
 .vaso .mao{display:block;margin-top:-4px;transform:rotate(-4deg)}
 .vflor{width:100%;height:auto;overflow:visible;display:block}
@@ -138,7 +143,7 @@ h2{font-size:clamp(28px,5.4vw,42px)}
 @media(min-width:880px){
   .hero{padding:26px 0 60px}
   .hero-grid{grid-template-columns:.94fr 1.06fr;grid-template-areas:"texto veredito" "cena veredito";column-gap:48px;row-gap:26px;align-items:start;grid-template-rows:auto 1fr}
-  .cena{max-width:500px;margin:0;align-self:end}
+  .cena{max-width:520px;margin:0;align-self:start}
   body.comprado .hero-grid{grid-template-areas:"texto cena";grid-template-rows:auto;align-items:center}
   body.comprado .cena{align-self:center;justify-self:end}
   .hero h1{font-size:60px}
@@ -193,17 +198,75 @@ details.pc[open] summary::after{transform:rotate(45deg)}
 .pros li::before{content:"✿";color:var(--lilac-d)}
 .cons li::before{content:"•";color:var(--rose-d);font-weight:700;width:14px;text-align:center}
 @media(min-width:880px){
-  .cards{grid-template-columns:1fr 1fr}
-  .card.rec{grid-column:1/-1;flex-direction:row}
-  .card.rec .c-img{flex:0 0 40%}
-  .card.rec .c-body{padding:26px}
-  .card.rec .pc-grid{grid-template-columns:1fr 1fr}
+  .cards .card{flex-direction:row}
+  .cards .card .c-img{flex:0 0 38%}
+  .cards .card .c-body{padding:26px}
+  .cards .card .pc-grid{grid-template-columns:1fr 1fr}
 }
+/* mais ideias */
+.ideias{margin-top:22px;border-radius:28px;background:linear-gradient(150deg,#EADDFB,#FFE3EC);padding:6px}
+.ideias-top{width:100%;display:flex;align-items:center;gap:14px;text-align:left;border:0;background:transparent;padding:14px}
+.ideias-top .thumbs{display:none;flex:none}
+.ideias-top .thumbs img{width:46px;height:46px;border-radius:50%;object-fit:contain;background:#fff;border:2px solid #fff;margin-left:-12px;box-shadow:0 4px 10px -6px rgba(46,33,64,.5)}
+.ideias-top .thumbs img:first-child{margin-left:0}
+@media(min-width:560px){.ideias-top .thumbs{display:flex}}
+.ideias-top b{display:block;font:500 22px/1.15 var(--serif);font-variation-settings:"SOFT" 100}
+.ideias-top span.sub{font-size:14px;color:var(--ink2)}
+.ideias-top .mais{margin-left:auto;flex:none;width:40px;height:40px;border-radius:50%;background:#fff;display:grid;place-items:center;font:500 26px/1 var(--serif);color:var(--lilac-d);transition:transform .35s}
+.ideias-top[aria-expanded="true"] .mais{transform:rotate(45deg)}
+.ideias-corpo{display:grid;grid-template-rows:0fr;transition:grid-template-rows .6s cubic-bezier(.2,.9,.2,1)}
+.ideias-corpo>div{overflow:hidden;min-height:0}
+.ideias.aberta .ideias-corpo{grid-template-rows:1fr}
+.ideias-grid{display:grid;gap:10px;padding:4px 4px 6px}
+@media(min-width:880px){.ideias-grid{grid-template-columns:1fr 1fr}}
+.card.ideia{opacity:1;transform:none;border-radius:22px}
+.card.ideia .c-img{min-height:150px;padding:14px 10px 4px}
+.card.ideia .c-img img{width:min(50%,190px)}
+.card.ideia h3{font-size:24px}
+.card.ideia .c-body{padding:16px;gap:12px}
+.card.ideia .c-preco .parc{font-size:22px}
+/* conferências do veredito */
+.checks{display:grid;gap:8px;margin-top:14px}
+@media(min-width:560px){.checks{grid-template-columns:1fr 1fr}}
+.chk{display:flex;gap:10px;align-items:flex-start;padding:11px 12px;border-radius:16px;font-size:13.5px;line-height:1.32;background:var(--paper);border:1px solid var(--line);color:var(--ink2)}
+.chk i{flex:none;width:24px;height:24px;border-radius:50%;display:grid;place-items:center;font-style:normal;font-weight:700;color:#fff;font-size:13px;background:var(--muted)}
+.chk b{display:block;color:var(--ink);font-size:14px}
+.chk.ok{background:var(--sage-l);border-color:#CFE8D6}.chk.ok i{background:var(--sage-d)}
+.chk.meh{background:#FBF1DC;border-color:#F0DDB0}.chk.meh i{background:var(--gold-d)}
+.chk.no{background:var(--petal);border-color:#F8D3DF}.chk.no i{background:var(--rose-d)}
+.chk .dia{display:inline-block;width:9px;height:9px;background:var(--gold);transform:rotate(45deg);margin-right:7px;border-radius:1px;border:1px solid #fff;box-shadow:0 0 0 1px var(--gold-d)}
+.marca-min{position:absolute;top:50%;left:var(--pos,0%);width:13px;height:13px;background:var(--gold);border:2px solid #fff;transform:translate(-50%,-50%) rotate(45deg);transition:left 2s cubic-bezier(.2,.9,.2,1) .6s;z-index:1;box-shadow:0 2px 5px rgba(46,33,64,.45);display:none}
+.marca-min.on{display:block}
+/* como funciona */
+dialog.ajuda{border:0;padding:0;border-radius:28px;width:min(640px,94vw);max-height:88vh;background:var(--card);color:var(--ink);box-shadow:0 40px 80px -30px rgba(46,33,64,.7);overflow:hidden}
+dialog.ajuda::backdrop{background:rgba(46,33,64,.5);backdrop-filter:blur(4px)}
+dialog.ajuda[open]{animation:sobe .35s cubic-bezier(.2,1.2,.4,1)}
+@keyframes sobe{from{opacity:0;transform:translateY(30px) scale(.97)}to{opacity:1;transform:none}}
+.ajuda-in{padding:24px 22px 26px;overflow:auto;max-height:88vh;position:relative}
+.ajuda-x{position:absolute;right:14px;top:14px;width:40px;height:40px;border-radius:50%;border:0;background:var(--lav);color:var(--lilac-d);font:500 24px/1 var(--serif)}
+.ajuda h2{font-size:28px;padding-right:48px}
+.ajuda-lista{display:grid;gap:16px;margin:18px 0 0;padding:0;list-style:none}
+.ajuda-lista li{display:grid;grid-template-columns:48px 1fr;gap:12px;align-items:start}
+.ajuda-lista .ic{width:48px;height:48px;border-radius:15px;background:var(--lav);display:grid;place-items:center}
+.ajuda-lista .ic .vflor{width:34px}
+.ajuda-lista .ic svg.icone{width:24px;height:24px;stroke:var(--lilac-d);fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.ajuda-lista b{display:block;font-size:16px}
+.ajuda-lista p{margin:2px 0 0;color:var(--ink2);font-size:15px}
+.horas{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
+.horas span{padding:4px 10px;border-radius:99px;background:var(--petal);color:var(--rose-d);font-weight:700;font-size:13px}
 
 /* ---------- gráfico ---------- */
 .faixa{background:linear-gradient(180deg,var(--lav),var(--paper))}
 .painel{background:var(--card);border:1px solid var(--line);border-radius:26px;padding:18px}
 .abas{display:inline-flex;background:var(--lav);border-radius:99px;padding:4px;gap:4px;flex-wrap:wrap}
+#abas,#sim-modelo{border-radius:24px;align-items:center}
+.abas .sep{font-size:12.5px;color:var(--muted);font-weight:600;padding:0 2px 0 10px}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:16px 0 6px}
+.chip{display:inline-flex;align-items:center;gap:8px;border:1.5px solid var(--line);background:#fff;border-radius:99px;padding:7px 12px 7px 9px;font-weight:600;font-size:13.5px;color:var(--muted);transition:.2s}
+.chip i{width:12px;height:12px;border-radius:50%;background:var(--line)}
+.chip b{font-family:var(--serif);font-variant-numeric:lining-nums;font-weight:600}
+.chip[aria-pressed="true"]{color:var(--ink);border-color:var(--c)}
+.chip[aria-pressed="true"] i{background:var(--c)}
 .abas button{border:0;background:transparent;padding:9px 15px;border-radius:99px;font-weight:700;font-size:14px;color:var(--ink2);transition:.25s}
 .abas button[aria-pressed="true"]{background:#fff;color:var(--lilac-d);box-shadow:0 6px 14px -8px rgba(107,79,168,.6)}
 .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:16px 0 6px}
@@ -213,9 +276,9 @@ details.pc[open] summary::after{transform:rotate(45deg)}
 .leitura{margin:10px 0 4px;font-size:15.5px}
 .chart{position:relative;width:100%;touch-action:pan-y;margin-top:8px}
 .chart svg{width:100%;height:auto;display:block;overflow:visible}
-.chart .linha{stroke-dasharray:1;stroke-dashoffset:1;animation:cresce 2.2s ease-out .2s forwards}
-.chart .area{opacity:0;animation:aparece 1s ease 1.6s forwards}
-.chart .ponto{opacity:0;animation:aparece .5s ease 2.2s forwards}
+.chart .linha{stroke-dasharray:1;stroke-dashoffset:1;animation:cresce 1.6s ease-out .1s forwards}
+.chart .area{opacity:0;animation:aparece .8s ease 1s forwards}
+.chart .ponto{opacity:0;animation:aparece .4s ease 1.3s forwards}
 .chart .pulsa{transform-box:fill-box;transform-origin:center;animation:pulsar 1.8s ease-out infinite}
 @keyframes aparece{to{opacity:1}}
 @keyframes pulsar{0%{transform:scale(1);opacity:.6}100%{transform:scale(3.2);opacity:0}}
@@ -276,14 +339,15 @@ details.pc[open] summary::after{transform:rotate(45deg)}
 
 /* ---------- rodapé ---------- */
 footer{position:relative;padding:40px 0 150px;text-align:center;overflow:hidden;background:radial-gradient(60% 50% at 50% 100%,#FFE6EE,transparent 70%)}
-.polaroids{position:relative;height:clamp(250px,74vw,300px);max-width:420px;margin:0 auto 14px}
-.polaroid{position:absolute;width:min(46vw,190px);background:#fff;padding:9px 9px 30px;border-radius:5px;box-shadow:0 22px 40px -22px rgba(46,33,64,.6);transition:transform .9s cubic-bezier(.2,1.3,.4,1)}
+.polaroids{position:relative;height:clamp(240px,68vw,300px);max-width:560px;margin:0 auto 14px}
+.polaroid{position:absolute;left:50%;top:20px;width:min(34vw,180px);background:#fff;padding:9px 9px 30px;border-radius:5px;box-shadow:0 22px 40px -22px rgba(46,33,64,.6);transition:transform .9s cubic-bezier(.2,1.3,.4,1)}
 .polaroid img{aspect-ratio:1;object-fit:cover;border-radius:2px;width:100%}
 .polaroid p{margin:7px 0 0;font-family:var(--mao);font-size:20px;line-height:1;color:var(--ink2)}
-.polaroid.p1{left:50%;top:20px;transform:translateX(-50%) rotate(0) scale(.9);z-index:2}
-.polaroid.p2{left:50%;top:20px;transform:translateX(-50%) rotate(0) scale(.9)}
-.polaroids.in .p1{transform:translateX(-101%) rotate(-6deg)}
-.polaroids.in .p2{transform:translateX(2%) rotate(6deg) translateY(26px)}
+.polaroid.p1{transform:translateX(-50%) scale(.9);z-index:3}
+.polaroid.p2,.polaroid.p3{transform:translateX(-50%) scale(.9)}
+.polaroids.in .p1{transform:translateX(-50%) rotate(-2deg) translateY(-8px)}
+.polaroids.in .p2{transform:translateX(-132%) rotate(-9deg) translateY(22px)}
+.polaroids.in .p3{transform:translateX(32%) rotate(8deg) translateY(28px)}
 .foot-flor{position:absolute;width:170px;bottom:-8px}
 @media(min-width:880px){.foot-flor{width:240px}footer{padding-bottom:90px}}
 .foot-flor.e{left:-40px}.foot-flor.d{right:-40px;transform:scaleX(-1)}
@@ -309,6 +373,7 @@ body.comprado .so-comprado{display:block}
   <div class="wrap">
     <div class="topbar">
       <div class="sig"><img id="avatar" alt="" src=""><span>Para a Mari,<br>com carinho, Jô</span></div>
+      <button class="como-btn" id="como-btn" type="button"><i>?</i>Como funciona</button>
       <div class="pill" id="pill"><i class="pulse"></i><span id="atualizado">conferindo preços</span></div>
     </div>
     <div class="hero-grid">
@@ -321,7 +386,7 @@ body.comprado .so-comprado{display:block}
 
       <div class="cena" id="cena">
         <div class="arch">
-          <div class="frame"><img id="hero-foto" alt="Mari olhando as montanhas" src=""></div>
+          <div class="frame"><img id="hero-foto" alt="Mari sorrindo numa trilha" src=""></div>
           <div class="flores fa in balanca" data-b="cacho"></div>
           <div class="flores fb in" data-b="cacho"></div>
         </div>
@@ -344,9 +409,11 @@ body.comprado .so-comprado{display:block}
           </div>
           <a class="btn primary" id="v-link" href="#celulares" target="_blank" rel="noopener">Ver na loja</a>
         </div>
+        <div class="checks" id="v-checks"></div>
         <div class="regua" aria-hidden="true">
           <div class="regua-trilho">
             <i class="z z1"></i><i class="z z2"></i><i class="z z3"></i>
+            <i class="marca-min" id="marca-min"></i>
             <div class="marca" id="marca"><span>hoje<b id="marca-v"></b></span></div>
           </div>
           <div class="regua-leg">
@@ -367,10 +434,18 @@ body.comprado .so-comprado{display:block}
     <div class="wrap">
       <div class="flores divisor" data-b="divisor"></div>
       <div class="sec-head">
-        <h2>Os três celulares na disputa</h2>
-        <p class="lead">Todos são Android com câmera de topo. O preço é sempre o total parcelado sem juros, do jeito que você vai pagar. Preço de Pix não entra.</p>
+        <h2>Os dois finalistas</h2>
+        <p class="lead">Android com câmera de topo. O preço é sempre o total parcelado sem juros, do jeito que você vai pagar. Preço de Pix não entra.</p>
       </div>
       <div class="cards" id="cards"></div>
+      <div class="ideias" id="ideias-box">
+        <button class="ideias-top" id="ideias-btn" type="button" aria-expanded="false" aria-controls="ideias">
+          <span class="thumbs" id="ideias-thumbs"></span>
+          <span><b id="ideias-tit">Mais ideias para comparar</b><span class="sub" id="ideias-sub"></span></span>
+          <span class="mais" aria-hidden="true">+</span>
+        </button>
+        <div class="ideias-corpo"><div><div class="ideias-grid" id="ideias"></div></div></div>
+      </div>
     </div>
   </section>
 
@@ -378,7 +453,7 @@ body.comprado .so-comprado{display:block}
     <div class="wrap">
       <div class="sec-head">
         <h2>É promoção de verdade ou black fraude?</h2>
-        <p class="lead">Seis meses de preço, dia a dia. Se a Black Friday vier mais cara do que o celular já custou, não é promoção.</p>
+        <p class="lead">Seis meses de preço, dia a dia. Se a Black Friday vier mais cara do que o celular já custou, não é promoção. Em "Comparar" você vê todos juntos.</p>
       </div>
       <div class="painel">
         <div class="abas" id="abas" role="group" aria-label="Celular do gráfico"></div>
@@ -483,17 +558,32 @@ body.comprado .so-comprado{display:block}
   <div class="flores foot-flor d" data-b="cacho"></div>
   <div class="wrap" style="position:relative">
     <div class="polaroids" id="polaroids">
-      <div class="polaroid p2"><img id="foto-praia" alt="Mari na praia" src=""><p>Praia do Cedro</p></div>
-      <div class="polaroid p1"><img id="foto-formatura" alt="Formatura da Mari" src=""><p>orgulho da família</p></div>
+      <div class="polaroid p2"><img id="foto-formatura" alt="Formatura da Mari" src=""><p>orgulho da família</p></div>
+      <div class="polaroid p3"><img id="foto-praia" alt="Mari na praia" src=""><p>Praia do Cedro</p></div>
+      <div class="polaroid p1"><img id="foto-sol" alt="Mari com o sol no rosto" src=""><p>sol no rosto</p></div>
     </div>
     <p class="assina">Qualquer dúvida, me chama.</p>
     <a class="btn zap" id="zap" target="_blank" rel="noopener" href="#">Falar com o Jô no WhatsApp</a>
-    <details class="como">
-      <summary>Como esta página funciona</summary>
-      <p>Cinco vezes por dia o preço é lido direto nas lojas (Amazon, KaBuM!, Magalu, Fast Shop e outras pelo Buscapé) e guardado. O histórico de maio a novembro vem do Buscapé, que registra o menor preço à vista. O parcelado desses meses é estimado com a diferença medida entre à vista e parcelado. Oferta muda rápido: confira o preço final na loja antes de pagar.</p>
-    </details>
+    <p style="margin:18px 0 0"><button class="btn suave" id="como-rodape" type="button">Como esta página funciona</button></p>
   </div>
 </footer>
+
+<dialog class="ajuda" id="ajuda" aria-labelledby="ajuda-t">
+  <div class="ajuda-in">
+    <button class="ajuda-x" id="ajuda-x" type="button" aria-label="Fechar">×</button>
+    <h2 id="ajuda-t">Como esta página funciona</h2>
+    <p class="lead" style="font-size:16px">Fiz esta página para você não precisar ficar caçando preço. Ela acompanha o seu celular novo até a Black Friday e avisa a hora certa de comprar.</p>
+    <ul class="ajuda-lista">
+      <li><span class="ic" id="aj-flor"></span><div><b>A flor é o resumo</b><p>Botão fechado quer dizer espere. Flor abrindo quer dizer que está quase. Flor aberta quer dizer que pode comprar.</p></div></li>
+      <li><span class="ic"><svg class="icone" viewBox="0 0 24 24"><path d="M5 12l4.5 4.5L19 7"/></svg></span><div><b>Duas conferências a cada preço</b><p>Primeiro, se chegou no valor combinado: <span id="aj-alvo">R$ 5.000</span> parcelado sem juros. Depois, se é desconto de verdade, comparando com o menor preço dos últimos 6 meses.</p></div></li>
+      <li><span class="ic"><svg class="icone" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg></span><div><b>Cinco conferências por dia</b><p>Os preços são lidos direto nas lojas, inclusive de madrugada, que é quando muita oferta aparece.</p><div class="horas"><span>0h30</span><span>4h30</span><span>8h30</span><span>15h30</span><span>20h30</span></div></div></li>
+      <li><span class="ic"><svg class="icone" viewBox="0 0 24 24"><path d="M4 8h16l-1.5 11h-13z"/><path d="M8.5 8a3.5 3.5 0 017 0"/></svg></span><div><b>Onde o preço é lido</b><p>Amazon direto no site. KaBuM!, Magalu, Fast Shop e outras pelo Buscapé. Só entra parcelado sem juros. Preço de Pix não conta.</p></div></li>
+      <li><span class="ic"><svg class="icone" viewBox="0 0 24 24"><path d="M6 16V11a6 6 0 0112 0v5l1.5 2h-15z"/><path d="M10 20a2 2 0 004 0"/></svg></span><div><b>Aviso quando chegar a hora</b><p>Quando o preço bater no combinado, eu recebo um alerta na hora e te aviso no WhatsApp.</p></div></li>
+      <li><span class="ic"><svg class="icone" viewBox="0 0 24 24"><path d="M4 18l5-6 4 3 7-9"/><path d="M4 4v16h16"/></svg></span><div><b>O histórico</b><p>Os seis meses de preço vêm do Buscapé, que guarda o menor preço à vista de cada dia. O parcelado desses meses é estimado. Desde 22/11 o parcelado é o lido nas lojas.</p></div></li>
+      <li><span class="ic"><svg class="icone" viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="15" rx="3"/><path d="M4 10h16M8 3v4M16 3v4"/></svg></span><div><b>Até quando</b><p>A conferência segue até a Cyber Monday, 30/11. Oferta muda rápido: antes de pagar, confira na loja se está escrito "sem juros".</p></div></li>
+    </ul>
+  </div>
+</dialog>
 
 <canvas class="confete" id="confete"></canvas>
 
@@ -501,7 +591,7 @@ body.comprado .so-comprado{display:block}
 const SB='https://pylbhcftpnpaulllizgx.supabase.co';
 const KEY='sb_publishable_duEGqkS_SGllUWDGIC9UFA_Pc_YG9dL';
 const FOTO=n=>`${SB}/storage/v1/object/public/fotos/${n}`;
-const COR={s25u:'#6B4FA8',sig:'#CF4F7C',s26u:'#B0842F'};
+const COR={s25u:'#6B4FA8',sig:'#CF4F7C',s26u:'#B0842F',x17t:'#2F8A63',s25:'#3F7FC4',ip17:'#7A7286'};
 const BF=new Date('2026-11-27T00:00:00-03:00'), CM=new Date('2026-11-30T23:59:59-03:00');
 const brl=(v,d=2)=>v==null?'':'R$ '+Number(v).toLocaleString('pt-BR',{minimumFractionDigits:d,maximumFractionDigits:d});
 const brl0=v=>brl(Math.round(v),0);
@@ -560,8 +650,9 @@ const NOME={espera:'Espera',quase:'Quase lá',go:'Pode comprar'};
 })();
 
 /* fotos */
-$('#avatar').src=FOTO('perfil-pro.jpg');
-$('#hero-foto').src=FOTO('montanha.webp');
+$('#avatar').src=FOTO('sol.jpg');
+$('#hero-foto').src=FOTO('sorriso2.jpg');
+$('#foto-sol').src=FOTO('sol.jpg');
 $('#zoom-foto').src=FOTO('praia-cedro.jpg'); $('#zoom-mini').src=FOTO('praia-cedro.jpg');
 $('#foto-formatura').src=FOTO('formatura.webp'); $('#foto-praia').src=FOTO('praia-cedro.jpg');
 $('#zap').href='https://wa.me/5511994222559?text='+encodeURIComponent('Jô, vi a página do celular e queria falar com você!');
@@ -569,12 +660,13 @@ $('#v-flor').innerHTML=florSVG(.06);
 
 /* ---------- dados ---------- */
 async function q(path){const r=await fetch(`${SB}/rest/v1/${path}`,{headers:{apikey:KEY}});if(!r.ok)throw new Error(path+' '+r.status);return r.json();}
+async function qTudo(path){let out=[],de=0;for(;;){const r=await fetch(`${SB}/rest/v1/${path}`,{headers:{apikey:KEY,Range:`${de}-${de+999}`,'Range-Unit':'items'}});if(!r.ok)throw new Error(path+' '+r.status);const j=await r.json();out=out.concat(j);if(j.length<1000)return out;de+=1000;}}
 let D=null, primeira=true;
 async function carregar(){
   try{
     const desde=new Date(Date.now()-36*36e5).toISOString();
     const [modelos,melhores,hist,estado,recentes]=await Promise.all([
-      q('modelos?select=*&order=ordem'), q('melhor_oferta_atual?select=*'), q('historico_diario?select=*&order=dia'), q('estado?select=*'),
+      q('modelos?select=*&order=ordem'), q('melhor_oferta_atual?select=*'), qTudo('historico_diario?select=modelo_id,dia,preco_parcelado,estimado&order=dia,modelo_id'), q('estado?select=*'),
       q(`ofertas?select=modelo_id,loja,preco_parcelado,parcelas,valor_parcela,url,observado_em,observacao&estimado=eq.false&preco_parcelado=not.is.null&observado_em=gte.${desde}&order=observado_em.desc`)
     ]);
     D={modelos,melhor:Object.fromEntries(melhores.map(o=>[o.modelo_id,o])),hist,estado:estado[0]||{},recentes};
@@ -614,6 +706,7 @@ function render(){
     $('#pill').classList.toggle('atrasado',horas>14);
   }
   veredito(); cards(); abasGrafico(); grafico(); simInit(); salto();
+  const r0=D.modelos.find(m=>m.papel==='recomendado'); if(r0) $('#aj-alvo').textContent=brl0(r0.alvo_bom);
   if(est.comprado){document.body.classList.add('comprado');comprado();}
   primeira=false;
 }
@@ -627,9 +720,13 @@ function veredito(){
   const T={go:['A flor abriu. Pode comprar!','O preço chegou no valor que a gente combinou.'],
            quase:['Quase lá. Ainda não compre.',''],espera:['Ainda não. Vamos esperar.','']};
   $('#v-titulo').textContent=T[s][0];
-  const falta=p!=null?p-rec.alvo_bom:null;
-  $('#v-sub').innerHTML=s==='go'?T.go[1]+(falta<0?` Está <b>${brl0(-falta)}</b> abaixo do combinado.`:''):
-    (p!=null?`Faltam <b>${brl0(falta)}</b> para o preço combinado de <b>${brl0(rec.alvo_bom)}</b>.`:'Nenhuma loja com oferta válida nas últimas horas.');
+  const falta=p!=null?p-rec.alvo_bom:null, {min}=estat(rec.id), noMin=p!=null&&p<=min.v*1.005, acima=p!=null?p-min.v:0;
+  $('#v-sub').innerHTML=p==null?'Nenhuma loja com oferta válida nas últimas horas.':
+    s==='go'?(noMin?'Chegou no valor combinado e é o menor preço dos últimos 6 meses.':`Chegou no valor combinado. Já custou ${brl0(acima)} a menos em ${dm(min.d)}, mas dentro do combinado vale comprar.`):
+    (noMin?`É o menor preço dos últimos 6 meses, mas ainda faltam <b>${brl0(falta)}</b> para o combinado.`:`Faltam <b>${brl0(falta)}</b> para o combinado, e ele já custou <b>${brl0(acima)}</b> a menos em ${dm(min.d)}. Vale esperar.`);
+  if(p!=null) $('#v-checks').innerHTML=
+    `<div class="chk ${falta<=0?'ok':s==='quase'?'meh':'no'}"><i>${falta<=0?'✓':s==='quase'?'≈':'!'}</i><div><b>Combinado: ${brl0(rec.alvo_bom)}</b>${falta<=0?`Chegou. Está ${brl0(-falta)} abaixo.`:`Ainda não. Faltam ${brl0(falta)}.`}</div></div>`+
+    `<div class="chk ${noMin?'ok':acima<=min.v*.05?'meh':'no'}"><i>${noMin?'✓':acima<=min.v*.05?'≈':'!'}</i><div><b><span class="dia"></span>Menor em 6 meses: ${brl0(min.v)}</b>${noMin?'Hoje é o menor preço do período.':`Hoje está ${brl0(acima)} acima do preço de ${dm(min.d)}.`}</div></div>`;
   $('#v-lbl').textContent=`Melhor preço de hoje do ${rec.nome}`;
   if(o){
     const pe=$('#v-parc');
@@ -637,63 +734,116 @@ function veredito(){
     $('#v-tot').textContent=`sem juros, ${brl(p)} no total, na ${o.loja}`;
     $('#v-link').href=o.url||'#celulares'; $('#v-link').textContent='Ver na '+o.loja;
     const a=rec.alvo_bom,lo=a*.9,qz=a*1.05,hi=a*1.2;
-    const pos=p<=a?Math.max(3,(p-lo)/(a-lo)*40):p<=qz?40+(p-a)/(qz-a)*25:Math.min(97,65+(p-qz)/(hi-qz)*35);
-    requestAnimationFrame(()=>requestAnimationFrame(()=>$('#marca').style.setProperty('--pos',pos+'%')));
+    const posDe=v=>v<=a?Math.max(3,(v-lo)/(a-lo)*40):v<=qz?40+(v-a)/(qz-a)*25:Math.min(97,65+(v-qz)/(hi-qz)*35);
+    const pos=posDe(p), mm=$('#marca-min'); mm.classList.toggle('on',!noMin); mm.title='Menor preço em 6 meses: '+brl0(min.v);
+    requestAnimationFrame(()=>requestAnimationFrame(()=>{$('#marca').style.setProperty('--pos',pos+'%');mm.style.setProperty('--pos',posDe(min.v)+'%');}));
     $('#marca-v').textContent=brl0(p);
   }
   $('#leg1').textContent='até '+brl0(rec.alvo_bom); $('#leg2').textContent='até '+brl0(rec.alvo_bom*1.05);
   $('#fases').innerHTML=[['espera','Botão fechado','espera'],['quase','Abrindo','quase lá'],['go','Flor aberta','pode comprar']]
     .map(([k,a,b])=>`<div class="fase ${k===s?'atual':''}">${florSVG(ABRE[k])}<b>${a}</b>${b}</div>`).join('');
-  $('#v-mao').textContent=s==='go'?'abriu!':s==='quase'?'a flor de hoje: abrindo':'a flor de hoje: fechada';
+  $('#v-mao').textContent=s==='go'?'hoje: abriu!':s==='quase'?'hoje: abrindo, quase lá':'hoje: ainda fechada';
   setTimeout(()=>$('#v-flor .vflor').style.setProperty('--abre',ABRE[s]),primeira?700:0);
   if(alt){const oa=D.melhor[alt.id]; if(oa&&status(alt,+oa.preco_parcelado)==='go'&&s!=='go') $('#v-sub').innerHTML+=` Mas olha: o <b>${alt.nome}</b> já chegou no preço dele, ${brl0(oa.preco_parcelado)} na ${oa.loja}.`;}
 }
 
 /* ---------- celulares ---------- */
-function cards(){
-  const el=$('#cards'); el.innerHTML='';
-  const selo={recomendado:'Minha indicação',alternativa:'Alternativa',referencia:'Fora do orçamento'};
-  D.modelos.forEach((m,i)=>{
-    const o=D.melhor[m.id], p=o?+o.preco_parcelado:null, s=status(m,p), {min,med30}=estat(m.id);
-    let fr='';
-    if(p){
-      if(p<=min.v*1.01) fr=`<div class="fraude ok"><i>✓</i><div><b>Desconto de verdade</b>É o menor preço dos últimos 6 meses.</div></div>`;
-      else if(p<=med30) fr=`<div class="fraude meh"><i>≈</i><div><b>Preço normal</b>Já esteve ${brl0(p-min.v)} mais barato em ${dm(min.d)}.</div></div>`;
-      else fr=`<div class="fraude bad"><i>!</i><div><b>Não é promoção</b>Está acima da média dos últimos 30 dias (${brl0(med30)}).</div></div>`;
-    }
-    const vistos=new Set(), lojas=D.recentes.filter(x=>x.modelo_id===m.id).filter(x=>{const k=x.loja+'|'+(x.observacao||'').match(/\d+ GB/)?.[0]; if(vistos.has(k))return false; vistos.add(k); return true;})
-      .sort((a,b)=>a.preco_parcelado-b.preco_parcelado).filter(x=>!o||x.loja!==o.loja||+x.preco_parcelado!==p).slice(0,3);
-    const falta=p!=null?p-m.alvo_bom:null, pct=p?Math.min(100,m.alvo_bom/p*100):0;
-    const c=document.createElement('article'); c.className='card '+(m.papel==='recomendado'?'rec':''); c.style.setProperty('--d',i*140+'ms');
-    c.innerHTML=`
-      <div class="c-img"><span class="selo">${selo[m.papel]||''}</span><img loading="lazy" src="${FOTO('produto-'+m.id+'.jpg')}" alt="${m.nome}">${m.papel==='recomendado'?'<div class="flores c-flor" data-b="cacho"></div>':''}</div>
+function cardHTML(m,mini){
+  const selo={recomendado:'Minha indicação',alternativa:'Alternativa',ideia:m.id==='ip17'?'Ideia extra (iOS)':'Ideia extra'};
+  const o=D.melhor[m.id], p=o?+o.preco_parcelado:null, s=status(m,p), {min,med30}=estat(m.id);
+  let fr='';
+  if(p){
+    if(p<=min.v*1.01) fr=`<div class="fraude ok"><i>✓</i><div><b>Desconto de verdade</b>É o menor preço dos últimos 6 meses.</div></div>`;
+    else if(p<=med30) fr=`<div class="fraude meh"><i>≈</i><div><b>Preço normal</b>Já esteve ${brl0(p-min.v)} mais barato em ${dm(min.d)}.</div></div>`;
+    else fr=`<div class="fraude bad"><i>!</i><div><b>Não é promoção</b>Está acima da média dos últimos 30 dias (${brl0(med30)}). O menor em 6 meses foi ${brl0(min.v)}.</div></div>`;
+  }
+  const vistos=new Set(), lojas=D.recentes.filter(x=>x.modelo_id===m.id).filter(x=>{const k=x.loja+'|'+(x.observacao||'').match(/\d+ GB/)?.[0]; if(vistos.has(k))return false; vistos.add(k); return true;})
+    .sort((a,b)=>a.preco_parcelado-b.preco_parcelado).filter(x=>!o||x.loja!==o.loja||+x.preco_parcelado!==p).slice(0,3);
+  const falta=p!=null?p-m.alvo_bom:null, pct=p?Math.min(100,m.alvo_bom/p*100):0, rec=m.papel==='recomendado';
+  return `
+      <div class="c-img"><span class="selo">${selo[m.papel]||''}</span><img loading="lazy" src="${FOTO('produto-'+m.id+'.jpg')}" alt="${m.nome}">${rec?'<div class="flores c-flor" data-b="cacho"></div>':''}</div>
       <div class="c-body">
         <h3>${m.nome}<small>${m.armazenamento}</small></h3>
         <p class="why">${m.por_que||''}</p>
         <div class="c-preco">${florSVG(ABRE[s])}<div>${o?`<div class="parc num">${o.parcelas?`${o.parcelas}x de ${brl(o.valor_parcela)}`:brl(p)}</div><span>sem juros, ${brl(p)} no total, na ${o.loja}</span>`:'<span>Sem oferta válida nas últimas horas</span>'}</div></div>
-        ${p?`<div class="meta"><div class="meta-bar ${s==='go'?'ok':''}"><b data-w="${pct}"></b></div><p>${falta>0?`<b>${NOME[s]}.</b> Faltam ${brl0(falta)} para o preço combinado de ${brl0(m.alvo_bom)}.`:`<b>${NOME[s]}!</b> Está ${brl0(-falta)} abaixo do preço combinado de ${brl0(m.alvo_bom)}.`}</p></div>`:''}
+        ${p?`<div class="meta"><div class="meta-bar ${s==='go'?'ok':''}"><b ${mini?`style="width:${pct}%"`:`data-w="${pct}"`}></b></div><p>${falta>0?`<b>${NOME[s]}.</b> Faltam ${brl0(falta)} para o preço combinado de ${brl0(m.alvo_bom)}.`:`<b>${NOME[s]}!</b> Está ${brl0(-falta)} abaixo do preço combinado de ${brl0(m.alvo_bom)}.`}</p></div>`:''}
         ${fr}
         ${lojas.length?`<ul class="lojas">${lojas.map(x=>{const gb=(x.observacao||'').match(/\d+ GB/)?.[0];return `<li><a href="${x.url||'#'}" target="_blank" rel="noopener">${x.loja}${gb&&gb!==m.armazenamento?' ('+gb+')':''}</a><span class="num">${x.parcelas?x.parcelas+'x de '+brl(x.valor_parcela):''} (${brl0(x.preco_parcelado)})</span></li>`}).join('')}</ul>`:''}
-        <details class="pc" ${m.papel==='recomendado'?'open':''}><summary>Prós e contras</summary><div class="pc-grid">
+        <details class="pc" ${rec?'open':''}><summary>Prós e contras</summary><div class="pc-grid">
           <div><h4>O que tem de bom</h4><ul class="pros">${m.pros.map(x=>`<li>${x}</li>`).join('')}</ul></div>
           <div><h4>Pontos de atenção</h4><ul class="cons">${m.contras.map(x=>`<li>${x}</li>`).join('')}</ul></div></div></details>
-        ${o&&o.url?`<a class="btn ${m.papel==='recomendado'?'primary':'suave'}" href="${o.url}" target="_blank" rel="noopener">Ver na ${o.loja}</a>`:''}
+        ${o&&o.url?`<a class="btn ${rec?'primary':'suave'}" href="${o.url}" target="_blank" rel="noopener">Ver na ${o.loja}</a>`:''}
       </div>`;
-    el.appendChild(c);
+}
+const ehIdeia=m=>m.papel!=='recomendado'&&m.papel!=='alternativa';
+function cards(){
+  const el=$('#cards'), ig=$('#ideias'); el.innerHTML=''; ig.innerHTML='';
+  const princ=D.modelos.filter(m=>!ehIdeia(m)), ideias=D.modelos.filter(ehIdeia);
+  princ.forEach((m,i)=>{
+    const c=document.createElement('article'); c.className='card '+(m.papel==='recomendado'?'rec':''); c.style.setProperty('--d',i*140+'ms');
+    c.innerHTML=cardHTML(m,false); el.appendChild(c);
     c.querySelectorAll('.flores').forEach(f=>{buque(f);io.observe(f);});
   });
+  ideias.forEach(m=>{const c=document.createElement('article'); c.className='card ideia'; c.innerHTML=cardHTML(m,true); ig.appendChild(c);});
+  $('#ideias-box').style.display=ideias.length?'':'none';
+  const nomes=ideias.map(m=>curto(m.nome));
+  $('#ideias-tit').textContent=`Mais ${ideias.length} ideias para comparar`;
+  $('#ideias-sub').textContent=nomes.length>1?nomes.slice(0,-1).join(', ')+' e '+nomes[nomes.length-1]:nomes.join('');
+  $('#ideias-thumbs').innerHTML=ideias.map(m=>`<img src="${FOTO('produto-'+m.id+'.jpg')}" alt="">`).join('');
   if(el.classList.contains('in')) barras();
 }
-function barras(){document.querySelectorAll('.meta-bar b').forEach(b=>b.style.width=b.dataset.w+'%');}
+$('#ideias-btn').onclick=()=>{const b=$('#ideias-box'), ab=b.classList.toggle('aberta'); $('#ideias-btn').setAttribute('aria-expanded',ab);
+  if(ab) setTimeout(()=>b.scrollIntoView({behavior:'smooth',block:'start'}),120);};
+function barras(){document.querySelectorAll('.meta-bar b[data-w]').forEach(b=>b.style.width=b.dataset.w+'%');}
 
 /* ---------- gráfico ---------- */
-let gM='s25u';
+let gM='s25u', cmpSel=null;
 function abasGrafico(){
   const el=$('#abas'); el.innerHTML='';
-  D.modelos.forEach(m=>{const b=document.createElement('button');b.textContent=curto(m.nome);b.setAttribute('aria-pressed',m.id===gM);b.onclick=()=>{gM=m.id;abasGrafico();grafico();};el.appendChild(b);});
+  const add=(id,txt)=>{const b=document.createElement('button');b.textContent=txt;b.setAttribute('aria-pressed',id===gM);b.onclick=()=>{gM=id;abasGrafico();grafico();};el.appendChild(b);};
+  D.modelos.filter(m=>!ehIdeia(m)).forEach(m=>add(m.id,curto(m.nome)));
+  add('cmp','Comparar');
+  const ids=D.modelos.filter(ehIdeia);
+  if(ids.length){const s=document.createElement('span');s.className='sep';s.textContent='ideias:';el.appendChild(s);ids.forEach(m=>add(m.id,curto(m.nome)));}
+}
+function graficoCmp(){
+  if(!cmpSel) cmpSel=new Set(D.modelos.filter(m=>!ehIdeia(m)||m.id==='x17t').map(m=>m.id));
+  const st=$('#stats'); st.className='chips';
+  st.innerHTML=D.modelos.map(m=>{const o=D.melhor[m.id];return `<button class="chip" style="--c:${COR[m.id]||'#8E8299'}" aria-pressed="${cmpSel.has(m.id)}" data-id="${m.id}"><i></i>${curto(m.nome)}${o?` <b>${brl0(o.preco_parcelado)}</b>`:''}</button>`}).join('');
+  st.querySelectorAll('.chip').forEach(b=>b.onclick=()=>{const id=b.dataset.id; if(cmpSel.has(id)){if(cmpSel.size>1)cmpSel.delete(id);}else cmpSel.add(id); graficoCmp();});
+  const sel=D.modelos.filter(m=>cmpSel.has(m.id)), orc=D.modelos.find(m=>m.papel==='recomendado').alvo_bom;
+  const series=sel.map(m=>{const pts=estat(m.id).h.map(p=>({...p,t:+new Date(p.d+'T12:00:00-03:00')}));return {m,pts,ult:pts[pts.length-1],cor:COR[m.id]||'#8E8299'}});
+  const ord=[...series].sort((a,b)=>a.ult.v-b.ult.v), bar=ord[0], dentro=ord.filter(x=>x.ult.v<=orc);
+  $('#leitura').innerHTML=`Dos marcados, o mais barato hoje é o <b>${bar.m.nome}</b>, por <b>${brl0(bar.ult.v)}</b> parcelado. `+(dentro.length?`${dentro.length===1?'Só ele cabe':dentro.length+' cabem'} no orçamento de ${brl0(orc)}.`:`Nenhum está dentro do orçamento de ${brl0(orc)} ainda.`)+' Toque nos nomes para ligar ou desligar.';
+  const ch=$('#chart'), W=Math.max(300,Math.round(ch.clientWidth||860)), mob=W<600, H=mob?300:380, FS=mob?11.5:13, P={l:mob?40:54,r:mob?14:96,t:26,b:28};
+  const todos=series.flatMap(x=>x.pts), x0=Math.min(...todos.map(p=>p.t)), x1=CM.getTime();
+  let y0=Math.min(orc,...todos.map(p=>p.v)), y1=Math.max(...todos.map(p=>p.v)); const pad=(y1-y0)*.08; y0=Math.floor((y0-pad)/500)*500; y1=Math.ceil((y1+pad)/500)*500;
+  const X=t=>P.l+(t-x0)/(x1-x0)*(W-P.l-P.r), Y=v=>P.t+(1-(v-y0)/(y1-y0))*(H-P.t-P.b);
+  let s=`<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Comparação de preço dos celulares">`;
+  const passo=(y1-y0)>6000?2000:(y1-y0)>3000?1000:500;
+  for(let v=Math.ceil(y0/passo)*passo;v<=y1;v+=passo) s+=`<line x1="${P.l}" x2="${W-P.r}" y1="${Y(v)}" y2="${Y(v)}" stroke="#F0E8F5"/><text x="${P.l-8}" y="${Y(v)+4}" text-anchor="end" font-size="${FS}" fill="#8E8299" font-family="Figtree">${(v/1000).toLocaleString('pt-BR')} mil</text>`;
+  const ms=['jan','fev','mar','abr','mai','jun','jul','ago','set','out','nov','dez'], d0=new Date(x0); d0.setDate(1); d0.setMonth(d0.getMonth()+1);
+  for(;d0<=x1;d0.setMonth(d0.getMonth()+1)) s+=`<text x="${X(+d0)}" y="${H-6}" text-anchor="middle" font-size="${FS}" fill="#8E8299" font-family="Figtree">${ms[d0.getMonth()]}</text>`;
+  s+=`<rect x="${P.l}" y="${Y(orc)}" width="${W-P.l-P.r}" height="${Math.max(0,H-P.b-Y(orc))}" fill="#E6F4EA"/><line x1="${P.l}" x2="${W-P.r}" y1="${Y(orc)}" y2="${Y(orc)}" stroke="#3F8060" stroke-width="1.4" stroke-dasharray="5 4"/><text x="${P.l+8}" y="${H-P.b-9}" font-size="${FS}" fill="#3F8060" font-weight="700" font-family="Figtree" style="paint-order:stroke;stroke:#fff;stroke-width:4px">seu orçamento: ${brl0(orc)}</text>`;
+  s+=`<rect x="${X(+BF)}" y="${P.t}" width="${Math.max(3,X(+CM)-X(+BF))}" height="${H-P.t-P.b}" fill="#FBEFD3" opacity=".85"/><text x="${X(+CM)}" y="${P.t-9}" text-anchor="end" font-size="${FS}" fill="#9A7430" font-weight="700" font-family="Figtree">Black Friday</text>`;
+  series.forEach((x,i)=>{s+=`<polyline class="linha" style="animation-delay:${i*180}ms" pathLength="1" fill="none" stroke="${x.cor}" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round" points="${x.pts.map(p=>X(p.t).toFixed(1)+','+Y(p.v).toFixed(1)).join(' ')}"/>`;});
+  let ant=-99; const rot=[...series].sort((a,b)=>Y(a.ult.v)-Y(b.ult.v)).map(x=>{let y=Math.max(Y(x.ult.v)+4,ant+15); ant=y; return {x,y};});
+  rot.forEach(({x,y})=>{s+=`<g class="ponto"><circle cx="${X(x.ult.t)}" cy="${Y(x.ult.v)}" r="5" fill="${x.cor}" stroke="#fff" stroke-width="2"/>${mob?'':`<text x="${X(x.ult.t)+10}" y="${y}" font-size="${FS}" font-weight="700" fill="${x.cor}" font-family="Figtree">${curto(x.m.nome)}</text>`}</g>`;});
+  s+=`<line id="cursor" x1="0" x2="0" y1="${P.t}" y2="${H-P.b}" stroke="#2E2140" opacity="0"/></svg><div class="tip" id="tip" style="white-space:normal;min-width:150px;text-align:left"></div>`;
+  ch.innerHTML=s;
+  const svg=ch.querySelector('svg'), tip=$('#tip'), cur=ch.querySelector('#cursor'), dias=[...new Set(todos.map(p=>p.d))].sort();
+  const mv=ev=>{const r=svg.getBoundingClientRect(), t=x0+((ev.clientX-r.left)/r.width*W-P.l)/(W-P.l-P.r)*(x1-x0);
+    let d=dias[0], bt=Infinity; for(const k of dias){const kt=+new Date(k+'T12:00:00-03:00'); if(Math.abs(kt-t)<bt){bt=Math.abs(kt-t);d=k;}}
+    const xt=X(+new Date(d+'T12:00:00-03:00')); cur.setAttribute('x1',xt); cur.setAttribute('x2',xt); cur.setAttribute('opacity','.2');
+    tip.innerHTML=`<b>${dm(d)}</b>`+series.map(x=>{const q=x.pts.find(p=>p.d===d);return q?`<br><span style="color:${x.cor}">●</span> ${curto(x.m.nome)}: ${brl0(q.v)}`:''}).join('');
+    tip.style.left=Math.min(Math.max(xt/W*r.width,90),r.width-90)+'px'; tip.style.top=(P.t/H*r.height+40)+'px'; tip.style.transform='translate(-50%,0)'; tip.style.opacity=1;};
+  svg.addEventListener('pointermove',mv); svg.addEventListener('pointerdown',mv);
+  svg.addEventListener('pointerleave',()=>{tip.style.opacity=0;cur.setAttribute('opacity','0')});
 }
 function grafico(){
-  const m=D.modelos.find(x=>x.id===gM), {h,min,med30}=estat(gM), hoje=h[h.length-1], cor=COR[gM];
+  if(gM==='cmp') return graficoCmp();
+  const m=D.modelos.find(x=>x.id===gM), {h,min,med30}=estat(gM), hoje=h[h.length-1], cor=COR[gM]||'#6B4FA8';
+  $('#stats').className='stats';
   $('#stats').innerHTML=`<div class="stat hoje">Hoje<b class="num">${brl0(hoje.v)}</b></div><div class="stat">Menor em 6 meses<b class="num">${brl0(min.v)}</b>em ${dm(min.d)}</div><div class="stat">Média de 30 dias<b class="num">${brl0(med30)}</b></div>`;
   const dif=(hoje.v/min.v-1)*100;
   $('#leitura').innerHTML=dif<=1?`Hoje o ${m.nome} está no <b>menor preço dos 6 meses</b>. Desconto de verdade.`:
@@ -841,6 +991,13 @@ const io=new IntersectionObserver(es=>es.forEach(e=>{if(!e.isIntersecting)return
   if(e.target.id==='visor'){let k=0;zAuto=setInterval(()=>{k=(k+1)%3;zZ=[1,3,5][k];zoom();},2800);}
 }),{threshold:.18});
 document.querySelectorAll('.flores:not(.in),#cards,#chart,#visor,#polaroids').forEach(el=>io.observe(el));
+
+const aj=$('#ajuda');
+$('#aj-flor').innerHTML=florSVG(.5);
+const abreAjuda=()=>{aj.showModal?aj.showModal():aj.setAttribute('open','');setTimeout(()=>{const f=$('#aj-flor .vflor');if(f){f.style.setProperty('--abre',.1);setTimeout(()=>f.style.setProperty('--abre',1),250);}},100);};
+$('#como-btn').onclick=abreAjuda; $('#como-rodape').onclick=abreAjuda;
+$('#ajuda-x').onclick=()=>aj.close();
+aj.addEventListener('click',e=>{if(e.target===aj)aj.close();});
 
 carregar();
 setInterval(carregar,20*60*1000);
