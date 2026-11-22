@@ -7,7 +7,7 @@
 <meta name="description" content="Quando a flor abrir, é hora de comprar. Preços conferidos cinco vezes por dia até a Black Friday.">
 <meta property="og:title" content="Mari, seu celular novo">
 <meta property="og:description" content="Quando a flor abrir, é hora de comprar. Abre aqui para ver como ela está hoje.">
-<meta property="og:image" content="https://mari.onmoov.com.br/og.jpg">
+<meta property="og:image" content="https://mari.onmoov.com.br/og2.jpg">
 <meta property="og:url" content="https://mari.onmoov.com.br/">
 <meta property="og:type" content="website">
 <meta name="theme-color" content="#FBF7FF">
@@ -82,7 +82,7 @@ h2{font-size:clamp(28px,5.4vw,42px)}
 .cena{position:relative;display:grid;grid-template-columns:1.12fr .88fr;gap:6px;align-items:end;max-width:520px;margin:6px auto 0;width:100%}
 .arch{position:relative}
 .arch .frame{border-radius:999px 999px 22px 22px;overflow:hidden;aspect-ratio:4/5;border:4px solid #fff;box-shadow:0 26px 50px -26px rgba(107,79,168,.6)}
-.arch .frame img{width:100%;height:100%;object-fit:cover;object-position:50% 50%;animation:respira 14s ease-in-out infinite alternate}
+.arch .frame img{width:100%;height:100%;object-fit:cover;object-position:50% 30%;animation:respira 14s ease-in-out infinite alternate}
 @keyframes respira{from{transform:scale(1)}to{transform:scale(1.06)}}
 .arch .fa{position:absolute;width:58%;left:-21%;bottom:-9%;--ox:10%;--oy:95%}
 .arch .fb{position:absolute;width:44%;left:-15%;top:1%;transform:rotate(-10deg)}
@@ -386,7 +386,7 @@ body.comprado .so-comprado{display:block}
 
       <div class="cena" id="cena">
         <div class="arch">
-          <div class="frame"><img id="hero-foto" alt="Mari sorrindo numa trilha" src=""></div>
+          <div class="frame"><img id="hero-foto" alt="Mari sorrindo, de vestido verde" src=""></div>
           <div class="flores fa in balanca" data-b="cacho"></div>
           <div class="flores fb in" data-b="cacho"></div>
         </div>
@@ -559,7 +559,7 @@ body.comprado .so-comprado{display:block}
   <div class="wrap" style="position:relative">
     <div class="polaroids" id="polaroids">
       <div class="polaroid p2"><img id="foto-formatura" alt="Formatura da Mari" src=""><p>orgulho da família</p></div>
-      <div class="polaroid p3"><img id="foto-praia" alt="Mari na praia" src=""><p>Praia do Cedro</p></div>
+      <div class="polaroid p3"><img id="foto-praia" alt="Mari sorrindo numa trilha" src=""><p>na trilha</p></div>
       <div class="polaroid p1"><img id="foto-sol" alt="Mari com o sol no rosto" src=""><p>sol no rosto</p></div>
     </div>
     <p class="assina">Qualquer dúvida, me chama.</p>
@@ -651,10 +651,10 @@ const NOME={espera:'Espera',quase:'Quase lá',go:'Pode comprar'};
 
 /* fotos */
 $('#avatar').src=FOTO('sol.jpg');
-$('#hero-foto').src=FOTO('sorriso2.jpg');
+$('#hero-foto').src='hero.jpg';
 $('#foto-sol').src=FOTO('sol.jpg');
 $('#zoom-foto').src=FOTO('praia-cedro.jpg'); $('#zoom-mini').src=FOTO('praia-cedro.jpg');
-$('#foto-formatura').src=FOTO('formatura.webp'); $('#foto-praia').src=FOTO('praia-cedro.jpg');
+$('#foto-formatura').src=FOTO('formatura.webp'); $('#foto-praia').src=FOTO('sorriso2.jpg');
 $('#zap').href='https://wa.me/5511994222559?text='+encodeURIComponent('Jô, vi a página do celular e queria falar com você!');
 $('#v-flor').innerHTML=florSVG(.06);
 
