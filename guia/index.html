@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Guia rápido da sua página</title>
+<meta name="robots" content="noindex">
+<meta name="description" content="Em 2 minutos você aprende a ler a flor, o preço e o histórico.">
+<meta name="theme-color" content="#FBF7FF">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cg fill='%23B596E0'%3E%3Ccircle cx='32' cy='18' r='11'/%3E%3Ccircle cx='46' cy='29' r='11'/%3E%3Ccircle cx='40' cy='45' r='11'/%3E%3Ccircle cx='24' cy='45' r='11'/%3E%3Ccircle cx='18' cy='29' r='11'/%3E%3C/g%3E%3Ccircle cx='32' cy='33' r='7' fill='%23DDB36A'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600&family=Figtree:wght@400;500;600;700&family=Fraunces:ital,opsz,wght,SOFT@0,9..144,400..600,50..100;1,9..144,400..600,50..100&display=swap" rel="stylesheet">
+<style>
+/* VOICE: o Jô falando com a irmã, frases curtas, "você", sem enfeite.
+   IDEA: cada página é uma cena da página da Mari que se mexe sozinha e mostra o passo.
+   PICTURE: as peças reais do site (flor, régua, gráfico, cartão, zoom) desenhadas em HTML e animadas.
+   COLOUR: papel lilás claro, lilás e rosa em aquarela, dourado nos detalhes, verde só para o que deu certo.
+   TYPE: Fraunces nos títulos e números, Figtree no texto, Caveat nas anotações à mão.
+   LAYOUT: uma página por vez, texto de um lado e cena do outro; no celular, texto em cima e cena embaixo. */
+:root{--paper:#FCF9FF;--petal:#FFF1F6;--lav:#F2EAFC;--card:#fff;--ink:#2E2140;--ink2:#5B4D6B;--muted:#8E8299;--line:#EDE3F3;
+  --lilac:#B596E0;--lilac-d:#6B4FA8;--rose:#F29DB8;--rose-d:#CF4F7C;--gold:#DDB36A;--gold-d:#9A7430;--sage-d:#3F8060;--sage-l:#E6F4EA;
+  --serif:"Fraunces",Georgia,serif;--sans:"Figtree",system-ui,sans-serif;--mao:"Caveat",cursive}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{margin:0;background:radial-gradient(70% 46% at 100% 0%,#EFE3FC 0%,transparent 70%),radial-gradient(60% 40% at 0% 60%,#FFE9F1 0%,transparent 70%),var(--paper);background-attachment:fixed;color:var(--ink);font:16px/1.5 var(--sans);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+button{font:inherit;color:inherit;cursor:pointer}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--lilac-d);outline-offset:3px;border-radius:8px}
+h1,h2{font-family:var(--serif);font-weight:500;font-variation-settings:"SOFT" 100;letter-spacing:-.015em;margin:0;line-height:1.08}
+.num{font-family:var(--serif);font-variant-numeric:lining-nums tabular-nums;font-variation-settings:"SOFT" 100}
+.mao{font-family:var(--mao);color:var(--lilac-d);font-size:22px;line-height:1.1}
+
+/* topo e rodapé */
+.topo{position:fixed;inset:0 0 auto 0;height:56px;z-index:20;display:flex;align-items:center;gap:10px;padding:0 16px;background:rgba(252,249,255,.88);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.topo .marca{display:flex;align-items:center;gap:8px;font-weight:700;font-size:14.5px;white-space:nowrap}
+.topo .marca svg{width:26px;height:26px}
+.topo .so-g{display:none}
+@media(min-width:560px){.topo .so-g{display:inline}}
+.topo .onde{margin-left:auto;font-size:13.5px;color:var(--ink2);white-space:nowrap}
+.topo .onde b{color:var(--ink)}
+.topo a.abrir{display:inline-flex;align-items:center;gap:6px;padding:8px 13px;border-radius:99px;background:var(--ink);color:#fff;text-decoration:none;font-weight:700;font-size:13.5px;white-space:nowrap}
+.rodape{position:fixed;inset:auto 0 0 0;z-index:20;display:flex;align-items:center;gap:12px;padding:10px 16px calc(10px + env(safe-area-inset-bottom));background:rgba(252,249,255,.92);backdrop-filter:blur(10px);border-top:1px solid var(--line)}
+.rodape button.nav{flex:none;padding:11px 18px;border-radius:99px;border:0;font-weight:700;font-size:14.5px;background:var(--lav);color:var(--lilac-d)}
+.rodape button.nav.prox{background:var(--ink);color:#fff}
+.rodape button.nav[disabled]{opacity:.35;cursor:default}
+.trilha{flex:1;display:flex;gap:6px;align-items:flex-end;justify-content:center;min-width:0}
+.trilha button{flex:1;max-width:92px;border:0;background:none;padding:0;display:grid;gap:5px;font-size:11.5px;font-weight:600;color:var(--muted)}
+.trilha button span{display:none}
+.trilha button::after{content:"";height:6px;border-radius:99px;background:var(--line);transition:background .3s}
+.trilha button.visto::after{background:var(--lilac)}
+.trilha button.aqui::after{background:linear-gradient(90deg,var(--rose),var(--lilac-d))}
+.trilha button.aqui{color:var(--ink)}
+@media(min-width:760px){.trilha button span{display:block}}
+
+/* páginas */
+main{padding:72px 18px 92px;max-width:1080px;margin:0 auto;min-height:100%;display:grid;align-items:center}
+.pg{display:none;gap:22px;align-items:center;scroll-margin-top:80px}
+.pg.atual{display:grid}
+@media(min-width:900px){.pg{grid-template-columns:.9fr 1.1fr;gap:48px}.pg.capa,.pg.fim{grid-template-columns:1.05fr .95fr}}
+.passo-n{width:42px;height:42px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(135deg,var(--rose),var(--lilac-d));color:#fff;font:600 20px var(--serif);margin-bottom:12px}
+.txt h2{font-size:clamp(28px,6.6vw,42px)}
+.txt p.apoio{margin:10px 0 0;color:var(--ink2);font-size:17px;max-width:44ch}
+.pontos{margin:16px 0 0;padding:0;list-style:none;display:grid;gap:9px}
+.pontos li{display:flex;gap:10px;align-items:flex-start;font-size:15.5px}
+.pontos li::before{content:"";flex:none;width:10px;height:10px;margin-top:7px;border-radius:50%;background:linear-gradient(135deg,var(--rose),var(--lilac-d))}
+.denovo{margin-top:16px;border:0;background:none;padding:6px 0;font-weight:700;font-size:14px;color:var(--lilac-d)}
+.txt>*{opacity:0;transform:translateY(10px)}
+.pg.atual .txt>*{animation:entra .5s cubic-bezier(.2,.9,.3,1) forwards}
+.pg.atual .txt>*:nth-child(2){animation-delay:.08s}.pg.atual .txt>*:nth-child(3){animation-delay:.16s}.pg.atual .txt>*:nth-child(4){animation-delay:.24s}.pg.atual .txt>*:nth-child(5){animation-delay:.32s}.pg.atual .txt>*:nth-child(6){animation-delay:.4s}
+@keyframes entra{to{opacity:1;transform:none}}
+@keyframes aparece{to{opacity:1}}
+@keyframes cresce{to{stroke-dashoffset:0}}
+@keyframes pop{0%{transform:scale(0)}70%{transform:scale(1.15)}100%{transform:scale(1)}}
+
+/* cena */
+.cena{position:relative;background:var(--card);border:1px solid var(--line);border-radius:28px;padding:20px;box-shadow:0 30px 60px -40px rgba(107,79,168,.55);min-height:330px;overflow:hidden;width:100%;max-width:520px;margin:0 auto}
+.ex{position:absolute;right:12px;top:12px;font-size:11.5px;font-weight:700;color:var(--muted);background:var(--paper);border:1px solid var(--line);border-radius:99px;padding:2px 9px;z-index:3}
+.dedo{position:absolute;left:50%;top:110%;width:38px;height:38px;margin:-19px 0 0 -19px;border-radius:50%;background:rgba(107,79,168,.28);border:2px solid var(--lilac-d);z-index:6;pointer-events:none;opacity:0;transition:left .7s cubic-bezier(.3,.9,.3,1),top .7s cubic-bezier(.3,.9,.3,1),opacity .3s}
+.dedo.on{opacity:1}
+.dedo.toque{animation:toque .45s ease}
+@keyframes toque{40%{transform:scale(.7);background:rgba(107,79,168,.5)}}
+.vflor{width:100%;height:auto;overflow:visible;display:block}
+.vflor .p{transform:rotate(calc(var(--r)*var(--abre,.08))) scale(calc(.52 + .48*var(--abre,.08)));transition:transform 1.6s cubic-bezier(.25,1.3,.35,1)}
+.vflor .miolo{opacity:calc((var(--abre,.08) - .45)*3);transition:opacity 1s .6s}
+.estado{display:inline-flex;align-items:center;gap:8px;font-weight:700;font-size:14px;padding:7px 14px;border-radius:99px;background:var(--petal);color:var(--rose-d);transition:background .4s,color .4s}
+.estado::before{content:"";width:10px;height:10px;border-radius:50%;background:currentColor}
+.estado.quase{background:#FBF1DC;color:var(--gold-d)}
+.estado.go{background:var(--sage-l);color:var(--sage-d)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:12px 18px;border-radius:99px;border:0;text-decoration:none;font-weight:700;font-size:15px}
+.btn.primary{background:var(--ink);color:#fff}
+.btn.suave{background:var(--lav);color:var(--lilac-d)}
+.btn.zap{background:linear-gradient(135deg,#F29DB8,#B596E0);color:#fff}
+.abas{display:inline-flex;background:var(--lav);border-radius:99px;padding:4px;gap:4px}
+.abas span{padding:7px 12px;border-radius:99px;font-weight:700;font-size:13px;color:var(--ink2);transition:.25s}
+.abas span.on{background:#fff;color:var(--lilac-d);box-shadow:0 6px 14px -8px rgba(107,79,168,.6)}
+
+/* capa */
+.capa h1{font-size:clamp(36px,9vw,60px)}
+.capa h1 i{color:var(--lilac-d)}
+.capa .apoio{font-size:18px}
+.fichas{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+.fichas span{background:#fff;border:1px solid var(--line);border-radius:99px;padding:6px 12px;font-size:13.5px;color:var(--ink2)}
+.fichas b{color:var(--ink)}
+.capa .acoes{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px}
+.retrato{position:relative;width:min(58%,250px);margin:0 auto}
+.retrato .arco{border-radius:999px 999px 22px 22px;overflow:hidden;aspect-ratio:4/5;border:4px solid #fff;box-shadow:0 26px 50px -26px rgba(107,79,168,.6)}
+.retrato img{width:100%;height:100%;object-fit:cover;object-position:50% 30%;display:block}
+.retrato .buque{position:absolute;width:62%;left:-24%;bottom:-9%}
+.retrato .mao{display:none;position:absolute;right:-46%;top:18%;transform:rotate(6deg);width:44%;text-align:center}
+@media(min-width:900px){.retrato .mao{display:block}}
+.flores svg{display:block;width:100%;height:auto;overflow:visible}
+.fluxo{position:relative;display:grid;grid-template-columns:repeat(6,1fr);gap:4px;margin-top:26px;grid-column:1/-1}
+.fluxo::before{content:"";position:absolute;left:8%;right:8%;top:23px;height:2px;background:repeating-linear-gradient(90deg,var(--lilac) 0 6px,transparent 6px 12px)}
+.fluxo .bola{position:absolute;top:17px;left:8%;width:14px;height:14px;margin-left:-7px;border-radius:50%;background:var(--gold);border:2px solid #fff;box-shadow:0 2px 6px rgba(46,33,64,.4);z-index:2;opacity:0}
+.pg.atual .fluxo .bola{animation:percorre 4.5s ease-in-out .8s 3}
+@keyframes percorre{0%{left:8%;opacity:1}90%{left:92%;opacity:1}100%{left:92%;opacity:0}}
+.fluxo button{position:relative;z-index:1;border:0;background:none;padding:0;display:grid;justify-items:center;gap:6px;font-size:12.5px;font-weight:600;color:var(--ink2)}
+.fluxo button i{width:48px;height:48px;border-radius:50%;background:#fff;border:1.5px solid var(--lilac);display:grid;place-items:center;transition:transform .2s}
+.fluxo button:hover i{transform:translateY(-3px)}
+.fluxo svg{width:24px;height:24px;stroke:var(--lilac-d);fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+
+/* cena 2: flor */
+.c-flor{display:grid;justify-items:center;gap:6px;text-align:center}
+.c-flor .palco{width:min(56%,210px)}
+.tres{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;width:100%;margin-top:10px}
+.tres span{padding:8px 4px;border-radius:14px;border:2px solid transparent;font-size:13px;color:var(--muted);line-height:1.25;transition:.4s}
+.tres span b{display:block;color:var(--ink);font-size:13.5px}
+.tres span.on{background:var(--lav);border-color:var(--lilac);color:var(--ink2)}
+
+/* cena 3: preço */
+.cx-preco{margin:12px 0 0;padding:14px;border-radius:18px;background:linear-gradient(135deg,var(--lav),var(--petal))}
+.cx-preco small{display:block;font-size:13px;color:var(--ink2)}
+.cx-preco b{display:block;font-size:30px;font-weight:600;line-height:1.15}
+.chk{display:flex;gap:10px;align-items:flex-start;padding:10px 12px;border-radius:16px;font-size:13.5px;line-height:1.3;margin-top:8px;background:#FBF1DC;border:1px solid #F0DDB0;color:#6E5220}
+.chk i{flex:none;width:24px;height:24px;border-radius:50%;display:grid;place-items:center;font-style:normal;font-weight:700;color:#fff;font-size:13px;background:var(--gold-d)}
+.chk b{display:block;color:var(--ink);font-size:14px}
+.chk .dia{display:inline-block;width:9px;height:9px;background:var(--gold);transform:rotate(45deg);margin-right:7px;border-radius:1px;box-shadow:0 0 0 1px var(--gold-d)}
+.c-preco .chk,.c-preco .regua{opacity:0}
+.pg.atual .c-preco .a1{animation:entra .5s 1.3s forwards;transform:translateY(10px)}
+.pg.atual .c-preco .a2{animation:entra .5s 2.3s forwards;transform:translateY(10px)}
+.pg.atual .c-preco .regua{animation:aparece .5s 3.2s forwards}
+.regua{margin-top:34px}
+.trilho{position:relative;height:14px;border-radius:99px;display:flex}
+.trilho .z1{width:40%;background:linear-gradient(90deg,#BFE3CB,#8FBF9F);border-radius:99px 0 0 99px}
+.trilho .z2{width:25%;background:linear-gradient(90deg,#F4DFAE,#E8C57E)}
+.trilho .z3{width:35%;background:linear-gradient(90deg,#F8BFD0,#F29DB8);border-radius:0 99px 99px 0}
+.trilho .hoje{position:absolute;top:50%;left:96%;width:22px;height:22px;border-radius:50%;background:#fff;border:6px solid var(--ink);transform:translate(-50%,-50%);z-index:2}
+.trilho .hoje span{position:absolute;bottom:24px;left:50%;transform:translateX(-50%);font-family:var(--mao);font-size:19px;white-space:nowrap}
+.pg.atual .trilho .hoje{animation:desliza 1.6s cubic-bezier(.2,.9,.2,1) 3.5s forwards}
+@keyframes desliza{to{left:57%}}
+.trilho .min{position:absolute;top:50%;left:42%;width:12px;height:12px;margin:-6px 0 0 -6px;background:var(--gold);border:2px solid #fff;transform:rotate(45deg) scale(0);box-shadow:0 2px 5px rgba(46,33,64,.45)}
+.pg.atual .trilho .min{animation:popd .5s 5.2s forwards}
+@keyframes popd{to{transform:rotate(45deg) scale(1)}}
+.leg{display:flex;margin-top:8px;font-size:12px;color:var(--ink2);line-height:1.2}
+.leg div:nth-child(1){width:40%}.leg div:nth-child(2){width:25%}.leg div:nth-child(3){width:35%}
+.leg b{display:block;font-size:13px}
+.leg .l1 b{color:var(--sage-d)}.leg .l2 b{color:var(--gold-d)}.leg .l3 b{color:var(--rose-d)}
+
+/* cena 4: gráfico */
+.c-graf svg{width:100%;height:auto;display:block;margin-top:12px;overflow:visible}
+.c-graf .ln{fill:none;stroke-width:2.6;stroke-linejoin:round;stroke-linecap:round;stroke-dasharray:1;stroke-dashoffset:1}
+.pg.atual .c-graf .l1{animation:cresce 1.6s ease-out .5s forwards}
+.c-graf.comparando .l2{animation:cresce 1.3s ease-out forwards}
+.c-graf.comparando .l3{animation:cresce 1.3s ease-out .25s forwards}
+.c-graf .rot{opacity:0;font-family:var(--mao);font-weight:600;font-size:17px;fill:var(--ink);paint-order:stroke;stroke:#fff;stroke-width:4px}
+.pg.atual .c-graf .rot{animation:aparece .4s 2.1s forwards}
+.pg.atual .c-graf.comparando .rot{animation:none;opacity:0}
+.fichas-g{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px;min-height:34px}
+.fichas-g span{display:inline-flex;align-items:center;gap:6px;border:1.5px solid var(--c);border-radius:99px;padding:4px 10px;font-size:12.5px;font-weight:600;opacity:0;transform:translateY(6px);transition:.4s}
+.fichas-g span i{width:10px;height:10px;border-radius:50%;background:var(--c)}
+.c-graf.comparando .fichas-g span{opacity:1;transform:none}
+.c-graf.comparando .fichas-g span:nth-child(2){transition-delay:.15s}.c-graf.comparando .fichas-g span:nth-child(3){transition-delay:.3s}
+
+/* cena 5: celulares */
+.mini-card{display:grid;grid-template-columns:92px 1fr;gap:12px;align-items:center}
+.mini-card .img{border-radius:18px;background:linear-gradient(160deg,var(--lav),var(--petal));aspect-ratio:1;display:grid;place-items:center}
+.mini-card img{width:86%;mix-blend-mode:multiply}
+.mini-card h3{margin:0;font:500 22px/1.1 var(--serif);font-variation-settings:"SOFT" 100}
+.mini-card .pr{font-size:19px;font-weight:600}
+.mini-card small{color:var(--ink2);font-size:12.5px}
+.selo-f{display:flex;gap:10px;align-items:flex-start;margin-top:12px;padding:10px 12px;border-radius:16px;font-size:13.5px;line-height:1.3;transition:background .35s,color .35s}
+.selo-f i{flex:none;width:24px;height:24px;border-radius:50%;display:grid;place-items:center;font-style:normal;font-weight:700;color:#fff;font-size:13px;transition:background .35s}
+.selo-f b{display:block}
+.selo-f.ok{background:var(--sage-l);color:#2C5F47}.selo-f.ok i{background:var(--sage-d)}
+.selo-f.meh{background:#FBF1DC;color:#6E5220}.selo-f.meh i{background:var(--gold-d)}
+.selo-f.bad{background:var(--petal);color:#9A2F58}.selo-f.bad i{background:var(--rose-d)}
+.ideias{margin-top:12px;border-radius:20px;background:linear-gradient(150deg,#EADDFB,#FFE3EC);padding:5px}
+.ideias .cab{display:flex;align-items:center;gap:10px;padding:9px 10px;font:500 17px var(--serif)}
+.ideias .cab i{margin-left:auto;width:30px;height:30px;border-radius:50%;background:#fff;display:grid;place-items:center;font:500 20px/1 var(--serif);color:var(--lilac-d);font-style:normal;transition:transform .35s}
+.ideias.aberta .cab i{transform:rotate(45deg)}
+.ideias .lista{display:grid;grid-template-rows:0fr;transition:grid-template-rows .6s cubic-bezier(.2,.9,.2,1)}
+.ideias.aberta .lista{grid-template-rows:1fr}
+.ideias .lista>div{overflow:hidden;min-height:0;display:grid;grid-template-columns:1fr 1fr;gap:5px}
+.ideias .it{background:#fff;border-radius:14px;padding:7px 9px;font-size:12.5px;font-weight:600;display:flex;align-items:center;gap:7px}
+.ideias .it img{width:26px;height:26px;object-fit:contain}
+
+/* cena 6: testes */
+.c-testes{display:grid;gap:10px}
+.bloco{border:1px solid var(--line);border-radius:18px;padding:10px;display:grid;gap:8px;transition:border-color .3s,box-shadow .3s}
+.bloco.foco{border-color:var(--lilac);box-shadow:0 0 0 3px var(--lav)}
+.bloco h4{margin:0;font-size:13px;color:var(--ink2);font-weight:700}
+.zoomv{position:relative;border-radius:12px;overflow:hidden;aspect-ratio:1080/420;background:#ccd}
+.zoomv img{width:100%;height:100%;object-fit:cover;transform-origin:0 0;transition:transform 1s cubic-bezier(.3,.9,.2,1)}
+.zoomv .tag{position:absolute;left:8px;top:8px;font-size:11.5px;font-weight:700;padding:3px 8px;border-radius:99px;background:rgba(255,255,255,.92);color:var(--sage-d)}
+.zoomv .zx{position:absolute;right:10px;bottom:6px;font:600 18px var(--serif);color:#fff;text-shadow:0 2px 8px rgba(0,0,0,.6)}
+.opcs{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.opcs span{background:var(--paper);border:1.5px solid var(--line);border-radius:12px;padding:8px 10px;font-size:13px;font-weight:600;transition:.3s}
+.opcs span.on{background:var(--lav);border-color:var(--lilac-d);color:var(--lilac-d)}
+.parc{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.parc b{font-size:24px;font-weight:600}
+.parc b small{font:500 13px var(--sans);color:var(--muted)}
+
+/* cena 7: compra */
+.c-compra{display:grid;gap:12px;align-content:start}
+.balao{max-width:88%;background:#E7F8E9;border-radius:4px 18px 18px 18px;padding:9px 12px 7px;font-size:14.5px;line-height:1.35;opacity:0;transform:translateY(14px) scale(.96);transform-origin:0 0}
+.balao b.quem{display:block;font-size:12.5px;color:var(--sage-d)}
+.balao time{display:block;text-align:right;font-size:11px;color:var(--muted)}
+.pg.atual .balao{animation:entra .5s .6s forwards}
+.linha-flor{display:flex;align-items:center;gap:12px;opacity:0}
+.pg.atual .linha-flor{animation:aparece .5s 1.7s forwards}
+.linha-flor .f{width:74px;flex:none}
+.loja{border:1px solid var(--line);border-radius:18px;padding:12px;font-size:14px;opacity:0;transform:translateY(12px);transition:.5s}
+.loja.on{opacity:1;transform:none}
+.loja .tit{font-size:12.5px;font-weight:700;color:var(--muted)}
+.loja .val{font-size:20px;font-weight:600;margin-top:2px}
+.loja .sj{position:relative;display:inline-block;padding:0 4px}
+.loja .sj::after{content:"";position:absolute;inset:-4px -6px;border:2.5px solid var(--sage-d);border-radius:50%;transform:scale(0);transition:transform .5s cubic-bezier(.2,1.5,.4,1)}
+.loja.conf .sj::after{transform:scale(1)}
+.loja .okp{display:inline-flex;align-items:center;gap:6px;margin-top:8px;font-weight:700;color:var(--sage-d);opacity:0;transition:opacity .4s .3s}
+.loja.conf .okp{opacity:1}
+
+/* fim */
+.lista-c{margin:16px 0 0;padding:0;list-style:none;display:grid;gap:8px}
+.lista-c label{display:flex;gap:12px;align-items:flex-start;background:#fff;border:1px solid var(--line);border-radius:16px;padding:12px 14px;cursor:pointer;font-size:15.5px;transition:.25s}
+.lista-c input{position:absolute;opacity:0}
+.lista-c .cx{flex:none;width:24px;height:24px;border-radius:8px;border:2px solid var(--lilac);display:grid;place-items:center;transition:.25s}
+.lista-c .cx svg{width:16px;height:16px;stroke:#fff;fill:none;stroke-width:3;stroke-linecap:round;stroke-linejoin:round;transform:scale(0);transition:transform .3s cubic-bezier(.2,1.5,.4,1)}
+.lista-c input:checked+.cx{background:var(--sage-d);border-color:var(--sage-d)}
+.lista-c input:checked+.cx svg{transform:scale(1)}
+.lista-c input:checked~span{color:var(--muted);text-decoration:line-through}
+.lista-c input:focus-visible+.cx{outline:3px solid var(--lilac-d);outline-offset:2px}
+.fim .acoes{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
+.c-fim{display:grid;justify-items:center;text-align:center;gap:4px;background:linear-gradient(150deg,#EADDFB,#FFE3EC);border:0}
+.c-fim .palco{width:min(60%,220px)}
+.c-fim .mao{font-size:30px}
+
+@media(max-width:899px){
+  .pg:not(.capa):not(.fim){gap:0}
+  .pg:not(.capa):not(.fim) .txt{display:contents}
+  .pg .passo-n{order:1;width:36px;height:36px;font-size:17px;margin-bottom:8px}
+  .pg:not(.capa):not(.fim) h2{order:2}
+  .pg:not(.capa):not(.fim) .apoio{order:3;margin-bottom:16px;font-size:16px}
+  .pg:not(.capa):not(.fim) .cena{order:4}
+  .pg:not(.capa):not(.fim) .pontos{order:5;margin-top:18px}
+  .pg:not(.capa):not(.fim) .denovo{order:6;justify-self:start}
+  .fluxo button{font-size:11.5px}
+  .fluxo button i{width:42px;height:42px}
+  .fluxo::before{top:20px}.fluxo .bola{top:14px}
+}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-delay:0s!important;animation-iteration-count:1!important;transition-duration:.01ms!important;transition-delay:0s!important}}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+  <symbol id="i-flor" viewBox="0 0 24 24"><circle cx="12" cy="5.500" r="2.100"/><circle cx="15.400" cy="8" r="2.100"/><circle cx="14.100" cy="12" r="2.100"/><circle cx="9.900" cy="12" r="2.100"/><circle cx="8.600" cy="8" r="2.100"/><path d="M12 14.200V21M12 18c1.800-1.600 3.400-1.700 4.800-.800"/></symbol>
+  <symbol id="i-preco" viewBox="0 0 24 24"><path d="M3.500 12.500V5h7.500l9.500 9.500-7.500 7.500z"/><circle cx="8" cy="9.500" r="1.400"/></symbol>
+  <symbol id="i-graf" viewBox="0 0 24 24"><path d="M4 4v16h16"/><path d="M7 15l4-5 3 3 5-7"/></symbol>
+  <symbol id="i-cel" viewBox="0 0 24 24"><rect x="7" y="3" width="10" height="18" rx="2.500"/><path d="M11 18h2"/></symbol>
+  <symbol id="i-lupa" viewBox="0 0 24 24"><circle cx="11" cy="11" r="6"/><path d="M15.500 15.500L20 20M9 11h4M11 9v4"/></symbol>
+  <symbol id="i-sacola" viewBox="0 0 24 24"><path d="M4.500 8h15l-1.300 12H5.800z"/><path d="M8.500 8a3.500 3.500 0 017 0"/></symbol>
+</defs></svg>
+
+<header class="topo">
+  <div class="marca"><svg viewBox="0 0 64 64" aria-hidden="true"><g fill="#B596E0"><circle cx="32" cy="18" r="11"/><circle cx="46" cy="29" r="11"/><circle cx="40" cy="45" r="11"/><circle cx="24" cy="45" r="11"/><circle cx="18" cy="29" r="11"/></g><circle cx="32" cy="33" r="7" fill="#DDB36A"/></svg><span>Guia<span class="so-g"> da sua página</span></span></div>
+  <div class="onde"><b id="onde-nome">Início</b>, <span id="onde-n">1 de 8</span></div>
+  <a class="abrir" href="../">Abrir a página</a>
+</header>
+
+<main>
+  <section class="pg capa" id="inicio" data-rot="Início">
+    <div class="txt">
+      <p class="mao" style="margin:0 0 6px">Mari, é rapidinho</p>
+      <h1>Como usar a sua página <i>em 2 minutos</i></h1>
+      <p class="apoio">Você vai aprender a ler a flor, o preço e o histórico. Depois é só abrir a página uma vez por dia.</p>
+      <div class="fichas"><span><b>Para</b> Mari</span><span><b>Onde</b> mari.onmoov.com.br</span><span><b>Leitura</b> 2 minutos</span></div>
+      <div class="acoes"><button class="btn primary" data-ir="1">Começar</button><button class="btn suave" data-ir="7">Pular para o final</button></div>
+    </div>
+    <div class="retrato">
+      <div class="arco"><img src="../hero.jpg" alt="Mari sorrindo"></div>
+      <div class="flores buque" data-b="cacho"></div>
+      <div class="mao">o seu celular novo</div>
+    </div>
+    <div class="fluxo" aria-label="Partes do guia">
+      <i class="bola"></i>
+      <button data-ir="1"><i><svg><use href="#i-flor"/></svg></i>Flor</button>
+      <button data-ir="2"><i><svg><use href="#i-preco"/></svg></i>Preço</button>
+      <button data-ir="3"><i><svg><use href="#i-graf"/></svg></i>Gráfico</button>
+      <button data-ir="4"><i><svg><use href="#i-cel"/></svg></i>Celulares</button>
+      <button data-ir="5"><i><svg><use href="#i-lupa"/></svg></i>Testes</button>
+      <button data-ir="6"><i><svg><use href="#i-sacola"/></svg></i>Compra</button>
+    </div>
+  </section>
+
+  <section class="pg" id="flor" data-rot="Flor">
+    <div class="txt">
+      <div class="passo-n">1</div>
+      <h2>Olhe a flor</h2>
+      <p class="apoio">Ela fica no topo da página e resume tudo. Se você só tiver 5 segundos, olhe para ela.</p>
+      <ul class="pontos"><li>Botão fechado: espere.</li><li>Flor abrindo: está quase.</li><li>Flor aberta: pode comprar.</li></ul>
+      <button class="denovo" data-denovo>↺ Ver de novo</button>
+    </div>
+    <div class="cena c-flor">
+      <div class="palco" id="flor-palco"></div>
+      <span class="estado" id="flor-estado">Hoje: espera</span>
+      <div class="tres" id="flor-tres"><span data-k="espera"><b>Botão fechado</b>espera</span><span data-k="quase"><b>Abrindo</b>quase lá</span><span data-k="go"><b>Flor aberta</b>pode comprar</span></div>
+    </div>
+  </section>
+
+  <section class="pg" id="preco" data-rot="Preço">
+    <div class="txt">
+      <div class="passo-n">2</div>
+      <h2>Leia as duas conferências</h2>
+      <p class="apoio">Logo abaixo da flor fica o melhor preço do dia e duas respostas rápidas.</p>
+      <ul class="pontos"><li>Combinado: se chegou em R$ 5.000 parcelado sem juros.</li><li>Menor em 6 meses: se é desconto de verdade.</li><li>Na régua, a bolinha é o preço de hoje e o losango dourado é o menor preço.</li></ul>
+      <button class="denovo" data-denovo>↺ Ver de novo</button>
+    </div>
+    <div class="cena c-preco">
+      <span class="ex">Exemplo</span>
+      <span class="estado quase">Hoje: quase lá</span>
+      <div class="cx-preco"><small>Melhor preço de hoje do Galaxy S25 Ultra</small><b class="num" id="pr-parc">10x de R$ 516,90</b><small>sem juros, R$ 5.169,00 no total</small></div>
+      <div class="chk a1"><i>≈</i><div><b>Combinado: R$ 5.000</b>Ainda não. Faltam R$ 169.</div></div>
+      <div class="chk a2"><i>≈</i><div><b><span class="dia"></span>Menor em 6 meses: R$ 5.018</b>Hoje está R$ 151 acima.</div></div>
+      <div class="regua">
+        <div class="trilho"><i class="z1"></i><i class="z2"></i><i class="z3"></i><i class="min"></i><i class="hoje"><span>hoje</span></i></div>
+        <div class="leg"><div class="l1"><b>Compra</b>até R$ 5.000</div><div class="l2"><b>Quase</b>até R$ 5.250</div><div class="l3"><b>Espera</b>acima disso</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="pg" id="grafico" data-rot="Gráfico">
+    <div class="txt">
+      <div class="passo-n">3</div>
+      <h2>Confira o histórico</h2>
+      <p class="apoio">O gráfico mostra 6 meses de preço. Serve para saber se a promoção é de verdade.</p>
+      <ul class="pontos"><li>Toque no nome do celular para ver o gráfico dele.</li><li>Toque em "Comparar" para ver todos juntos.</li><li>Linha dentro da faixa verde cabe no orçamento.</li></ul>
+      <button class="denovo" data-denovo>↺ Ver de novo</button>
+    </div>
+    <div class="cena c-graf" id="graf-cena">
+      <span class="ex">Exemplo</span>
+      <div class="abas"><span class="on" id="g-a1">S25 Ultra</span><span>Signature</span><span id="g-a3">Comparar</span></div>
+      <svg viewBox="0 0 320 180" role="img" aria-label="Gráfico de preço de exemplo">
+        <g stroke="#F0E8F5"><path d="M30 20H312M30 60H312M30 100H312"/></g>
+        <rect x="30" y="128" width="282" height="34" fill="#E6F4EA"/>
+        <path d="M30 128H312" stroke="#3F8060" stroke-width="1.3" stroke-dasharray="5 4"/>
+        <text x="36" y="155" font-size="11" font-weight="700" fill="#3F8060" font-family="Figtree">cabe no orçamento</text>
+        <rect x="296" y="14" width="16" height="148" fill="#FBEFD3"/>
+        <polyline class="ln l2" pathLength="1" stroke="#CF4F7C" points="30,34 70,30 100,38 128,36 150,72 158,44 170,112 200,106 230,100 250,92 268,104 284,100"/>
+        <polyline class="ln l3" pathLength="1" stroke="#2F8A63" points="96,24 148,24 152,132 190,128 196,112 204,128 232,136 262,142 268,118 284,124"/>
+        <polyline class="ln l1" pathLength="1" stroke="#6B4FA8" points="30,104 60,104 66,90 84,92 96,112 116,104 134,82 150,84 160,104 176,92 196,104 220,100 240,96 252,84 262,100 270,124 278,126 284,118"/>
+        <circle class="rot" cx="278" cy="126" r="4.500" fill="#fff" stroke="#6B4FA8" stroke-width="2" style="fill:#fff;stroke:#6B4FA8;stroke-width:2px"/>
+        <text class="rot" x="270" y="146" text-anchor="end">menor</text>
+        <text class="rot" x="276" y="108" text-anchor="end">hoje</text>
+        <g font-size="10.500" fill="#8E8299" font-family="Figtree"><text x="44" y="176">jun</text><text x="96" y="176">ago</text><text x="150" y="176">set</text><text x="204" y="176">out</text><text x="256" y="176">nov</text></g>
+      </svg>
+      <div class="fichas-g"><span style="--c:#6B4FA8"><i></i>S25 Ultra</span><span style="--c:#CF4F7C"><i></i>Signature</span><span style="--c:#2F8A63"><i></i>Xiaomi 17T</span></div>
+      <i class="dedo"></i>
+    </div>
+  </section>
+
+  <section class="pg" id="celulares" data-rot="Celulares">
+    <div class="txt">
+      <div class="passo-n">4</div>
+      <h2>Veja os finalistas e as ideias</h2>
+      <p class="apoio">Cada celular tem um cartão com o preço do dia, as lojas e os prós e contras.</p>
+      <ul class="pontos"><li>O selo diz se é "Desconto de verdade", "Preço normal" ou "Não é promoção".</li><li>"Mais 4 ideias para comparar" abre outras opções.</li><li>O botão "Ver na loja" leva direto para a oferta.</li></ul>
+      <button class="denovo" data-denovo>↺ Ver de novo</button>
+    </div>
+    <div class="cena" id="cel-cena">
+      <span class="ex">Exemplo</span>
+      <div class="mini-card"><div class="img"><img id="cel-img" alt="" src=""></div><div><h3>Galaxy S25 Ultra</h3><div class="pr num">10x de R$ 516,90</div><small>sem juros, na KaBuM!</small></div></div>
+      <div class="selo-f ok" id="cel-selo"><i>✓</i><div><b>Desconto de verdade</b><span>É o menor preço dos últimos 6 meses.</span></div></div>
+      <div class="ideias" id="cel-ideias">
+        <div class="cab" id="cel-cab">Mais 4 ideias para comparar<i>+</i></div>
+        <div class="lista"><div>
+          <span class="it"><img data-p="x17t" alt="">Xiaomi 17T</span><span class="it"><img data-p="s25" alt="">Galaxy S25</span>
+          <span class="it"><img data-p="ip17" alt="">iPhone 17</span><span class="it"><img data-p="s26u" alt="">S26 Ultra</span>
+        </div></div>
+      </div>
+      <i class="dedo"></i>
+    </div>
+  </section>
+
+  <section class="pg" id="testes" data-rot="Testes">
+    <div class="txt">
+      <div class="passo-n">5</div>
+      <h2>Teste antes de escolher</h2>
+      <p class="apoio">Mais abaixo na página tem três ferramentas para tirar a dúvida entre os finalistas.</p>
+      <ul class="pontos"><li>Zoom numa foto sua: veja a diferença entre lente e recorte.</li><li>"Qual combina com você?": 5 perguntas rápidas.</li><li>"Quanto fica por mês": a parcela em 10x, 12x ou 18x.</li></ul>
+      <button class="denovo" data-denovo>↺ Ver de novo</button>
+    </div>
+    <div class="cena c-testes" id="tes-cena">
+      <span class="ex">Exemplo</span>
+      <div class="bloco" id="tes-zoom"><h4>O zoom, numa foto sua</h4><div class="zoomv"><img id="tes-foto" alt="" src=""><span class="tag" id="tes-tag">lente óptica</span><span class="zx" id="tes-zx">1x</span></div></div>
+      <div class="bloco" id="tes-quiz"><h4>O que você mais fotografa?</h4><div class="opcs"><span>Pessoas e momentos</span><span id="tes-op">Paisagens e viagens</span></div></div>
+      <div class="bloco" id="tes-parc"><h4>Quanto fica por mês</h4><div class="parc"><div class="abas"><span class="on">10x</span><span>12x</span><span>18x</span></div><b class="num" id="tes-val">R$ 516,90<small> por mês</small></b></div></div>
+    </div>
+  </section>
+
+  <section class="pg" id="compra" data-rot="Compra">
+    <div class="txt">
+      <div class="passo-n">6</div>
+      <h2>Quando a flor abrir</h2>
+      <p class="apoio">Eu te aviso no WhatsApp assim que o preço bater no combinado. Aí são três toques.</p>
+      <ul class="pontos"><li>Abra a página e confirme que a flor abriu.</li><li>Toque em "Ver na loja".</li><li>Na loja, confira se está escrito "sem juros" antes de pagar.</li></ul>
+      <button class="denovo" data-denovo>↺ Ver de novo</button>
+    </div>
+    <div class="cena c-compra" id="com-cena">
+      <span class="ex">Exemplo</span>
+      <div class="balao"><b class="quem">Jô</b>Mari, a flor abriu! S25 Ultra em 10x de R$ 489,90 sem juros na KaBuM!<time>08:31</time></div>
+      <div class="linha-flor"><div class="f" id="com-flor"></div><div><span class="estado go">Hoje: pode comprar</span><div style="margin-top:8px"><span class="btn primary" id="com-btn">Ver na KaBuM!</span></div></div></div>
+      <div class="loja" id="com-loja"><div class="tit">Na loja</div><div class="val num">10x de R$ 489,90 <span class="sj">sem juros</span></div><div class="okp"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l4.500 4.500L19 7"/></svg>Conferido, pode pagar</div></div>
+      <i class="dedo"></i>
+    </div>
+  </section>
+
+  <section class="pg fim" id="pronta" data-rot="Pronta">
+    <div class="txt">
+      <h2>Pronta para usar</h2>
+      <p class="apoio">Marque o que já fez. A lista fica guardada no seu celular.</p>
+      <ul class="lista-c" id="lista-c">
+        <li><label><input type="checkbox" data-c="tela"><span class="cx"><svg viewBox="0 0 24 24"><path d="M5 12l4.500 4.500L19 7"/></svg></span><span>Salvei o link na tela inicial do celular</span></label></li>
+        <li><label><input type="checkbox" data-c="flor"><span class="cx"><svg viewBox="0 0 24 24"><path d="M5 12l4.500 4.500L19 7"/></svg></span><span>Olhei como está a flor hoje</span></label></li>
+        <li><label><input type="checkbox" data-c="quiz"><span class="cx"><svg viewBox="0 0 24 24"><path d="M5 12l4.500 4.500L19 7"/></svg></span><span>Fiz o quiz "Qual combina com você?"</span></label></li>
+        <li><label><input type="checkbox" data-c="juros"><span class="cx"><svg viewBox="0 0 24 24"><path d="M5 12l4.500 4.500L19 7"/></svg></span><span>Sei que preciso conferir "sem juros" antes de pagar</span></label></li>
+      </ul>
+      <div class="acoes"><a class="btn primary" href="../">Abrir a minha página</a><a class="btn zap" id="zap" target="_blank" rel="noopener" href="#">Tirar dúvida com o Jô</a></div>
+    </div>
+    <div class="cena c-fim"><div class="palco" id="fim-palco"></div><p class="mao" style="margin:0">quando abrir, é seu!</p></div>
+  </section>
+</main>
+
+<footer class="rodape">
+  <button class="nav ant" id="ant">Anterior</button>
+  <nav class="trilha" id="trilha" aria-label="Páginas do guia"></nav>
+  <button class="nav prox" id="prox">Começar</button>
+</footer>
+
+<script>
+const SB='https://pylbhcftpnpaulllizgx.supabase.co', FOTO=n=>`${SB}/storage/v1/object/public/fotos/${n}`;
+const $=s=>document.querySelector(s), reduz=matchMedia('(prefers-reduced-motion:reduce)').matches;
+/* flores */
+(function(){
+  const rot=(n,d,off=0)=>Array.from({length:n},(_,i)=>`<path d="${d}" transform="rotate(${off+i*360/n})"/>`).join('');
+  const grad=(id,a,b,c)=>`<radialGradient id="${id}" cx="50%" cy="100%" r="105%"><stop offset="0" stop-color="${a}"/><stop offset=".6" stop-color="${b}"/><stop offset="1" stop-color="${c}"/></radialGradient>`;
+  document.body.insertAdjacentHTML('afterbegin',`<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+  ${grad('gL','#F6EEFF','#C5A8EE','#9A77D8')}${grad('gR','#FFF4F7','#F8B4C9','#EA7FA4')}${grad('gC','#FFFFFF','#FFF3D9','#F7DDA6')}
+  <linearGradient id="gF" x1="0" x2="1"><stop offset="0" stop-color="#6FA884"/><stop offset="1" stop-color="#B9DCC3"/></linearGradient>
+  <g id="f-L"><g fill="url(#gL)">${rot(5,'M0 0C-12-9-13-25 0-31 13-25 12-9 0 0Z')}</g><g fill="#fff" opacity=".4">${rot(5,'M0 0C-6-6-6-14 0-18 6-14 6-6 0 0Z',36)}</g><circle r="5.5" fill="#E6BC6A"/><circle r="2.2" fill="#B98D3E"/></g>
+  <g id="f-R"><g fill="url(#gR)">${rot(5,'M0 0C-15-6-16-23 0-28 16-23 15-6 0 0Z')}</g><circle r="4" fill="#F4CF7D"/></g>
+  <g id="f-C"><g fill="url(#gC)" stroke="#EBD3A2" stroke-width=".5">${rot(10,'M0 0C-4.5-8-5-22 0-27 5-22 4.5-8 0 0Z')}</g><circle r="6.5" fill="#E6BC6A"/></g>
+  <g id="f-B"><circle cx="0" cy="-4" r="5" fill="#C5A8EE"/><circle cx="6" cy="2" r="4" fill="#F8B4C9"/><circle cx="-6" cy="3" r="3.6" fill="#F7DDA6"/></g>
+  <g id="f-H"><path d="M0 0C7-10 22-12 34-2 22 6 8 7 0 0Z" fill="url(#gF)"/></g></defs></svg>`);
+  const T={L:'#f-L',R:'#f-R',C:'#f-C',B:'#f-B',H:'#f-H'};
+  const b={w:220,h:150,h_:["M8 142C50 122 80 102 110 80","M110 80C140 60 172 48 210 20","M110 80C132 90 160 96 190 100"],i:[['H',40,128,-160,1],['H',60,114,-40,1.05],['H',138,62,-80,.95],['H',148,91,36,.9],['H',182,33,-150,.8],['H',84,97,-200,.85],['C',208,22,0,.8],['R',190,100,12,.92],['B',162,44,0,1],['R',70,108,-20,.74],['L',110,80,15,1.32]]};
+  document.querySelectorAll('.flores[data-b]').forEach(el=>{el.innerHTML=`<svg viewBox="0 0 ${b.w} ${b.h}" aria-hidden="true">${b.h_.map(d=>`<path fill="none" stroke="#86B897" stroke-width="1.8" stroke-linecap="round" d="${d}"/>`).join('')}${b.i.map(([t,x,y,r,s])=>`<g transform="translate(${x} ${y}) rotate(${r}) scale(${s})"><use href="${T[t]}"/></g>`).join('')}</svg>`});
+})();
+function florSVG(abre){
+  const A=[-157.5,-112.5,-67.5,-22.5,22.5,67.5,112.5,157.5], B=[-135,-90,-45,0,45,90,135,180];
+  return `<svg class="vflor" viewBox="-50 -54 100 116" style="--abre:${abre}" aria-hidden="true">
+  <path d="M0 0C3 20-4 38 0 60" fill="none" stroke="#6FA884" stroke-width="2.6" stroke-linecap="round"/>
+  <path d="M0 36C10 25 24 25 31 31 22 40 10 42 0 36Z" fill="#A9D2B5"/><path d="M0 47C-10 37-24 38-29 44-20 52-9 53 0 47Z" fill="#8FC2A0"/>
+  ${A.map((r,i)=>`<path class="p" style="--r:${r}deg;transition-delay:${i*50}ms" d="M0 0C-14-12-16-34 0-45 16-34 14-12 0 0Z" fill="url(#gL)"/>`).join('')}
+  ${B.map((r,i)=>`<path class="p" style="--r:${r}deg;transition-delay:${160+i*50}ms" d="M0 0C-9-8-10-21 0-28 10-21 9-8 0 0Z" fill="url(#gR)"/>`).join('')}
+  <g class="miolo"><circle r="7" fill="#E6BC6A"/><circle r="3" fill="#B98D3E"/></g></svg>`;
+}
+const abre=(el,v)=>{const f=el.querySelector('.vflor'); if(f) f.style.setProperty('--abre',v);};
+const brl=v=>'R$ '+v.toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2});
+
+/* imagens */
+$('#cel-img').src=FOTO('produto-s25u.jpg');
+document.querySelectorAll('img[data-p]').forEach(i=>i.src=FOTO('produto-'+i.dataset.p+'.jpg'));
+$('#tes-foto').src=FOTO('praia-cedro.jpg');
+$('#zap').href='https://wa.me/5511994222559?text='+encodeURIComponent('Jô, vi o guia da página e fiquei com uma dúvida.');
+
+/* cenas */
+let timers=[];
+const T=(fn,ms)=>{ if(reduz) fn(); else timers.push(setTimeout(fn,ms)); };
+const limpa=()=>{timers.forEach(clearTimeout);timers=[];};
+function dedo(cena,alvo,quando,depois){
+  const d=cena.querySelector('.dedo'); if(!d||reduz){ if(depois) T(depois,quando+900); return; }
+  T(()=>{const c=cena.getBoundingClientRect(), a=alvo.getBoundingClientRect(); d.classList.add('on'); d.style.left=(a.left-c.left+a.width/2)+'px'; d.style.top=(a.top-c.top+a.height/2)+'px';},quando);
+  T(()=>{d.classList.remove('toque'); void d.offsetWidth; d.classList.add('toque');},quando+750);
+  if(depois) T(depois,quando+950);
+  T(()=>{d.classList.remove('on');},quando+1500);
+}
+function zeraDedo(cena){const d=cena.querySelector('.dedo'); if(d){d.classList.remove('on','toque'); d.style.left='50%'; d.style.top='110%';}}
+const CENAS={
+  flor(){
+    const palco=$('#flor-palco'), est=$('#flor-estado'), tres=[...document.querySelectorAll('#flor-tres span')];
+    palco.innerHTML=florSVG(.08);
+    const poe=(k,v,txt)=>{abre(palco,v); est.className='estado'+(k==='espera'?'':' '+k); est.textContent=txt; tres.forEach(s=>s.classList.toggle('on',s.dataset.k===k));};
+    poe('espera',.1,'Hoje: espera');
+    T(()=>poe('quase',.5,'Hoje: quase lá'),2000);
+    T(()=>poe('go',1,'Hoje: pode comprar'),4200);
+  },
+  preco(){
+    const el=$('#pr-parc'), alvo=516.9;
+    if(reduz){el.textContent='10x de '+brl(alvo);return;}
+    const t0=performance.now(); let vivo=true; timers.push(setTimeout(()=>{vivo=false},1300));
+    (function f(t){const k=Math.min(1,(t-t0)/1100), e=1-Math.pow(1-k,3); el.textContent='10x de '+brl(alvo*1.12-(alvo*.12)*e); if(k<1&&vivo&&$('#preco').classList.contains('atual')) requestAnimationFrame(f); else el.textContent='10x de '+brl(alvo);})(t0);
+  },
+  grafico(){
+    const c=$('#graf-cena'); c.classList.remove('comparando'); zeraDedo(c);
+    $('#g-a1').classList.add('on'); $('#g-a3').classList.remove('on');
+    dedo(c,$('#g-a3'),3200,()=>{ $('#g-a1').classList.remove('on'); $('#g-a3').classList.add('on'); c.classList.add('comparando'); });
+  },
+  celulares(){
+    const c=$('#cel-cena'), s=$('#cel-selo'), box=$('#cel-ideias'); box.classList.remove('aberta'); zeraDedo(c);
+    const poe=(cls,ic,t,d)=>{s.className='selo-f '+cls; s.innerHTML=`<i>${ic}</i><div><b>${t}</b><span>${d}</span></div>`;};
+    poe('ok','✓','Desconto de verdade','É o menor preço dos últimos 6 meses.');
+    T(()=>poe('meh','≈','Preço normal','Já esteve mais barato neste período.'),1500);
+    T(()=>poe('bad','!','Não é promoção','Está acima da média dos últimos 30 dias.'),3000);
+    T(()=>poe('meh','≈','Preço normal','Já esteve R$ 151 mais barato em 13/11.'),4400);
+    dedo(c,$('#cel-cab'),4700,()=>box.classList.add('aberta'));
+  },
+  testes(){
+    const z=$('#tes-zoom'), q=$('#tes-quiz'), p=$('#tes-parc'), img=$('#tes-foto'), foco=b=>[z,q,p].forEach(x=>x.classList.toggle('foco',x===b));
+    const zoom=(n,tag)=>{const lim=v=>Math.min(0,Math.max(100-100*n,v)); img.style.transform=`translate(${lim(50-85*n)}%,${lim(50-34*n)}%) scale(${n})`; $('#tes-zx').textContent=n+'x'; $('#tes-tag').textContent=tag;};
+    const abas=[...p.querySelectorAll('.abas span')], parc=(i,v)=>{abas.forEach((a,k)=>a.classList.toggle('on',k===i)); $('#tes-val').innerHTML=brl(v)+'<small> por mês</small>';};
+    zoom(1,'lente óptica'); $('#tes-op').classList.remove('on'); parc(0,516.9); foco(z);
+    T(()=>zoom(3,'lente óptica'),900); T(()=>zoom(5,'lente óptica'),2100);
+    T(()=>{foco(q)},3300); T(()=>$('#tes-op').classList.add('on'),3900);
+    T(()=>{foco(p)},4900); T(()=>parc(1,430.75),5400); T(()=>parc(2,287.17),6300);
+    T(()=>foco(null),7400);
+  },
+  compra(){
+    const c=$('#com-cena'), f=$('#com-flor'), l=$('#com-loja'); f.innerHTML=florSVG(.1); l.className='loja'; zeraDedo(c);
+    T(()=>abre(f,1),1900);
+    dedo(c,$('#com-btn'),3300,()=>l.classList.add('on'));
+    T(()=>l.classList.add('conf'),5300);
+  },
+  pronta(){ const p=$('#fim-palco'); p.innerHTML=florSVG(.1); T(()=>abre(p,1),500); }
+};
+
+/* navegação */
+const pgs=[...document.querySelectorAll('.pg')], N=pgs.length, trilha=$('#trilha');
+let cur=0, vistos=new Set();
+try{ (JSON.parse(localStorage.getItem('mari-guia-vistos')||'[]')).forEach(i=>vistos.add(i)); }catch(e){}
+pgs.forEach((p,i)=>{const b=document.createElement('button'); b.innerHTML=`<span>${p.dataset.rot}</span>`; b.setAttribute('aria-label',p.dataset.rot); b.onclick=()=>mostra(i); trilha.appendChild(b);});
+function mostra(i,hash=true){
+  i=Math.max(0,Math.min(N-1,i)); limpa();
+  pgs.forEach(p=>p.classList.remove('atual')); const p=pgs[i]; void p.offsetWidth; p.classList.add('atual'); cur=i;
+  vistos.add(i); try{localStorage.setItem('mari-guia-vistos',JSON.stringify([...vistos]));}catch(e){}
+  [...trilha.children].forEach((b,k)=>{b.classList.toggle('aqui',k===i); b.classList.toggle('visto',vistos.has(k)&&k!==i);});
+  $('#onde-nome').textContent=p.dataset.rot; $('#onde-n').textContent=`${i+1} de ${N}`;
+  $('#ant').disabled=i===0; const px=$('#prox'); px.textContent=i===0?'Começar':i===N-1?'Abrir a página':'Próxima';
+  if(hash) history.replaceState(null,'','#'+p.id);
+  window.scrollTo(0,0);
+  if(CENAS[p.id]) CENAS[p.id]();
+}
+$('#ant').onclick=()=>mostra(cur-1);
+$('#prox').onclick=()=>{ if(cur===N-1) location.href='../'; else mostra(cur+1); };
+document.querySelectorAll('[data-ir]').forEach(b=>b.onclick=()=>mostra(+b.dataset.ir));
+document.querySelectorAll('[data-denovo]').forEach(b=>b.onclick=()=>mostra(cur));
+addEventListener('keydown',e=>{ if(e.key==='ArrowRight') mostra(cur+1); if(e.key==='ArrowLeft') mostra(cur-1); });
+let tx=null,ty=null;
+addEventListener('touchstart',e=>{tx=e.touches[0].clientX;ty=e.touches[0].clientY;},{passive:true});
+addEventListener('touchend',e=>{ if(tx==null) return; const dx=e.changedTouches[0].clientX-tx, dy=e.changedTouches[0].clientY-ty; if(Math.abs(dx)>60&&Math.abs(dx)>Math.abs(dy)*1.6) mostra(cur+(dx<0?1:-1)); tx=null; },{passive:true});
+addEventListener('hashchange',()=>{const k=pgs.findIndex(p=>'#'+p.id===location.hash); if(k>=0&&k!==cur) mostra(k,false);});
+
+/* lista guardada */
+let feitos={}; try{feitos=JSON.parse(localStorage.getItem('mari-guia-lista')||'{}');}catch(e){}
+document.querySelectorAll('#lista-c input').forEach(c=>{c.checked=!!feitos[c.dataset.c]; c.onchange=()=>{feitos[c.dataset.c]=c.checked; try{localStorage.setItem('mari-guia-lista',JSON.stringify(feitos));}catch(e){}};});
+
+try{history.scrollRestoration='manual';}catch(e){}
+mostra(Math.max(0,pgs.findIndex(p=>'#'+p.id===location.hash)),false);
+addEventListener('load',()=>setTimeout(()=>window.scrollTo(0,0),60));
+</script>
+</body>
+</html>
