@@ -230,6 +230,22 @@ main{padding:72px 18px 92px;max-width:1080px;margin:0 auto;min-height:100%;displ
 .loja .okp{display:inline-flex;align-items:center;gap:6px;margin-top:8px;font-weight:700;color:var(--sage-d);opacity:0;transition:opacity .4s .3s}
 .loja.conf .okp{opacity:1}
 
+/* motivo */
+.c-motivo{display:grid;gap:12px;align-content:center}
+.balao.ela{margin-left:auto;border-radius:18px 4px 18px 18px}
+.balao.jo{background:var(--lav)}.balao.jo .quem{color:var(--lilac-d)}
+.pg.atual .balao.b1{animation-delay:.5s}
+.pg.atual .balao.b2{animation-delay:3.1s}
+.regras{display:flex;flex-wrap:wrap;gap:6px;justify-content:flex-end}
+.regras span{background:#fff;border:1.5px solid var(--lilac);color:var(--lilac-d);border-radius:99px;padding:5px 11px;font-size:13px;font-weight:700;transform:scale(0)}
+.pg.atual .regras span{animation:pop .45s cubic-bezier(.2,1.4,.4,1) forwards}
+.pg.atual .regras span:nth-child(1){animation-delay:1.5s}.pg.atual .regras span:nth-child(2){animation-delay:1.8s}.pg.atual .regras span:nth-child(3){animation-delay:2.1s}.pg.atual .regras span:nth-child(4){animation-delay:2.4s}
+.site-mini{display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:20px;background:linear-gradient(150deg,#EADDFB,#FFE3EC);opacity:0;transform:translateY(12px)}
+.pg.atual .site-mini{animation:entra .5s 4.4s forwards}
+.site-mini .f{width:64px;flex:none}
+.site-mini b{display:block;font:500 19px var(--serif);font-variation-settings:"SOFT" 100}
+.site-mini span{font-size:13.5px;color:var(--ink2);line-height:1.3;display:block}
+
 /* fim */
 .lista-c{margin:16px 0 0;padding:0;list-style:none;display:grid;gap:8px}
 .lista-c label{display:flex;gap:12px;align-items:flex-start;background:#fff;border:1px solid var(--line);border-radius:16px;padding:12px 14px;cursor:pointer;font-size:15.5px;transition:.25s}
@@ -249,6 +265,7 @@ main{padding:72px 18px 92px;max-width:1080px;margin:0 auto;min-height:100%;displ
   .pg:not(.capa):not(.fim){gap:0}
   .pg:not(.capa):not(.fim) .txt{display:contents}
   .pg .passo-n{order:1;width:36px;height:36px;font-size:17px;margin-bottom:8px}
+  .pg .mao.passo-n{font-size:22px!important}
   .pg:not(.capa):not(.fim) h2{order:2}
   .pg:not(.capa):not(.fim) .apoio{order:3;margin-bottom:16px;font-size:16px}
   .pg:not(.capa):not(.fim) .cena{order:4}
@@ -273,7 +290,7 @@ main{padding:72px 18px 92px;max-width:1080px;margin:0 auto;min-height:100%;displ
 
 <header class="topo">
   <div class="marca"><svg viewBox="0 0 64 64" aria-hidden="true"><g fill="#B596E0"><circle cx="32" cy="18" r="11"/><circle cx="46" cy="29" r="11"/><circle cx="40" cy="45" r="11"/><circle cx="24" cy="45" r="11"/><circle cx="18" cy="29" r="11"/></g><circle cx="32" cy="33" r="7" fill="#DDB36A"/></svg><span>Guia<span class="so-g"> da sua página</span></span></div>
-  <div class="onde"><b id="onde-nome">Início</b>, <span id="onde-n">1 de 8</span></div>
+  <div class="onde"><b id="onde-nome">Início</b>, <span id="onde-n">1 de 9</span></div>
   <a class="abrir" href="../">Abrir a página</a>
 </header>
 
@@ -284,7 +301,7 @@ main{padding:72px 18px 92px;max-width:1080px;margin:0 auto;min-height:100%;displ
       <h1>Como usar a sua página <i>em 2 minutos</i></h1>
       <p class="apoio">Você vai aprender a ler a flor, o preço e o histórico. Depois é só abrir a página uma vez por dia.</p>
       <div class="fichas"><span><b>Para</b> Mari</span><span><b>Onde</b> mari.onmoov.com.br</span><span><b>Leitura</b> 2 minutos</span></div>
-      <div class="acoes"><button class="btn primary" data-ir="1">Começar</button><button class="btn suave" data-ir="7">Pular para o final</button></div>
+      <div class="acoes"><button class="btn primary" data-ir="1">Começar</button><button class="btn suave" data-ir="8">Pular para o final</button></div>
     </div>
     <div class="retrato">
       <div class="arco"><img src="../hero.jpg" alt="Mari sorrindo"></div>
@@ -293,12 +310,28 @@ main{padding:72px 18px 92px;max-width:1080px;margin:0 auto;min-height:100%;displ
     </div>
     <div class="fluxo" aria-label="Partes do guia">
       <i class="bola"></i>
-      <button data-ir="1"><i><svg><use href="#i-flor"/></svg></i>Flor</button>
-      <button data-ir="2"><i><svg><use href="#i-preco"/></svg></i>Preço</button>
-      <button data-ir="3"><i><svg><use href="#i-graf"/></svg></i>Gráfico</button>
-      <button data-ir="4"><i><svg><use href="#i-cel"/></svg></i>Celulares</button>
-      <button data-ir="5"><i><svg><use href="#i-lupa"/></svg></i>Testes</button>
-      <button data-ir="6"><i><svg><use href="#i-sacola"/></svg></i>Compra</button>
+      <button data-ir="2"><i><svg><use href="#i-flor"/></svg></i>Flor</button>
+      <button data-ir="3"><i><svg><use href="#i-preco"/></svg></i>Preço</button>
+      <button data-ir="4"><i><svg><use href="#i-graf"/></svg></i>Gráfico</button>
+      <button data-ir="5"><i><svg><use href="#i-cel"/></svg></i>Celulares</button>
+      <button data-ir="6"><i><svg><use href="#i-lupa"/></svg></i>Testes</button>
+      <button data-ir="7"><i><svg><use href="#i-sacola"/></svg></i>Compra</button>
+    </div>
+  </section>
+
+  <section class="pg" id="motivo" data-rot="Motivo">
+    <div class="txt">
+      <p class="mao passo-n" style="background:none;color:var(--lilac-d);width:auto;height:auto;border-radius:0;font:600 24px var(--mao);display:block;margin:0 0 4px">antes de começar</p>
+      <h2>Por que eu fiz esta página</h2>
+      <p class="apoio">Você me pediu ajuda para trocar de celular e queria saber se comprava agora ou esperava a Black Friday.</p>
+      <ul class="pontos"><li>O preço muda várias vezes por dia, até de madrugada. Mandar link não ia resolver.</li><li>Então pensei numa página que confere tudo sozinha, com as suas regras.</li><li>Assim você não precisa pesquisar: é só abrir e olhar.</li></ul>
+      <button class="denovo" data-denovo>↺ Ver de novo</button>
+    </div>
+    <div class="cena c-motivo">
+      <div class="balao ela b1"><b class="quem">Você</b>Jô, me ajuda a trocar de celular? Compro agora ou espero a Black Friday?</div>
+      <div class="regras"><span>Android</span><span>Câmera top</span><span>Até R$ 5.000</span><span>Parcelado sem juros</span></div>
+      <div class="balao jo b2"><b class="quem">Jô</b>Deixa comigo. Tive uma ideia melhor do que ficar te mandando link.</div>
+      <div class="site-mini"><div class="f" id="mot-flor"></div><div><b>mari.onmoov.com.br</b><span>Confere o preço 5 vezes por dia e avisa a hora de comprar.</span></div></div>
     </div>
   </section>
 
@@ -496,6 +529,7 @@ function dedo(cena,alvo,quando,depois){
 }
 function zeraDedo(cena){const d=cena.querySelector('.dedo'); if(d){d.classList.remove('on','toque'); d.style.left='50%'; d.style.top='110%';}}
 const CENAS={
+  motivo(){ const f=$('#mot-flor'); f.innerHTML=florSVG(.1); T(()=>abre(f,.5),5200); },
   flor(){
     const palco=$('#flor-palco'), est=$('#flor-estado'), tres=[...document.querySelectorAll('#flor-tres span')];
     palco.innerHTML=florSVG(.08);
