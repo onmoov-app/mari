@@ -343,6 +343,22 @@ dialog.ajuda[open]{animation:sobe .35s cubic-bezier(.2,1.2,.4,1)}
 @keyframes pulsar{0%{transform:scale(1);opacity:.6}100%{transform:scale(3.2);opacity:0}}
 .tip{position:absolute;pointer-events:none;background:var(--ink);color:#fff;font-size:13px;padding:8px 11px;border-radius:12px;white-space:nowrap;transform:translate(-50%,-115%);opacity:0;transition:opacity .15s}
 
+/* onde está hoje */
+.ondehoje{margin-top:22px}
+.ondehoje h3{font:600 20px var(--serif);margin:0 0 4px;color:var(--ink)}
+.oh-lista{list-style:none;margin:12px 0 0;padding:0;display:grid;gap:8px}
+.oh-lista li{display:grid;grid-template-columns:28px 1fr auto;gap:4px 10px;align-items:center;padding:12px 14px;border:1px solid var(--line);border-radius:18px;background:#fff}
+.oh-lista li.top{border-color:var(--sage);background:#F3FAF5}
+.oh-n{width:26px;height:26px;border-radius:50%;display:grid;place-items:center;background:var(--lav);color:var(--lilac-d);font-weight:700;font-size:13px}
+.oh-lista li.top .oh-n{background:var(--sage-d);color:#fff}
+.oh-loja{font-weight:700;font-size:15px;color:var(--ink);line-height:1.2}
+.oh-loja small{display:block;font-weight:500;font-size:12.5px;color:var(--muted);margin-top:2px}
+.oh-preco{text-align:right;font:600 18px var(--serif);font-variant-numeric:lining-nums tabular-nums;color:var(--ink);white-space:nowrap}
+.oh-preco small{display:block;font:500 12.5px var(--sans);color:var(--ink2)}
+.oh-lista a{grid-column:2/4;justify-self:start;font-size:13.5px;font-weight:700;color:var(--lilac-d);text-decoration:none;padding:2px 0}
+.oh-lista a:hover{text-decoration:underline}
+.oh-vazio{font-size:14.5px;color:var(--ink2);margin:10px 0 0}
+
 /* ---------- zoom ---------- */
 .zoom{display:grid;gap:22px;align-items:center}
 @media(min-width:880px){.zoom{grid-template-columns:1.1fr .9fr}}
@@ -520,7 +536,8 @@ body.comprado .so-comprado{display:block}
         <div class="stats" id="stats"></div>
         <p class="leitura" id="leitura"></p>
         <div class="chart" id="chart"></div>
-        <p class="small" style="margin:10px 0 0">Linha clara: valor estimado a partir do preço à vista do Buscapé. Pontos fortes: preço parcelado lido nas lojas.</p>
+        <p class="small" style="margin:10px 0 0">Linha clara: valor estimado a partir do preço à vista do Buscapé. Pontos fortes: preço parcelado lido nas lojas. Toque na linha para ver o preço e a loja de cada dia.</p>
+        <div class="ondehoje" id="ondehoje"></div>
       </div>
     </div>
   </section>
@@ -759,7 +776,7 @@ async function carregar(){
   try{
     const desde=new Date(Date.now()-36*36e5).toISOString();
     const [modelos,melhores,hist,estado,recentes]=await Promise.all([
-      q('modelos?select=*&order=ordem'), q('melhor_oferta_atual?select=*'), qTudo('historico_diario?select=modelo_id,dia,preco_parcelado,estimado&order=dia,modelo_id'), q('estado?select=*'),
+      q('modelos?select=*&order=ordem'), q('melhor_oferta_atual?select=*'), qTudo('historico_diario?select=modelo_id,dia,preco_parcelado,estimado,loja&order=dia,modelo_id'), q('estado?select=*'),
       q(`ofertas?select=modelo_id,loja,preco_parcelado,parcelas,valor_parcela,url,observado_em,observacao&estimado=eq.false&preco_parcelado=not.is.null&observado_em=gte.${desde}&order=observado_em.desc`)
     ]);
     D={modelos,melhor:Object.fromEntries(melhores.map(o=>[o.modelo_id,o])),hist,estado:estado[0]||{},recentes};
@@ -793,7 +810,7 @@ function foco(){
   return lin.sort((x,y)=>x.o.preco_parcelado/x.a.valor-y.o.preco_parcelado/y.a.valor)[0];
 }
 function estat(id){
-  const h=D.hist.filter(x=>x.modelo_id===id).map(x=>({d:x.dia,v:+x.preco_parcelado,e:x.estimado}));
+  const h=D.hist.filter(x=>x.modelo_id===id).map(x=>({d:x.dia,v:+x.preco_parcelado,e:x.estimado,l:x.loja}));
   let min=h[0]; for(const p of h) if(p.v<min.v) min=p;
   const u=h.slice(-30), med30=u.reduce((a,b)=>a+b.v,0)/(u.length||1);
   return {h,min,med30};
@@ -949,7 +966,8 @@ function graficoCmp(){
   svg.addEventListener('pointerleave',()=>{tip.style.opacity=0;cur.setAttribute('opacity','0')});
 }
 function grafico(){
-  if(gM==='cmp') return graficoCmp();
+  if(gM==='cmp'){ $('#ondehoje').innerHTML=''; return graficoCmp(); }
+  ondeHoje();
   const m=D.modelos.find(x=>x.id===gM), {h,min,med30}=estat(gM), hoje=h[h.length-1], cor=COR[gM]||'#6B4FA8';
   $('#stats').className='stats';
   $('#stats').innerHTML=`<div class="stat hoje">Hoje<b class="num">${brl0(hoje.v)}</b></div><div class="stat">Menor em 6 meses<b class="num">${brl0(min.v)}</b>em ${dm(min.d)}</div><div class="stat">Média de 30 dias<b class="num">${brl0(med30)}</b></div>`;
@@ -985,9 +1003,24 @@ function grafico(){
   const mv=ev=>{const r=svg.getBoundingClientRect(), t=x0+((ev.clientX-r.left)/r.width*W-P.l)/(W-P.l-P.r)*(x1-x0);
     let b=pts[0]; for(const p of pts) if(Math.abs(p.t-t)<Math.abs(b.t-t)) b=p;
     cur.setAttribute('x1',X(b.t)); cur.setAttribute('x2',X(b.t)); cur.setAttribute('opacity','.2');
-    tip.innerHTML=`<b>${dm(b.d)}</b>: ${brl0(b.v)}${b.e?' (estimado)':''}`; tip.style.left=Math.min(Math.max(X(b.t)/W*r.width,70),r.width-70)+'px'; tip.style.top=(Y(b.v)/H*r.height)+'px'; tip.style.opacity=1;};
+    tip.innerHTML=`<b>${dm(b.d)}</b>: ${brl0(b.v)}${b.e?' (estimado)':b.l?' na '+lojaCurta(b.l):''}`; tip.style.left=Math.min(Math.max(X(b.t)/W*r.width,70),r.width-70)+'px'; tip.style.top=(Y(b.v)/H*r.height)+'px'; tip.style.opacity=1;};
   svg.addEventListener('pointermove',mv); svg.addEventListener('pointerdown',mv);
   svg.addEventListener('pointerleave',()=>{tip.style.opacity=0;cur.setAttribute('opacity','0')});
+}
+const lojaCurta=l=>String(l||'').startsWith('Mercado Livre')?'Mercado Livre':String(l||'');
+function ondeHoje(){
+  const m=D.modelos.find(x=>x.id===gM), por=new Map();
+  for(const o of D.recentes||[]){ if(o.modelo_id!==gM) continue; const a=por.get(o.loja); if(!a||+o.preco_parcelado<+a.preco_parcelado||(+o.preco_parcelado===+a.preco_parcelado&&o.observado_em>a.observado_em)) por.set(o.loja,o); }
+  const top=[...por.values()].sort((a,b)=>a.preco_parcelado-b.preco_parcelado).slice(0,5);
+  const hora=t=>{const d=new Date(t);return d.toLocaleDateString('pt-BR',{day:'2-digit',month:'2-digit'})+' às '+d.toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'});};
+  const det=o=>{const ml=String(o.loja).match(/^Mercado Livre · (.+)$/); const obs=String(o.observacao||'');
+    if(ml) return ml[1].replace(/_/g,' ').replace(/\s+\((vendedor [^)]+)\)/,' · $1')+(/nota fiscal/.test(obs)?' · confira a nota fiscal':'');
+    if(/Amazon/.test(o.loja)&&/confirmar 12x/.test(obs)) return 'confirme o 12x sem juros na loja';
+    return /Buscap/.test(obs)?'lido pelo Buscapé':'';};
+  const link=o=>!o.url?'':/buscape\.com\.br/.test(o.url)?`<a href="${o.url}" target="_blank" rel="noopener">Ver no Buscapé</a>`:`<a href="${o.url}" target="_blank" rel="noopener">Ver a oferta</a>`;
+  $('#ondehoje').innerHTML=`<h3>Onde está hoje</h3><p class="small" style="margin:0">As lojas mais baratas do ${m.nome} nas últimas 36 horas, parcelado sem juros. Se a primeira acabar, você já tem a próxima.</p>`+
+    (top.length?`<ol class="oh-lista">${top.map((o,i)=>`<li class="${i?'':'top'}"><span class="oh-n">${i+1}</span><div class="oh-loja">${lojaCurta(o.loja)}<small>${[det(o),'visto '+hora(o.observado_em)].filter(Boolean).join(' · ')}</small></div><div class="oh-preco">${brl0(o.preco_parcelado)}<small>${o.parcelas?o.parcelas+'x de '+brl(o.valor_parcela):'sem juros'}</small></div>${link(o)}</li>`).join('')}</ol>`
+      :`<p class="oh-vazio">Ainda não tenho leitura de loja desse celular nas últimas 36 horas.</p>`);
 }
 let rz; addEventListener('resize',()=>{clearTimeout(rz);rz=setTimeout(()=>D&&grafico(),200)});
 
