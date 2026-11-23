@@ -291,6 +291,39 @@ details.pc[open] summary::after{transform:rotate(45deg)}
 .cmp-l.up .ic{background:var(--sage-l);color:var(--sage-d)}.cmp-l.up .para{color:var(--sage-d)}
 .cmp-l.down .ic{background:var(--petal);color:var(--rose-d)}.cmp-l.down .para{color:var(--rose-d)}
 .cmp-l.eq .ic{background:var(--lav);color:var(--muted)}
+.la-ctrl{display:grid;gap:12px;margin:18px 0 14px}
+.la-grupo{display:grid;gap:6px}
+.la-rot{font-size:13px;font-weight:700;color:var(--ink2)}
+.la-rot small{font-weight:500;color:var(--muted)}
+.la-ctrl .chips{margin:0}
+.la-ctrl .abas{justify-self:start}
+.la-opc{display:flex;gap:6px 20px;flex-wrap:wrap}
+.la-opc .nt-sw{margin-top:0}
+.chip.ideia{border-style:dashed}
+.chip[disabled]{opacity:.45}
+.la{border:1px solid var(--line);border-radius:22px;background:var(--card);overflow:clip}
+.la-cab,.la-val{display:grid;grid-template-columns:repeat(var(--n),minmax(0,1fr));gap:8px}
+.la-cab{position:sticky;top:0;z-index:2;background:rgba(255,255,255,.96);backdrop-filter:blur(6px);padding:12px 14px;border-bottom:1px solid var(--line)}
+.la-cab div{font-weight:700;font-size:14px;line-height:1.2;color:var(--ink);display:flex;gap:6px;align-items:flex-start}
+.la-cab i{width:10px;height:10px;border-radius:50%;background:var(--c);flex:none;margin-top:3px}
+.la-cab small{display:block;font-weight:500;font-size:11.5px;color:var(--muted)}
+.la-cab .ref{color:var(--muted)}
+.la-cat{padding:10px 14px 4px;font:600 15px var(--serif);color:var(--lilac-d);background:var(--paper);border-bottom:1px solid var(--line)}
+.la-l{padding:10px 14px;border-bottom:1px solid var(--line);animation:entra .35s both}
+.la-l:last-child{border-bottom:0}
+.la-l .rot{font-size:12.5px;font-weight:600;color:var(--muted);margin-bottom:5px}
+.la-c{font-size:14.5px;font-weight:600;color:var(--ink);line-height:1.3;display:flex;gap:5px;align-items:flex-start;min-width:0;overflow-wrap:break-word;hyphens:auto}
+@media(max-width:639px){.la-c{font-size:13.5px;gap:4px}.la-c .ic{width:16px;height:16px;font-size:10px}.la-cab,.la-val{gap:6px}.la-l,.la-cab{padding-left:12px;padding-right:12px}}
+.la-c.ref{color:var(--ink2);font-weight:500}
+.la-c .ic{flex:none;width:18px;height:18px;border-radius:50%;display:inline-grid;place-items:center;font-size:11px;font-weight:700;margin-top:1px}
+.la-c.up .ic{background:var(--sage-l);color:var(--sage-d)}
+.la-c.down .ic{background:var(--petal);color:var(--rose-d)}
+.la-c.eq .ic{background:var(--lav);color:var(--muted)}
+.la-c.melhor{color:var(--gold-d)}
+.la-c .fl{color:var(--gold);font-size:14px;line-height:1.2}
+.la-melhor-ic{background:#FBEFD3;color:var(--gold-d)}
+.la-vazio{padding:18px 14px;color:var(--ink2);font-size:14.5px}
+@media(min-width:880px){.la-c{font-size:15.5px}.la-cab div{font-size:15px}}
 .cmp-leg{display:flex;gap:14px;flex-wrap:wrap;font-size:13px;color:var(--ink2);margin-top:12px}
 .cmp-leg span{display:inline-flex;align-items:center;gap:6px}
 .cmp-leg i{width:18px;height:18px;border-radius:50%;display:inline-grid;place-items:center;font-style:normal;font-weight:700;font-size:11px}
@@ -614,12 +647,20 @@ body.comprado .so-comprado{display:block}
     <div class="wrap">
       <div class="flores divisor" data-b="divisor"></div>
       <div class="sec-head">
-        <h2>Do seu M53 para o novo</h2>
-        <p class="lead">Item por item, o que muda em relação ao celular que você usa hoje. Escolha o celular para comparar.</p>
-        <div class="abas" id="cmp-m" role="group" style="margin-top:14px"></div>
+        <h2>Lado a lado, com o seu M53</h2>
+        <p class="lead">Escolha os celulares e o assunto. A setinha mostra o que melhora em relação ao M53, e a florzinha marca o melhor da linha.</p>
       </div>
-      <div class="cmp" id="cmp"></div>
-      <div class="cmp-leg"><span><i style="background:var(--sage-l);color:var(--sage-d)">↑</i>melhor que o M53</span><span><i style="background:var(--lav);color:var(--muted)">=</i>parecido</span><span><i style="background:var(--petal);color:var(--rose-d)">↓</i>pior que o M53</span></div>
+      <div class="la-ctrl">
+        <div class="la-grupo"><span class="la-rot">Celulares <small id="la-lim"></small></span><div class="chips" id="la-fones" role="group" aria-label="Celulares para comparar"></div></div>
+        <div class="la-grupo"><span class="la-rot">Assunto</span><div class="abas" id="la-cat" role="group" aria-label="Assunto"></div></div>
+        <div class="la-opc">
+          <label class="nt-sw"><input type="checkbox" id="la-m53" checked> Mostrar meu M53</label>
+          <label class="nt-sw"><input type="checkbox" id="la-dif"> Só o que muda</label>
+        </div>
+      </div>
+      <div class="la" id="la"></div>
+      <div class="cmp-leg"><span><i style="background:var(--sage-l);color:var(--sage-d)">↑</i>melhor que o M53</span><span><i style="background:var(--lav);color:var(--muted)">=</i>parecido</span><span><i style="background:var(--petal);color:var(--rose-d)">↓</i>pior que o M53</span><span><i class="la-melhor-ic">✿</i>melhor da linha</span></div>
+      <p class="small" style="margin:8px 0 0">Megapixel não é tudo: o tamanho do sensor e o processamento pesam mais na foto. Por isso as linhas de câmera não têm "melhor da linha". O teste de zoom e o "Qual combina com você?" ajudam nessa parte.</p>
       <div class="troca">
         <h3 style="font-size:26px">O M53 pode virar desconto</h3>
         <p>A Samsung tem o <b>Troca Smart</b>: o aparelho antigo entra como parte do pagamento na loja oficial. O valor depende da avaliação do M53 e só aparece quando você simula a compra no site da Samsung.</p>
@@ -831,7 +872,7 @@ function render(){
     $('#atualizado').textContent=(hoje?'Conferido hoje às ':'Conferido '+d.toLocaleDateString('pt-BR',{day:'2-digit',month:'2-digit'})+' às ')+hm;
     $('#pill').classList.toggle('atrasado',horas>14);
   }
-  veredito(); cards(); abasGrafico(); grafico(); simInit(); salto();
+  veredito(); cards(); abasGrafico(); grafico(); simInit(); ladoALado();
   $('#aj-alvo').textContent=brl0(alvoGeral());
   if(est.comprado){document.body.classList.add('comprado');comprado();}
   primeira=false;
@@ -1100,15 +1141,85 @@ const FICHA={
   ip17:{cam:['48 MP','up'],zoom:['2x por recorte, sem lente de zoom','eq'],uw:['48 MP','up'],self:['18 MP','down'],video:['4K a 60 quadros','up'],tela:['6,3", 120 Hz','eq'],ram:['8 GB','eq'],arm:['256 GB','up'],bat:['3.692 mAh','down'],carga:['até 25 W sem fio (MagSafe)','eq'],peso:['177 g','eq'],upd:['iOS, sem prazo oficial','up']},
   s26u:{cam:['200 MP','up'],zoom:['3x e 5x','up'],uw:['50 MP','up'],self:['12 MP','down'],video:['8K e 4K a 120 quadros','up'],tela:['6,9", 120 Hz','eq'],ram:['12 GB','up'],arm:['256 GB','up'],bat:['5.000 mAh','eq'],carga:['60 W','up'],peso:['214 g, mais pesado','down'],upd:['7 anos de atualizações','up']}
 };
-const LINHAS=[['cam','Câmera principal'],['zoom','Zoom óptico'],['uw','Ultra-angular'],['self','Câmera de selfie'],['video','Vídeo'],['tela','Tela'],['ram','Memória RAM'],['arm','Armazenamento'],['bat','Bateria'],['carga','Carregamento'],['peso','Peso'],['upd','Atualizações']];
-const IC={up:'↑',down:'↓',eq:'='};
-let cmM='s25u';
-function salto(){
-  const el=$('#cmp-m'); el.innerHTML='';
-  D.modelos.filter(m=>FICHA[m.id]).forEach(m=>{const b=document.createElement('button');b.textContent=curto(m.nome);b.setAttribute('aria-pressed',m.id===cmM);b.onclick=()=>{cmM=m.id;salto();};el.appendChild(b);});
-  const f=FICHA[cmM]; if(!f) return;
-  $('#cmp').innerHTML=LINHAS.map(([k,r],i)=>`<div class="cmp-l ${f[k][1]}" style="animation:entra .4s ${i*45}ms both"><div class="rot">${r}</div><div class="de">${FICHA.m53[k]}</div><div class="ic" aria-label="${f[k][1]==='up'?'melhor':f[k][1]==='down'?'pior':'parecido'}">${IC[f[k][1]]}</div><div class="para">${f[k][0]}</div></div>`).join('');
+Object.assign(FICHA.m53,{chip:'Dimensity 900',agua:'sem certificação',semfio:'não tem'});
+const EXTRA={
+  s25u:{chip:['Snapdragon 8 Elite','up'],agua:['IP68','up'],semfio:['15 W','up']},
+  sig:{chip:['Snapdragon 8 Gen 5','up'],agua:['IP68 e IP69','up'],semfio:['50 W','up']},
+  x17t:{chip:['Dimensity 8500-Ultra','up'],agua:['IP68','up'],semfio:['não tem','eq']},
+  s25:{chip:['Snapdragon 8 Elite','up'],agua:['IP68','up'],semfio:['15 W','up']},
+  ip17:{chip:['Apple A19','up'],agua:['IP68','up'],semfio:['25 W (MagSafe)','up']},
+  s26u:{chip:['Snapdragon 8 Elite Gen 5','up'],agua:['IP68','up'],semfio:['sim, rápido','up']},
+};
+for(const k in EXTRA) Object.assign(FICHA[k],EXTRA[k]);
+FICHA.ip17.carga=['40 W com fio, 25 W sem fio','up'];
+// numeros para marcar o melhor da linha (null = sem comparacao justa)
+const NUM={
+  zoom:{m53:0,s25u:5,sig:3,x17t:5,s25:3,ip17:0,s26u:5},
+  tela:{m53:120,s25u:120,sig:165,x17t:120,s25:120,ip17:120,s26u:120},
+  peso:{m53:176,s25u:218,sig:186,x17t:200,s25:162,ip17:177,s26u:214},
+  bat:{m53:5000,s25u:5000,sig:5200,x17t:6500,s25:4000,ip17:3692,s26u:5000},
+  carga:{m53:25,s25u:45,sig:90,x17t:67,s25:25,ip17:40,s26u:60},
+  semfio:{m53:0,s25u:15,sig:50,x17t:0,s25:15,ip17:25,s26u:null},
+  ram:{m53:6,s25u:12,sig:12,x17t:12,s25:12,ip17:8,s26u:12},
+  arm:{m53:128,s25u:256,sig:512,x17t:512,s25:256,ip17:256,s26u:256},
+  upd:{s25u:7,sig:7,x17t:5,s25:7,s26u:7},
+};
+const MELHOR={zoom:'max',tela:'max',peso:'min',bat:'max',carga:'max',semfio:'max',ram:'max',arm:'max',upd:'max',preco:'min'};
+const CATS=[['tudo','Tudo'],['preco','Preço'],['cam','Câmera'],['tela','Tela e peso'],['bat','Bateria'],['des','Desempenho'],['dur','Durabilidade']];
+const LINHAS=[
+  ['preco','Preço hoje (parcelado sem juros)','preco'],
+  ['cam','Câmera principal','cam'],['zoom','Zoom óptico','cam'],['uw','Ultra-angular','cam'],['self','Câmera de selfie','cam'],['video','Vídeo','cam'],
+  ['tela','Tela','tela'],['peso','Peso','tela'],
+  ['bat','Bateria','bat'],['carga','Carregamento com fio','bat'],['semfio','Carregamento sem fio','bat'],
+  ['chip','Processador','des'],['ram','Memória RAM','des'],['arm','Armazenamento','des'],
+  ['agua','Resistência à água','dur'],['upd','Atualizações','dur'],
+];
+let laSel=null, laCat='tudo';
+const laMax=()=>innerWidth<640?3:4;
+function ladoALado(){
+  const ms=D.modelos.filter(m=>FICHA[m.id]);
+  if(!laSel) laSel=ms.filter(ehFin).map(m=>m.id).slice(0,laMax());
+  laSel=laSel.filter(id=>ms.some(m=>m.id===id)).slice(0,laMax());
+  $('#la-lim').textContent=`(até ${laMax()})`;
+  const fs=$('#la-fones'); fs.innerHTML='';
+  ms.forEach(m=>{const b=document.createElement('button'); const on=laSel.includes(m.id);
+    b.type='button'; b.className='chip'+(ehFin(m)?'':' ideia'); b.style.setProperty('--c',COR[m.id]||'#6B4FA8');
+    b.innerHTML=`<i></i>${curto(m.nome)}`; b.setAttribute('aria-pressed',on);
+    if(!on&&laSel.length>=laMax()) b.disabled=true;
+    b.onclick=()=>{ if(on){ if(laSel.length>1) laSel=laSel.filter(x=>x!==m.id); } else if(laSel.length<laMax()) laSel=[...laSel,m.id]; ladoALado(); };
+    fs.appendChild(b);});
+  const cs=$('#la-cat'); cs.innerHTML='';
+  CATS.forEach(([k,r])=>{const b=document.createElement('button'); b.type='button'; b.textContent=r; b.setAttribute('aria-pressed',k===laCat); b.onclick=()=>{laCat=k;ladoALado();}; cs.appendChild(b);});
+  const comM53=$('#la-m53').checked, soDif=$('#la-dif').checked;
+  const cols=[...(comM53?['m53']:[]),...laSel];
+  const nome=id=>id==='m53'?'Seu M53':curto(D.modelos.find(m=>m.id===id).nome);
+  const papel=id=>{if(id==='m53')return 'hoje';const m=D.modelos.find(x=>x.id===id);return ehFin(m)?'finalista':'ideia';};
+  const val=(k,id)=>{
+    if(k==='preco'){ if(id==='m53') return ['—',null]; const o=D.melhor[id]; return [o?brl0(o.preco_parcelado):'sem leitura',null]; }
+    const v=FICHA[id][k]; return id==='m53'?[v,null]:[v[0],v[1]];
+  };
+  const num=(k,id)=>{ if(k==='preco'){const o=D.melhor[id];return o?+o.preco_parcelado:null;} const t=NUM[k]; return t&&t[id]!=null?t[id]:null; };
+  let html=`<div class="la-cab" style="--n:${cols.length}">${cols.map(id=>`<div class="${id==='m53'?'ref':''}" style="--c:${id==='m53'?'#C9BED6':COR[id]}"><i></i><span>${nome(id)}<small>${papel(id)}</small></span></div>`).join('')}</div>`;
+  let ultCat='', linhas=0;
+  for(const [k,rot,cat] of LINHAS){
+    if(laCat!=='tudo'&&cat!==laCat) continue;
+    const vs=cols.map(id=>val(k,id));
+    if(soDif){ const t=new Set(vs.map(v=>String(v[0]))); if(t.size<=1) continue; }
+    let alvo=null;
+    if(MELHOR[k]){ const ns=laSel.map(id=>num(k,id)).filter(n=>n!=null); if(ns.length>1&&new Set(ns).size>1) alvo=MELHOR[k]==='max'?Math.max(...ns):Math.min(...ns); }
+    if(laCat==='tudo'&&cat!==ultCat){ html+=`<div class="la-cat">${CATS.find(c=>c[0]===cat)[1]}</div>`; ultCat=cat; }
+    html+=`<div class="la-l"><div class="rot">${rot}</div><div class="la-val" style="--n:${cols.length}">${cols.map((id,i)=>{
+      const [t,tag]=vs[i], ref=id==='m53', melhor=!ref&&alvo!=null&&num(k,id)===alvo;
+      const ic=ref||!tag||k==='preco'||!comM53?'':`<span class="ic" aria-label="${tag==='up'?'melhor que o M53':tag==='down'?'pior que o M53':'parecido com o M53'}">${IC[tag]}</span>`;
+      return `<div class="la-c ${ref?'ref':''} ${comM53&&!ref&&k!=='preco'?tag||'':''} ${melhor?'melhor':''}">${ic}<span>${t}${melhor?' <span class="fl" aria-label="melhor da linha">✿</span>':''}</span></div>`;}).join('')}</div></div>`;
+    linhas++;
+  }
+  if(!linhas) html+=`<div class="la-vazio">Nesse assunto, os celulares escolhidos são iguais.</div>`;
+  $('#la').innerHTML=html;
 }
+const IC={up:'↑',down:'↓',eq:'='};
+$('#la-m53').onchange=()=>ladoALado(); $('#la-dif').onchange=()=>ladoALado();
+let laRz; addEventListener('resize',()=>{clearTimeout(laRz);laRz=setTimeout(()=>D&&ladoALado(),250);});
 
 /* ---------- meus avisos ---------- */
 let rasc=[];
