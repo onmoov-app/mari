@@ -13,6 +13,9 @@
 <meta property="og:url" content="https://mari.onmoov.com.br/">
 <meta property="og:type" content="website">
 <meta name="theme-color" content="#FBF7FF">
+<link rel="manifest" href="/manifest.webmanifest">
+<link rel="apple-touch-icon" href="/app/apple-180.png">
+<meta name="mobile-web-app-capable" content="yes">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cg fill='%23B596E0'%3E%3Ccircle cx='32' cy='18' r='11'/%3E%3Ccircle cx='46' cy='29' r='11'/%3E%3Ccircle cx='40' cy='45' r='11'/%3E%3Ccircle cx='24' cy='45' r='11'/%3E%3Ccircle cx='18' cy='29' r='11'/%3E%3C/g%3E%3Ccircle cx='32' cy='33' r='7' fill='%23DDB36A'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -257,6 +260,26 @@ details.pc[open] summary::after{transform:rotate(45deg)}
 .av-acoes{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px;align-items:center}
 .av-msg{font-size:14px;font-weight:600;color:var(--sage-d)}
 .av-msg.erro{color:var(--rose-d)}
+[hidden]{display:none!important}
+.ancora{display:block;position:relative;top:-16px;height:0}
+.notif{margin-top:22px;padding-top:18px;border-top:1px solid var(--line)}
+.notif h3{font:600 19px var(--serif);margin:0 0 6px;color:var(--ink)}
+.notif .small{margin:0}
+.nt-sw{display:flex;align-items:center;gap:10px;margin-top:14px;font-size:14.5px;font-weight:600;color:var(--ink2);cursor:pointer}
+.nt-sw input{appearance:none;width:42px;height:24px;border-radius:99px;background:var(--line);position:relative;transition:background .2s;flex:none;cursor:pointer}
+.nt-sw input::after{content:"";position:absolute;top:3px;left:3px;width:18px;height:18px;border-radius:50%;background:#fff;box-shadow:0 1px 3px rgba(60,30,90,.25);transition:transform .2s}
+.nt-sw input:checked{background:var(--lilac-d)}
+.nt-sw input:checked::after{transform:translateX(18px)}
+.nt-sw input:focus-visible{outline:2px solid var(--lilac-d);outline-offset:2px}
+.nt-desl{border:0;background:none;color:var(--muted);font:600 13px var(--sans);padding:6px 0;text-decoration:underline}
+.instalar{position:fixed;left:12px;right:12px;bottom:12px;z-index:40;display:none;align-items:center;gap:12px;padding:12px 12px 12px 14px;background:#fff;border:1px solid var(--line);border-radius:20px;box-shadow:0 12px 34px rgba(80,40,120,.18);max-width:460px;margin:0 auto}
+.instalar.on{display:flex;animation:sobe .35s ease-out}
+.instalar img{width:42px;height:42px;border-radius:12px;flex:none}
+.instalar p{margin:0;font-size:14px;line-height:1.3;color:var(--ink2);flex:1}
+.instalar b{display:block;color:var(--ink);font-size:15px}
+.instalar .x{border:0;background:none;color:var(--muted);font-size:22px;line-height:1;padding:4px 6px}
+@keyframes sobe{from{transform:translateY(20px);opacity:0}to{transform:none;opacity:1}}
+@media (prefers-reduced-motion:reduce){.instalar.on{animation:none}}
 /* comparativo */
 .cmp{display:grid;gap:8px;margin-top:16px}
 @media(min-width:880px){.cmp{grid-template-columns:1fr 1fr}}
@@ -433,6 +456,7 @@ body.comprado .so-comprado{display:block}
         </div>
       </div>
 
+      <span id="veredito" class="ancora"></span>
       <div class="verdict so-antes" id="verdict" data-s="">
         <div class="v-topo"><span class="estado" id="v-estado">Conferindo</span><button class="btn-avisos" id="btn-avisos" type="button"><svg viewBox="0 0 24 24"><path d="M6 16V11a6 6 0 0112 0v5l1.5 2h-15z"/><path d="M10 20a2 2 0 004 0"/></svg>Meus avisos</button></div>
         <h2 id="v-titulo"><span class="sk">carregando</span></h2>
@@ -613,8 +637,8 @@ body.comprado .so-comprado{display:block}
       <li><span class="ic" id="aj-flor"></span><div><b>A flor é o resumo</b><p>Botão fechado quer dizer espere. Flor abrindo quer dizer que está quase. Flor aberta quer dizer que pode comprar.</p></div></li>
       <li><span class="ic"><svg class="icone" viewBox="0 0 24 24"><path d="M5 12l4.5 4.5L19 7"/></svg></span><div><b>Duas conferências a cada preço</b><p>Primeiro, se chegou no preço do seu aviso: <span id="aj-alvo">R$ 5.000</span> parcelado sem juros. Você pode mudar em "Meus avisos". Depois, se é desconto de verdade, comparando com o menor preço dos últimos 6 meses.</p></div></li>
       <li><span class="ic"><svg class="icone" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg></span><div><b>De hora em hora</b><p>Os preços são conferidos o dia todo, inclusive de madrugada, que é quando muita oferta aparece.</p></div></li>
-      <li><span class="ic"><svg class="icone" viewBox="0 0 24 24"><path d="M4 8h16l-1.5 11h-13z"/><path d="M8.5 8a3.5 3.5 0 017 0"/></svg></span><div><b>Onde o preço é lido</b><p>KaBuM!, Magalu, Fast Shop e outras pelo Buscapé, e a Amazon direto no site. Só entra parcelado sem juros. Preço de Pix não conta.</p></div></li>
-      <li><span class="ic"><svg class="icone" viewBox="0 0 24 24"><path d="M6 16V11a6 6 0 0112 0v5l1.5 2h-15z"/><path d="M10 20a2 2 0 004 0"/></svg></span><div><b>Aviso quando chegar a hora</b><p>Quando o preço bater em um dos seus avisos, a flor abre e chega mensagem no WhatsApp. Você ajusta em "Meus avisos".</p></div></li>
+      <li><span class="ic"><svg class="icone" viewBox="0 0 24 24"><path d="M4 8h16l-1.5 11h-13z"/><path d="M8.5 8a3.5 3.5 0 017 0"/></svg></span><div><b>Onde o preço é lido</b><p>KaBuM!, Magalu, Fast Shop e outras pelo Buscapé, a Amazon, e o Mercado Livre (lojas oficiais e vendedores Gold ou Platinum com garantia de fábrica). Só entra parcelado sem juros. Preço de Pix não conta.</p></div></li>
+      <li><span class="ic"><svg class="icone" viewBox="0 0 24 24"><path d="M6 16V11a6 6 0 0112 0v5l1.5 2h-15z"/><path d="M10 20a2 2 0 004 0"/></svg></span><div><b>Aviso quando chegar a hora</b><p>Quando o preço bater em um dos seus avisos, a flor abre e chega mensagem no WhatsApp. Com o app instalado, também chega notificação no celular, inclusive quando o preço esquentar. Você ajusta em "Meus avisos".</p></div></li>
       <li><span class="ic"><svg class="icone" viewBox="0 0 24 24"><path d="M4 18l5-6 4 3 7-9"/><path d="M4 4v16h16"/></svg></span><div><b>O histórico</b><p>Os seis meses de preço vêm do Buscapé, que guarda o menor preço à vista de cada dia. O parcelado desses meses é estimado. Desde 22/11 o parcelado é o lido nas lojas.</p></div></li>
       <li><span class="ic"><svg class="icone" viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="15" rx="3"/><path d="M4 10h16M8 3v4M16 3v4"/></svg></span><div><b>Até quando</b><p>A conferência segue até a Cyber Monday, 30/11. Oferta muda rápido: antes de pagar, confira na loja se está escrito "sem juros".</p></div></li>
     </ul>
@@ -633,8 +657,26 @@ body.comprado .so-comprado{display:block}
       <span class="av-msg" id="av-msg" role="status"></span>
     </div>
     <p class="small" style="margin:14px 0 0">O preço é sempre o total parcelado sem juros. Até 3 avisos, entre R$ 2.500 e R$ 8.000.</p>
+    <div class="notif" id="notif">
+      <h3>Notificações no celular</h3>
+      <p class="small" id="nt-txt">Receba um aviso na barra do celular quando o preço esquentar ou bater no seu aviso. Só entre 7h e 22h.</p>
+      <div class="av-acoes">
+        <button class="btn primary" id="nt-ligar" type="button">Ativar notificações</button>
+        <button class="btn suave" id="nt-teste" type="button" hidden>Mandar um teste</button>
+        <span class="av-msg" id="nt-msg" role="status"></span>
+      </div>
+      <label class="nt-sw" id="nt-sw-box" hidden><input type="checkbox" id="nt-quente" checked> Avisar também quando esquentar</label>
+      <p style="margin:6px 0 0"><button class="nt-desl" id="nt-desl" type="button" hidden>Desligar notificações neste celular</button></p>
+    </div>
   </div>
 </dialog>
+
+<div class="instalar" id="instalar" role="dialog" aria-label="Instalar o app">
+  <img src="/app/icon-192.png" alt="">
+  <p><b>Instale o app da Mari</b>Fica na tela inicial e avisa quando o preço baixar.</p>
+  <button class="btn primary" id="inst-sim" type="button">Instalar</button>
+  <button class="x" id="inst-x" type="button" aria-label="Agora não">×</button>
+</div>
 
 <canvas class="confete" id="confete"></canvas>
 
@@ -1067,7 +1109,7 @@ function desenhaAvisos(){
 function abreAvisos(e){
   if(e) e.preventDefault(); if(!D) return;
   rasc=AV().map(a=>({...a})); $('#av-msg').textContent=''; $('#av-msg').className='av-msg';
-  desenhaAvisos(); dlgAv.showModal?dlgAv.showModal():dlgAv.setAttribute('open','');
+  desenhaAvisos(); estadoNotif(); dlgAv.showModal?dlgAv.showModal():dlgAv.setAttribute('open','');
 }
 $('#btn-avisos').onclick=abreAvisos;
 document.addEventListener('click',e=>{const a=e.target.closest('[data-abre-avisos]'); if(a) abreAvisos(e);});
@@ -1083,6 +1125,67 @@ $('#av-salvar').onclick=async()=>{
   }catch(e){ msg.className='av-msg erro'; msg.textContent='Não deu para salvar: '+e.message; }
   b.disabled=false;
 };
+
+/* ---------- app e notificações ---------- */
+const PUSH_FN=`${SB}/functions/v1/push-mari`;
+const temPush='serviceWorker' in navigator && 'PushManager' in window && 'Notification' in window;
+let swReg=null;
+if('serviceWorker' in navigator) navigator.serviceWorker.register('/sw.js').then(r=>{swReg=r;}).catch(()=>{});
+const b64=s=>{s=s.replace(/-/g,'+').replace(/_/g,'/');while(s.length%4)s+='=';return Uint8Array.from(atob(s),c=>c.charCodeAt(0));};
+const rpc=(f,body)=>fetch(`${SB}/rest/v1/rpc/${f}`,{method:'POST',headers:{apikey:KEY,'Content-Type':'application/json'},body:JSON.stringify(body||{})});
+async function inscricao(){ if(!temPush) return null; const r=await navigator.serviceWorker.ready; return r.pushManager.getSubscription(); }
+async function salvaInscricao(sub){
+  const j=sub.toJSON(); const r=await rpc('salvar_push',{p_endpoint:j.endpoint,p_p256dh:j.keys.p256dh,p_auth:j.keys.auth,p_esquentando:$('#nt-quente').checked});
+  if(!r.ok){const e=await r.json().catch(()=>({}));throw new Error(e.message||'erro');}
+}
+async function estadoNotif(){
+  const msg=$('#nt-msg'); msg.className='av-msg'; msg.textContent='';
+  if(!temPush){ $('#nt-txt').textContent='Este navegador não recebe notificações. Abra a página no Chrome do celular e instale o app.'; $('#nt-ligar').hidden=true; return; }
+  if(Notification.permission==='denied'){ $('#nt-txt').textContent='As notificações estão bloqueadas para esta página. Libere em Configurações do celular > Apps > Mari (ou Chrome) > Notificações, e volte aqui.'; $('#nt-ligar').hidden=true; return; }
+  const sub=await inscricao().catch(()=>null);
+  const on=!!(sub&&Notification.permission==='granted');
+  $('#nt-ligar').hidden=on; $('#nt-teste').hidden=!on; $('#nt-sw-box').hidden=!on; $('#nt-desl').hidden=!on;
+  let q=true; try{q=localStorage.getItem('mari-quente')!=='0';}catch(e){} $('#nt-quente').checked=q;
+  $('#nt-txt').textContent=on?'Notificações ligadas neste celular. O som é o padrão do celular; para trocar, vá em Configurações > Apps > Mari > Notificações.':'Receba um aviso na barra do celular quando o preço esquentar ou bater no seu aviso. Só entre 7h e 22h.';
+}
+$('#nt-ligar').onclick=async()=>{
+  const b=$('#nt-ligar'), msg=$('#nt-msg'); b.disabled=true; msg.className='av-msg'; msg.textContent='Ativando...';
+  try{
+    const p=await Notification.requestPermission();
+    if(p!=='granted') throw new Error('você não permitiu as notificações');
+    const reg=await navigator.serviceWorker.ready;
+    const pub=await (await rpc('vapid_publica')).json();
+    const sub=await reg.pushManager.getSubscription()||await reg.pushManager.subscribe({userVisibleOnly:true,applicationServerKey:b64(pub)});
+    await salvaInscricao(sub);
+    await estadoNotif(); msg.textContent='Pronto, notificações ligadas.';
+  }catch(e){ msg.className='av-msg erro'; msg.textContent='Não deu para ativar: '+e.message; }
+  b.disabled=false;
+};
+$('#nt-teste').onclick=async()=>{
+  const msg=$('#nt-msg'); msg.className='av-msg'; msg.textContent='Enviando...';
+  try{ const sub=await inscricao(); const r=await fetch(PUSH_FN,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({acao:'teste',endpoint:sub.endpoint})}); const j=await r.json();
+    if(!j.ok) throw new Error(j.erro||('status '+j.status)); msg.textContent='Enviado. Deve aparecer em alguns segundos.'; }
+  catch(e){ msg.className='av-msg erro'; msg.textContent='Não deu: '+e.message; }
+};
+$('#nt-quente').onchange=async()=>{
+  try{localStorage.setItem('mari-quente',$('#nt-quente').checked?'1':'0');}catch(e){}
+  const msg=$('#nt-msg'); try{ const sub=await inscricao(); if(sub){await salvaInscricao(sub); msg.className='av-msg'; msg.textContent=$('#nt-quente').checked?'Vou avisar quando esquentar.':'Só aviso quando bater o preço.';} }catch(e){ msg.className='av-msg erro'; msg.textContent='Não deu para salvar.'; }
+};
+$('#nt-desl').onclick=async()=>{
+  try{ const sub=await inscricao(); if(sub){ await rpc('remover_push',{p_endpoint:sub.endpoint}); await sub.unsubscribe(); } }catch(e){}
+  await estadoNotif(); $('#nt-msg').textContent='Notificações desligadas neste celular.';
+};
+/* convite para instalar (Android) */
+let pedido=null;
+const instalado=()=>matchMedia('(display-mode: standalone)').matches||navigator.standalone;
+window.addEventListener('beforeinstallprompt',e=>{
+  e.preventDefault(); pedido=e;
+  let nao=0; try{nao=+localStorage.getItem('mari-inst-nao')||0;}catch(_){}
+  if(!instalado()&&Date.now()-nao>3*864e5) setTimeout(()=>$('#instalar').classList.add('on'),2500);
+});
+$('#inst-sim').onclick=async()=>{ $('#instalar').classList.remove('on'); if(!pedido) return; pedido.prompt(); await pedido.userChoice.catch(()=>{}); pedido=null; };
+$('#inst-x').onclick=()=>{ $('#instalar').classList.remove('on'); try{localStorage.setItem('mari-inst-nao',String(Date.now()));}catch(_){} };
+window.addEventListener('appinstalled',()=>$('#instalar').classList.remove('on'));
 
 /* ---------- contagem ---------- */
 function contagem(){
