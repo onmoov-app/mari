@@ -324,6 +324,33 @@ details.pc[open] summary::after{transform:rotate(45deg)}
 .la-melhor-ic{background:#FBEFD3;color:var(--gold-d)}
 .la-vazio{padding:18px 14px;color:var(--ink2);font-size:14.5px}
 @media(min-width:880px){.la-c{font-size:15.5px}.la-cab div{font-size:15px}}
+.placar-sec{padding-bottom:0}
+.placar{list-style:none;margin:16px 0 0;padding:0;display:grid;gap:8px}
+.placar li{border:1px solid var(--line);border-radius:20px;background:var(--card);animation:entra .45s both}
+.placar button{all:unset;box-sizing:border-box;width:100%;cursor:pointer;display:grid;grid-template-columns:26px 1fr auto;gap:2px 10px;align-items:center;padding:12px 14px}
+.placar button:focus-visible{outline:2px solid var(--lilac-d);outline-offset:2px;border-radius:20px}
+.placar li.fin{border-color:color-mix(in srgb,var(--c) 45%,var(--line))}
+.pl-n{width:24px;height:24px;border-radius:50%;display:grid;place-items:center;background:var(--lav);color:var(--lilac-d);font-weight:700;font-size:12.5px}
+.placar li:first-child .pl-n{background:var(--sage-d);color:#fff}
+.pl-nome{font-weight:700;font-size:15.5px;color:var(--ink);line-height:1.2;display:flex;align-items:center;gap:7px;flex-wrap:wrap}
+.pl-nome i{width:10px;height:10px;border-radius:50%;background:var(--c);flex:none}
+.pl-tag{font-size:11px;font-weight:700;padding:2px 7px;border-radius:99px;background:var(--lav);color:var(--lilac-d)}
+.pl-tag.ideia{background:#F4F1F7;color:var(--muted)}
+.pl-sub{grid-column:2/3;font-size:12.5px;color:var(--muted);line-height:1.3}
+.pl-preco{text-align:right;font:600 19px var(--serif);font-variant-numeric:lining-nums tabular-nums;color:var(--ink);white-space:nowrap;grid-row:1/3;grid-column:3}
+.pl-preco small{display:block;font:700 11.5px var(--sans);margin-top:2px}
+.pl-preco small.go{color:var(--sage-d)}.pl-preco small.quase{color:var(--gold-d)}.pl-preco small.espera{color:var(--muted)}
+.pl-trilha{grid-column:1/-1;position:relative;height:22px;margin-top:6px}
+.pl-trilha::before{content:"";position:absolute;left:0;right:0;top:10px;height:2px;border-radius:2px;background:var(--line)}
+.pl-faixa{position:absolute;top:10px;height:2px;background:var(--c);opacity:.45}
+.pt{position:absolute;top:5px;width:12px;height:12px;border-radius:50%;transform:translateX(-50%)}
+.pt.hoje{background:var(--c);box-shadow:0 0 0 3px #fff}
+.pt.min{background:#fff;border:2px solid var(--c);width:12px;height:12px;box-sizing:border-box}
+.pt.av{top:1px;width:2px;height:20px;border-radius:2px;background:repeating-linear-gradient(var(--sage-d) 0 3px,transparent 3px 6px);transform:none}
+.placar-leg{display:flex;gap:16px;flex-wrap:wrap;font-size:12.5px;color:var(--ink2);margin-top:10px}
+.placar-leg span{display:inline-flex;align-items:center;gap:6px;position:relative}
+.placar-leg .pt{position:relative;top:0;transform:none;--c:var(--lilac-d)}
+.placar-leg .pt.av{height:14px}
 .cmp-leg{display:flex;gap:14px;flex-wrap:wrap;font-size:13px;color:var(--ink2);margin-top:12px}
 .cmp-leg span{display:inline-flex;align-items:center;gap:6px}
 .cmp-leg i{width:18px;height:18px;border-radius:50%;display:inline-grid;place-items:center;font-style:normal;font-weight:700;font-size:11px}
@@ -539,6 +566,17 @@ body.comprado .so-comprado{display:block}
 </header>
 
 <main>
+  <section class="bloco placar-sec so-antes" id="placar">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2>Todos os celulares hoje</h2>
+        <p class="lead">Do mais barato para o mais caro, parcelado sem juros. O ponto cheio é o preço de hoje e o vazio é o menor dos últimos 6 meses. Toque em um celular para ver o histórico.</p>
+      </div>
+      <ol class="placar" id="placar-lista"></ol>
+      <div class="placar-leg"><span><i class="pt hoje"></i>hoje</span><span><i class="pt min"></i>menor em 6 meses</span><span><i class="pt av"></i>seu aviso</span></div>
+    </div>
+  </section>
+
   <section class="bloco" id="celulares">
     <div class="wrap">
       <div class="flores divisor" data-b="divisor"></div>
@@ -558,7 +596,7 @@ body.comprado .so-comprado{display:block}
     </div>
   </section>
 
-  <section class="bloco faixa">
+  <section class="bloco faixa" id="historico">
     <div class="wrap">
       <div class="sec-head">
         <h2>É promoção de verdade ou black fraude?</h2>
@@ -872,7 +910,7 @@ function render(){
     $('#atualizado').textContent=(hoje?'Conferido hoje às ':'Conferido '+d.toLocaleDateString('pt-BR',{day:'2-digit',month:'2-digit'})+' às ')+hm;
     $('#pill').classList.toggle('atrasado',horas>14);
   }
-  veredito(); cards(); abasGrafico(); grafico(); simInit(); ladoALado();
+  veredito(); cards(); abasGrafico(); grafico(); simInit(); ladoALado(); placar();
   $('#aj-alvo').textContent=brl0(alvoGeral());
   if(est.comprado){document.body.classList.add('comprado');comprado();}
   primeira=false;
@@ -961,6 +999,28 @@ function cards(){
 $('#ideias-btn').onclick=()=>{const b=$('#ideias-box'), ab=b.classList.toggle('aberta'); $('#ideias-btn').setAttribute('aria-expanded',ab);
   if(ab) setTimeout(()=>b.scrollIntoView({behavior:'smooth',block:'start'}),120);};
 function barras(){document.querySelectorAll('.meta-bar b[data-w]').forEach(b=>b.style.width=b.dataset.w+'%');}
+
+/* ---------- placar ---------- */
+function placar(){
+  const rows=D.modelos.map(m=>{const o=D.melhor[m.id], p=o?+o.preco_parcelado:null, {min}=estat(m.id); return {m,o,p,min:min?min.v:null,A:alvoDe(m)};}).filter(r=>r.p!=null)
+    .sort((a,b)=>a.p-b.p);
+  if(!rows.length){ $('#placar').style.display='none'; return; }
+  const vals=rows.flatMap(r=>[r.p,r.min,r.A].filter(v=>v!=null)), lo=Math.min(...vals), hi=Math.max(...vals), pad=(hi-lo)*.06||100;
+  const X=v=>((v-(lo-pad))/((hi+pad)-(lo-pad))*100).toFixed(2)+'%';
+  $('#placar-lista').innerHTML=rows.map((r,i)=>{
+    const s=r.A!=null?status(r.m,r.p):null, dif=r.min?Math.round((r.p/r.min-1)*100):null;
+    const linhaMin=r.min==null?'':dif<=1?'é o menor preço dos 6 meses':`menor em 6 meses: ${brl0(r.min)} (+${dif}%)`;
+    const st=s?`<small class="${s}">${s==='go'?'pode comprar':s==='quase'?'quase lá':'espera'}</small>`:'';
+    const a=Math.min(r.p,r.min??r.p), b=Math.max(r.p,r.min??r.p);
+    return `<li class="${ehFin(r.m)?'fin':''}" style="--c:${COR[r.m.id]||'#6B4FA8'};animation-delay:${i*60}ms"><button type="button" data-m="${r.m.id}" aria-label="Ver o histórico do ${r.m.nome}">
+      <span class="pl-n">${i+1}</span>
+      <span class="pl-nome"><i></i>${curto(r.m.nome)}<span class="pl-tag ${ehFin(r.m)?'':'ideia'}">${r.m.papel==='recomendado'?'minha indicação':ehFin(r.m)?'finalista':'ideia'}</span></span>
+      <span class="pl-preco num">${brl0(r.p)}${st}</span>
+      <span class="pl-sub">${lojaCurta(r.o.loja)}${linhaMin?' · '+linhaMin:''}</span>
+      <span class="pl-trilha" aria-hidden="true"><span class="pl-faixa" style="left:${X(a)};width:calc(${X(b)} - ${X(a)})"></span>${r.A!=null?`<span class="pt av" style="left:${X(r.A)}"></span>`:''}${r.min!=null?`<span class="pt min" style="left:${X(r.min)}"></span>`:''}<span class="pt hoje" style="left:${X(r.p)}"></span></span>
+    </button></li>`;}).join('');
+  $('#placar-lista').querySelectorAll('button').forEach(b=>b.onclick=()=>{gM=b.dataset.m; abasGrafico(); grafico(); $('#historico').scrollIntoView({behavior:'smooth',block:'start'});});
+}
 
 /* ---------- gráfico ---------- */
 let gM='s25u', cmpSel=null;
