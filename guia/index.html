@@ -117,7 +117,7 @@ main{padding:72px 18px 92px;max-width:1080px;margin:0 auto;min-height:100%;displ
 .retrato .mao{display:none;position:absolute;right:-46%;top:18%;transform:rotate(6deg);width:44%;text-align:center}
 @media(min-width:900px){.retrato .mao{display:block}}
 .flores svg{display:block;width:100%;height:auto;overflow:visible}
-.fluxo{position:relative;display:grid;grid-template-columns:repeat(6,1fr);gap:4px;margin-top:26px;grid-column:1/-1}
+.fluxo{position:relative;display:grid;grid-template-columns:repeat(7,1fr);gap:4px;margin-top:26px;grid-column:1/-1}
 .fluxo::before{content:"";position:absolute;left:8%;right:8%;top:23px;height:2px;background:repeating-linear-gradient(90deg,var(--lilac) 0 6px,transparent 6px 12px)}
 .fluxo .bola{position:absolute;top:17px;left:8%;width:14px;height:14px;margin-left:-7px;border-radius:50%;background:var(--gold);border:2px solid #fff;box-shadow:0 2px 6px rgba(46,33,64,.4);z-index:2;opacity:0}
 .pg.atual .fluxo .bola{animation:percorre 4.5s ease-in-out .8s 3}
@@ -163,6 +163,31 @@ main{padding:72px 18px 92px;max-width:1080px;margin:0 auto;min-height:100%;displ
 .leg div:nth-child(1){width:40%}.leg div:nth-child(2){width:25%}.leg div:nth-child(3){width:35%}
 .leg b{display:block;font-size:13px}
 .leg .l1 b{color:var(--sage-d)}.leg .l2 b{color:var(--gold-d)}.leg .l3 b{color:var(--rose-d)}
+
+/* cena: avisos */
+.c-avisos{display:grid;gap:12px;align-content:start}
+.av-topo{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap;margin-top:18px}
+.av-btn{display:inline-flex;align-items:center;gap:6px;border:1.5px solid var(--lilac);border-radius:99px;padding:6px 12px;font-weight:700;font-size:13px;color:var(--lilac-d);background:#fff;transition:transform .2s}
+.av-btn svg{width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.av-btn.toque{transform:scale(.94)}
+.av-janela{border:1px solid var(--line);border-radius:20px;padding:12px;display:grid;gap:8px;background:var(--paper);opacity:0;transform:translateY(14px) scale(.97);transition:.45s cubic-bezier(.2,1.2,.4,1)}
+.av-janela.on{opacity:1;transform:none}
+.av-tit{font:500 19px var(--serif);font-variation-settings:"SOFT" 100}
+.av-it{display:flex;align-items:center;gap:8px;flex-wrap:wrap;background:#fff;border:1px solid var(--line);border-radius:14px;padding:8px}
+.av-it.novo{display:none}
+.av-it.novo.on{display:flex;animation:entra .45s both}
+.av-v{display:flex;align-items:center;border:1.5px solid var(--line);border-radius:10px;overflow:hidden}
+.av-v i{font-style:normal;width:26px;text-align:center;background:var(--lav);color:var(--lilac-d);font-weight:700;line-height:30px}
+.av-v span{min-width:86px;text-align:center;font-weight:600;font-size:16px}
+.av-sel{border:1.5px solid var(--line);border-radius:10px;padding:5px 10px;font-size:13px;font-weight:600;transition:.3s}
+.av-sel.muda{border-color:var(--lilac-d);color:var(--lilac-d);background:var(--lav)}
+.av-it small{flex-basis:100%;font-size:12.5px;color:var(--ink2);min-height:16px}
+.av-bts{display:flex;gap:8px;flex-wrap:wrap}
+.av-mais,.av-salvar{border-radius:99px;padding:7px 12px;font-weight:700;font-size:13px}
+.av-mais{background:var(--lav);color:var(--lilac-d)}
+.av-salvar{background:var(--ink);color:#fff}
+.av-ok{font-weight:700;font-size:13.5px;color:var(--sage-d);opacity:0;transition:opacity .4s}
+.av-ok.on{opacity:1}
 
 /* cena 4: gráfico */
 .c-graf svg{width:100%;height:auto;display:block;margin-top:12px;overflow:visible}
@@ -214,6 +239,15 @@ main{padding:72px 18px 92px;max-width:1080px;margin:0 auto;min-height:100%;displ
 .opcs{display:grid;grid-template-columns:1fr 1fr;gap:6px}
 .opcs span{background:var(--paper);border:1.5px solid var(--line);border-radius:12px;padding:8px 10px;font-size:13px;font-weight:600;transition:.3s}
 .opcs span.on{background:var(--lav);border-color:var(--lilac-d);color:var(--lilac-d)}
+.m53{display:grid;gap:5px}
+.m53 div{display:grid;grid-template-columns:1fr 22px 1fr;gap:6px;align-items:center;font-size:13px;opacity:0;transform:translateX(14px);transition:.4s}
+.m53 div.on{opacity:1;transform:none}
+.m53 span{grid-column:1/-1;font-size:11.5px;color:var(--muted);font-weight:600;margin-bottom:-4px}
+.m53 em{font-style:normal;color:var(--ink2)}
+.m53 i{font-style:normal;width:22px;height:22px;border-radius:50%;display:grid;place-items:center;font-size:12px;font-weight:700;background:var(--sage-l);color:var(--sage-d)}
+.m53 div:nth-child(2) i{background:var(--lav);color:var(--muted)}
+.m53 b{color:var(--sage-d)}
+.m53 div:nth-child(2) b{color:var(--ink)}
 .parc{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
 .parc b{font-size:24px;font-weight:600}
 .parc b small{font:500 13px var(--sans);color:var(--muted)}
@@ -298,6 +332,7 @@ main{padding:72px 18px 92px;max-width:1080px;margin:0 auto;min-height:100%;displ
 <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
   <symbol id="i-flor" viewBox="0 0 24 24"><circle cx="12" cy="5.500" r="2.100"/><circle cx="15.400" cy="8" r="2.100"/><circle cx="14.100" cy="12" r="2.100"/><circle cx="9.900" cy="12" r="2.100"/><circle cx="8.600" cy="8" r="2.100"/><path d="M12 14.200V21M12 18c1.800-1.600 3.400-1.700 4.800-.800"/></symbol>
   <symbol id="i-preco" viewBox="0 0 24 24"><path d="M3.500 12.500V5h7.500l9.500 9.500-7.500 7.500z"/><circle cx="8" cy="9.500" r="1.400"/></symbol>
+  <symbol id="i-sino" viewBox="0 0 24 24"><path d="M6 16V11a6 6 0 0112 0v5l1.500 2h-15z"/><path d="M10 20a2 2 0 004 0"/></symbol>
   <symbol id="i-graf" viewBox="0 0 24 24"><path d="M4 4v16h16"/><path d="M7 15l4-5 3 3 5-7"/></symbol>
   <symbol id="i-cel" viewBox="0 0 24 24"><rect x="7" y="3" width="10" height="18" rx="2.500"/><path d="M11 18h2"/></symbol>
   <symbol id="i-lupa" viewBox="0 0 24 24"><circle cx="11" cy="11" r="6"/><path d="M15.500 15.500L20 20M9 11h4M11 9v4"/></symbol>
@@ -306,7 +341,7 @@ main{padding:72px 18px 92px;max-width:1080px;margin:0 auto;min-height:100%;displ
 
 <header class="topo">
   <div class="marca"><svg viewBox="0 0 64 64" aria-hidden="true"><g fill="#B596E0"><circle cx="32" cy="18" r="11"/><circle cx="46" cy="29" r="11"/><circle cx="40" cy="45" r="11"/><circle cx="24" cy="45" r="11"/><circle cx="18" cy="29" r="11"/></g><circle cx="32" cy="33" r="7" fill="#DDB36A"/></svg><span>Guia<span class="so-g"> da sua página</span></span></div>
-  <div class="onde"><b id="onde-nome">Início</b>, <span id="onde-n">1 de 8</span></div>
+  <div class="onde"><b id="onde-nome">Início</b>, <span id="onde-n">1 de 9</span></div>
   <a class="abrir" href="../">Abrir a página</a>
 </header>
 
@@ -317,22 +352,23 @@ main{padding:72px 18px 92px;max-width:1080px;margin:0 auto;min-height:100%;displ
       <h1>Por que eu fiz esta página</h1>
       <p class="apoio">Você me pediu ajuda para trocar de celular e queria saber se comprava agora ou esperava a Black Friday.</p>
       <ul class="pontos"><li>O preço muda várias vezes por dia, até de madrugada. Mandar link não ia resolver.</li><li>Então pensei numa página que confere tudo sozinha, com as suas regras.</li><li>Assim você não precisa pesquisar: é só abrir e olhar.</li></ul>
-      <div class="acoes"><button class="btn primary" data-ir="1">Ver como usar (2 minutos)</button><button class="btn suave" data-ir="7">Pular para o final</button></div>
+      <div class="acoes"><button class="btn primary" data-ir="1">Ver como usar (2 minutos)</button><button class="btn suave" data-ir="8">Pular para o final</button></div>
     </div>
     <div class="cena c-motivo">
       <div class="fala"><div class="balao ela b1"><b class="quem">Você</b>Jô, me ajuda a trocar de celular? Compro agora ou espero a Black Friday?</div><img class="av" src="../hero.jpg" alt=""></div>
       <div class="regras"><span>Android</span><span>Câmera top</span><span>Até R$ 5.000</span><span>Parcelado sem juros</span></div>
       <div class="balao jo b2"><b class="quem">Jô</b>Deixa comigo. Tive uma ideia melhor do que ficar te mandando link.</div>
-      <div class="site-mini"><div class="f" id="mot-flor"></div><div><b>mari.onmoov.com.br</b><span>Confere o preço 5 vezes por dia e avisa a hora de comprar.</span></div></div>
+      <div class="site-mini"><div class="f" id="mot-flor"></div><div><b>mari.onmoov.com.br</b><span>Confere o preço de hora em hora e avisa a hora de comprar.</span></div></div>
     </div>
     <div class="fluxo" aria-label="Partes do guia">
       <i class="bola"></i>
       <button data-ir="1"><i><svg><use href="#i-flor"/></svg></i>Flor</button>
       <button data-ir="2"><i><svg><use href="#i-preco"/></svg></i>Preço</button>
-      <button data-ir="3"><i><svg><use href="#i-graf"/></svg></i>Gráfico</button>
-      <button data-ir="4"><i><svg><use href="#i-cel"/></svg></i>Celulares</button>
-      <button data-ir="5"><i><svg><use href="#i-lupa"/></svg></i>Testes</button>
-      <button data-ir="6"><i><svg><use href="#i-sacola"/></svg></i>Compra</button>
+      <button data-ir="3"><i><svg><use href="#i-sino"/></svg></i>Avisos</button>
+      <button data-ir="4"><i><svg><use href="#i-graf"/></svg></i>Gráfico</button>
+      <button data-ir="5"><i><svg><use href="#i-cel"/></svg></i>Celulares</button>
+      <button data-ir="6"><i><svg><use href="#i-lupa"/></svg></i>Testes</button>
+      <button data-ir="7"><i><svg><use href="#i-sacola"/></svg></i>Compra</button>
     </div>
   </section>
 
@@ -372,9 +408,31 @@ main{padding:72px 18px 92px;max-width:1080px;margin:0 auto;min-height:100%;displ
     </div>
   </section>
 
-  <section class="pg" id="grafico" data-rot="Gráfico">
+  <section class="pg" id="avisos" data-rot="Avisos">
     <div class="txt">
       <div class="passo-n">3</div>
+      <h2>Se quiser, ajuste seus avisos</h2>
+      <p class="apoio">Já deixei um aviso pronto: R$ 5.000 para qualquer finalista. Você só mexe se quiser.</p>
+      <ul class="pontos"><li>Toque em "Meus avisos", no card do topo.</li><li>Crie até 3 avisos, para os finalistas ou para um celular só.</li><li>Quando um aviso bate, a flor abre e chega mensagem no WhatsApp.</li></ul>
+      <button class="denovo" data-denovo>↺ Ver de novo</button>
+    </div>
+    <div class="cena c-avisos" id="av-cena">
+      <span class="ex">Exemplo</span>
+      <div class="av-topo"><span class="estado quase">Hoje: quase lá</span><span class="av-btn" id="av-btn"><svg viewBox="0 0 24 24"><use href="#i-sino"/></svg>Meus avisos</span></div>
+      <div class="av-janela" id="av-jan">
+        <b class="av-tit">Meus avisos</b>
+        <div class="av-it"><div class="av-v"><i>−</i><span class="num">R$ 5.000</span><i>+</i></div><span class="av-sel">Qualquer finalista</span></div>
+        <div class="av-it novo" id="av-novo"><div class="av-v"><i>−</i><span class="num" id="av-val">R$ 4.500</span><i>+</i></div><span class="av-sel" id="av-sel">Qualquer finalista</span><small id="av-dica"></small></div>
+        <div class="av-bts"><span class="av-mais" id="av-mais">Adicionar aviso</span><span class="av-salvar" id="av-salvar">Salvar avisos</span></div>
+        <span class="av-ok" id="av-ok">✓ Avisos salvos</span>
+      </div>
+      <i class="dedo"></i>
+    </div>
+  </section>
+
+  <section class="pg" id="grafico" data-rot="Gráfico">
+    <div class="txt">
+      <div class="passo-n">4</div>
       <h2>Confira o histórico</h2>
       <p class="apoio">O gráfico mostra 6 meses de preço. Serve para saber se a promoção é de verdade.</p>
       <ul class="pontos"><li>Toque no nome do celular para ver o gráfico dele.</li><li>Toque em "Comparar" para ver todos juntos.</li><li>Linha dentro da faixa verde cabe no orçamento.</li></ul>
@@ -404,7 +462,7 @@ main{padding:72px 18px 92px;max-width:1080px;margin:0 auto;min-height:100%;displ
 
   <section class="pg" id="celulares" data-rot="Celulares">
     <div class="txt">
-      <div class="passo-n">4</div>
+      <div class="passo-n">5</div>
       <h2>Veja os finalistas e as ideias</h2>
       <p class="apoio">Cada celular tem um cartão com o preço do dia, as lojas e os prós e contras.</p>
       <ul class="pontos"><li>O selo diz se é "Desconto de verdade", "Preço normal" ou "Não é promoção".</li><li>"Mais 4 ideias para comparar" abre outras opções.</li><li>O botão "Ver na loja" leva direto para a oferta.</li></ul>
@@ -427,23 +485,23 @@ main{padding:72px 18px 92px;max-width:1080px;margin:0 auto;min-height:100%;displ
 
   <section class="pg" id="testes" data-rot="Testes">
     <div class="txt">
-      <div class="passo-n">5</div>
+      <div class="passo-n">6</div>
       <h2>Teste antes de escolher</h2>
-      <p class="apoio">Mais abaixo na página tem três ferramentas para tirar a dúvida entre os finalistas.</p>
-      <ul class="pontos"><li>Zoom numa foto sua: veja a diferença entre lente e recorte.</li><li>"Qual combina com você?": 5 perguntas rápidas.</li><li>"Quanto fica por mês": a parcela em 10x, 12x ou 18x.</li></ul>
+      <p class="apoio">Mais abaixo na página tem ferramentas para tirar a dúvida entre os celulares.</p>
+      <ul class="pontos"><li>Zoom numa foto sua: veja a diferença entre lente e recorte.</li><li>"Qual combina com você?": 5 perguntas rápidas.</li><li>"Do seu M53 para o novo": o que melhora, item por item.</li></ul>
       <button class="denovo" data-denovo>↺ Ver de novo</button>
     </div>
     <div class="cena c-testes" id="tes-cena">
       <span class="ex">Exemplo</span>
       <div class="bloco" id="tes-zoom"><h4>O zoom, numa foto sua</h4><div class="zoomv"><img id="tes-foto" alt="" src=""><span class="tag" id="tes-tag">lente óptica</span><span class="zx" id="tes-zx">1x</span></div></div>
       <div class="bloco" id="tes-quiz"><h4>O que você mais fotografa?</h4><div class="opcs"><span>Pessoas e momentos</span><span id="tes-op">Paisagens e viagens</span></div></div>
-      <div class="bloco" id="tes-parc"><h4>Quanto fica por mês</h4><div class="parc"><div class="abas"><span class="on">10x</span><span>12x</span><span>18x</span></div><b class="num" id="tes-val">R$ 516,90<small> por mês</small></b></div></div>
+      <div class="bloco" id="tes-parc"><h4>Do seu M53 para o novo</h4><div class="m53" id="tes-m53"><div><span>Zoom óptico</span><em>não tem</em><i>↑</i><b>3x e 5x</b></div><div><span>Bateria</span><em>5.000 mAh</em><i>=</i><b>5.000 mAh</b></div><div><span>Armazenamento</span><em>128 GB</em><i>↑</i><b>256 GB</b></div></div></div>
     </div>
   </section>
 
   <section class="pg" id="compra" data-rot="Compra">
     <div class="txt">
-      <div class="passo-n">6</div>
+      <div class="passo-n">7</div>
       <h2>Quando a flor abrir</h2>
       <p class="apoio">Você recebe um aviso no WhatsApp assim que o preço bater no seu aviso. Aí são três toques.</p>
       <ul class="pontos"><li>Abra a página e confirme que a flor abriu.</li><li>Toque em "Ver na loja".</li><li>Na loja, confira se está escrito "sem juros" antes de pagar.</li></ul>
@@ -465,7 +523,7 @@ main{padding:72px 18px 92px;max-width:1080px;margin:0 auto;min-height:100%;displ
       <ul class="lista-c" id="lista-c">
         <li><label><input type="checkbox" data-c="tela"><span class="cx"><svg viewBox="0 0 24 24"><path d="M5 12l4.500 4.500L19 7"/></svg></span><span>Salvei o link na tela inicial do celular</span></label></li>
         <li><label><input type="checkbox" data-c="flor"><span class="cx"><svg viewBox="0 0 24 24"><path d="M5 12l4.500 4.500L19 7"/></svg></span><span>Olhei como está a flor hoje</span></label></li>
-        <li><label><input type="checkbox" data-c="quiz"><span class="cx"><svg viewBox="0 0 24 24"><path d="M5 12l4.500 4.500L19 7"/></svg></span><span>Fiz o quiz "Qual combina com você?"</span></label></li>
+        <li><label><input type="checkbox" data-c="avisos"><span class="cx"><svg viewBox="0 0 24 24"><path d="M5 12l4.500 4.500L19 7"/></svg></span><span>Abri "Meus avisos" (ou deixei o de R$ 5.000)</span></label></li>
         <li><label><input type="checkbox" data-c="juros"><span class="cx"><svg viewBox="0 0 24 24"><path d="M5 12l4.500 4.500L19 7"/></svg></span><span>Sei que preciso conferir "sem juros" antes de pagar</span></label></li>
       </ul>
       <div class="acoes"><a class="btn primary" href="../">Abrir a minha página</a><a class="btn zap" id="zap" target="_blank" rel="noopener" href="#">Tirar dúvida com o Jô</a></div>
@@ -530,6 +588,15 @@ function dedo(cena,alvo,quando,depois){
 }
 function zeraDedo(cena){const d=cena.querySelector('.dedo'); if(d){d.classList.remove('on','toque'); d.style.left='50%'; d.style.top='110%';}}
 const CENAS={
+  avisos(){
+    const c=$('#av-cena'), j=$('#av-jan'), n=$('#av-novo'), sel=$('#av-sel'), val=$('#av-val'), d=$('#av-dica'), ok=$('#av-ok');
+    j.classList.remove('on'); n.classList.remove('on'); sel.classList.remove('muda'); sel.textContent='Qualquer finalista'; val.textContent='R$ 4.500'; d.textContent=''; ok.classList.remove('on'); zeraDedo(c);
+    dedo(c,$('#av-btn'),700,()=>j.classList.add('on'));
+    T(()=>dedo(c,$('#av-mais'),0,()=>n.classList.add('on')),2000);
+    T(()=>{val.textContent='R$ 4.000';},3500);
+    T(()=>{sel.textContent='Só o Galaxy S25';sel.classList.add('muda');d.textContent='Já aconteceu: o Galaxy S25 chegou a R$ 3.340 em 02/08.';},4200);
+    T(()=>dedo(c,$('#av-salvar'),0,()=>ok.classList.add('on')),5600);
+  },
   inicio(){ const f=$('#mot-flor'); f.innerHTML=florSVG(.1); T(()=>abre(f,.5),5200); },
   flor(){
     const palco=$('#flor-palco'), est=$('#flor-estado'), tres=[...document.querySelectorAll('#flor-tres span')];
@@ -562,11 +629,11 @@ const CENAS={
   testes(){
     const z=$('#tes-zoom'), q=$('#tes-quiz'), p=$('#tes-parc'), img=$('#tes-foto'), foco=b=>[z,q,p].forEach(x=>x.classList.toggle('foco',x===b));
     const zoom=(n,tag)=>{const lim=v=>Math.min(0,Math.max(100-100*n,v)); img.style.transform=`translate(${lim(50-85*n)}%,${lim(50-34*n)}%) scale(${n})`; $('#tes-zx').textContent=n+'x'; $('#tes-tag').textContent=tag;};
-    const abas=[...p.querySelectorAll('.abas span')], parc=(i,v)=>{abas.forEach((a,k)=>a.classList.toggle('on',k===i)); $('#tes-val').innerHTML=brl(v)+'<small> por mês</small>';};
-    zoom(1,'lente óptica'); $('#tes-op').classList.remove('on'); parc(0,516.9); foco(z);
+    const lin=[...document.querySelectorAll('#tes-m53 div')];
+    zoom(1,'lente óptica'); $('#tes-op').classList.remove('on'); lin.forEach(x=>x.classList.remove('on')); foco(z);
     T(()=>zoom(3,'lente óptica'),900); T(()=>zoom(5,'lente óptica'),2100);
     T(()=>{foco(q)},3300); T(()=>$('#tes-op').classList.add('on'),3900);
-    T(()=>{foco(p)},4900); T(()=>parc(1,430.75),5400); T(()=>parc(2,287.17),6300);
+    T(()=>{foco(p)},4900); lin.forEach((x,k)=>T(()=>x.classList.add('on'),5300+k*500));
     T(()=>foco(null),7400);
   },
   compra(){
