@@ -239,6 +239,40 @@ details.pc[open] summary::after{transform:rotate(45deg)}
 .chk .dia{display:inline-block;width:9px;height:9px;background:var(--gold);transform:rotate(45deg);margin-right:7px;border-radius:1px;border:1px solid #fff;box-shadow:0 0 0 1px var(--gold-d)}
 .marca-min{position:absolute;top:50%;left:var(--pos,0%);width:13px;height:13px;background:var(--gold);border:2px solid #fff;transform:translate(-50%,-50%) rotate(45deg);transition:left 2s cubic-bezier(.2,.9,.2,1) .6s;z-index:1;box-shadow:0 2px 5px rgba(46,33,64,.45);display:none}
 .marca-min.on{display:block}
+/* meus avisos */
+.v-topo{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.btn-avisos{display:inline-flex;align-items:center;gap:7px;border:1.5px solid var(--lilac);background:#fff;color:var(--lilac-d);border-radius:99px;padding:7px 13px;font-weight:700;font-size:13.5px}
+.btn-avisos svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.av-lista{display:grid;gap:10px;margin:16px 0 0}
+.av-item{border:1px solid var(--line);border-radius:18px;padding:12px;display:grid;gap:8px;background:var(--paper)}
+.av-linha{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.av-val{display:flex;align-items:center;background:#fff;border:1.5px solid var(--line);border-radius:14px;overflow:hidden}
+.av-val button{border:0;background:var(--lav);color:var(--lilac-d);width:38px;height:42px;font:600 20px var(--serif)}
+.av-val input{width:110px;border:0;text-align:center;font:600 19px var(--serif);font-variant-numeric:lining-nums tabular-nums;color:var(--ink);padding:0 4px;background:#fff}
+.av-val input:focus{outline:none}
+.av-item select{border:1.5px solid var(--line);border-radius:12px;padding:10px 12px;font:600 14px var(--sans);color:var(--ink);background:#fff;flex:1;min-width:170px}
+.av-tira{margin-left:auto;border:0;background:none;color:var(--muted);font-size:13px;font-weight:700;padding:6px}
+.av-dica{font-size:13.5px;line-height:1.35;color:var(--ink2)}
+.av-dica.ok{color:var(--sage-d)}.av-dica.alerta{color:var(--rose-d)}
+.av-acoes{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px;align-items:center}
+.av-msg{font-size:14px;font-weight:600;color:var(--sage-d)}
+.av-msg.erro{color:var(--rose-d)}
+/* comparativo */
+.cmp{display:grid;gap:8px;margin-top:16px}
+@media(min-width:880px){.cmp{grid-template-columns:1fr 1fr}}
+.cmp-l{display:grid;grid-template-columns:1fr 30px 1fr;gap:10px;align-items:center;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:10px 14px}
+.cmp-l .rot{grid-column:1/-1;font-size:12.5px;color:var(--muted);font-weight:600;margin-bottom:-6px}
+.cmp-l .de{color:var(--ink2);font-size:15px}
+.cmp-l .para{font-weight:700;font-size:15px}
+.cmp-l .ic{width:30px;height:30px;border-radius:50%;display:grid;place-items:center;font-weight:700;font-size:14px}
+.cmp-l.up .ic{background:var(--sage-l);color:var(--sage-d)}.cmp-l.up .para{color:var(--sage-d)}
+.cmp-l.down .ic{background:var(--petal);color:var(--rose-d)}.cmp-l.down .para{color:var(--rose-d)}
+.cmp-l.eq .ic{background:var(--lav);color:var(--muted)}
+.cmp-leg{display:flex;gap:14px;flex-wrap:wrap;font-size:13px;color:var(--ink2);margin-top:12px}
+.cmp-leg span{display:inline-flex;align-items:center;gap:6px}
+.cmp-leg i{width:18px;height:18px;border-radius:50%;display:inline-grid;place-items:center;font-style:normal;font-weight:700;font-size:11px}
+#cmp-m{border-radius:24px}
+
 /* como funciona */
 dialog.ajuda{border:0;padding:0;border-radius:28px;width:min(640px,94vw);max-height:88vh;background:var(--card);color:var(--ink);box-shadow:0 40px 80px -30px rgba(46,33,64,.7);overflow:hidden}
 dialog.ajuda::backdrop{background:rgba(46,33,64,.5);backdrop-filter:blur(4px)}
@@ -400,7 +434,7 @@ body.comprado .so-comprado{display:block}
       </div>
 
       <div class="verdict so-antes" id="verdict" data-s="">
-        <span class="estado" id="v-estado">Conferindo</span>
+        <div class="v-topo"><span class="estado" id="v-estado">Conferindo</span><button class="btn-avisos" id="btn-avisos" type="button"><svg viewBox="0 0 24 24"><path d="M6 16V11a6 6 0 0112 0v5l1.5 2h-15z"/><path d="M10 20a2 2 0 004 0"/></svg>Meus avisos</button></div>
         <h2 id="v-titulo"><span class="sk">carregando</span></h2>
         <p class="v-sub" id="v-sub"></p>
         <div class="v-preco">
@@ -540,12 +574,11 @@ body.comprado .so-comprado{display:block}
       <div class="flores divisor" data-b="divisor"></div>
       <div class="sec-head">
         <h2>Do seu M53 para o novo</h2>
-        <div class="abas" id="salto-m" role="group" style="margin-top:14px">
-          <button data-m="s25u" aria-pressed="true">Galaxy S25 Ultra</button>
-          <button data-m="sig" aria-pressed="false">Motorola Signature</button>
-        </div>
+        <p class="lead">Item por item, o que muda em relação ao celular que você usa hoje. Escolha o celular para comparar.</p>
+        <div class="abas" id="cmp-m" role="group" style="margin-top:14px"></div>
       </div>
-      <div class="salto" id="salto"></div>
+      <div class="cmp" id="cmp"></div>
+      <div class="cmp-leg"><span><i style="background:var(--sage-l);color:var(--sage-d)">↑</i>melhor que o M53</span><span><i style="background:var(--lav);color:var(--muted)">=</i>parecido</span><span><i style="background:var(--petal);color:var(--rose-d)">↓</i>pior que o M53</span></div>
       <div class="troca">
         <h3 style="font-size:26px">O M53 pode virar desconto</h3>
         <p>A Samsung tem o <b>Troca Smart</b>: o aparelho antigo entra como parte do pagamento na loja oficial. O valor depende da avaliação do M53 e só aparece quando você simula a compra no site da Samsung.</p>
@@ -578,13 +611,28 @@ body.comprado .so-comprado{display:block}
     <p style="margin:14px 0 0"><a class="btn primary" href="guia/">Ver o guia rápido (2 minutos)</a></p>
     <ul class="ajuda-lista">
       <li><span class="ic" id="aj-flor"></span><div><b>A flor é o resumo</b><p>Botão fechado quer dizer espere. Flor abrindo quer dizer que está quase. Flor aberta quer dizer que pode comprar.</p></div></li>
-      <li><span class="ic"><svg class="icone" viewBox="0 0 24 24"><path d="M5 12l4.5 4.5L19 7"/></svg></span><div><b>Duas conferências a cada preço</b><p>Primeiro, se chegou no valor combinado: <span id="aj-alvo">R$ 5.000</span> parcelado sem juros. Depois, se é desconto de verdade, comparando com o menor preço dos últimos 6 meses.</p></div></li>
+      <li><span class="ic"><svg class="icone" viewBox="0 0 24 24"><path d="M5 12l4.5 4.5L19 7"/></svg></span><div><b>Duas conferências a cada preço</b><p>Primeiro, se chegou no preço do seu aviso: <span id="aj-alvo">R$ 5.000</span> parcelado sem juros. Você pode mudar em "Meus avisos". Depois, se é desconto de verdade, comparando com o menor preço dos últimos 6 meses.</p></div></li>
       <li><span class="ic"><svg class="icone" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg></span><div><b>Cinco conferências por dia</b><p>Os preços são lidos direto nas lojas, inclusive de madrugada, que é quando muita oferta aparece.</p><div class="horas"><span>0h30</span><span>4h30</span><span>8h30</span><span>15h30</span><span>20h30</span></div></div></li>
       <li><span class="ic"><svg class="icone" viewBox="0 0 24 24"><path d="M4 8h16l-1.5 11h-13z"/><path d="M8.5 8a3.5 3.5 0 017 0"/></svg></span><div><b>Onde o preço é lido</b><p>Amazon direto no site. KaBuM!, Magalu, Fast Shop e outras pelo Buscapé. Só entra parcelado sem juros. Preço de Pix não conta.</p></div></li>
       <li><span class="ic"><svg class="icone" viewBox="0 0 24 24"><path d="M6 16V11a6 6 0 0112 0v5l1.5 2h-15z"/><path d="M10 20a2 2 0 004 0"/></svg></span><div><b>Aviso quando chegar a hora</b><p>Quando o preço bater no combinado, eu recebo um alerta na hora e te aviso no WhatsApp.</p></div></li>
       <li><span class="ic"><svg class="icone" viewBox="0 0 24 24"><path d="M4 18l5-6 4 3 7-9"/><path d="M4 4v16h16"/></svg></span><div><b>O histórico</b><p>Os seis meses de preço vêm do Buscapé, que guarda o menor preço à vista de cada dia. O parcelado desses meses é estimado. Desde 22/11 o parcelado é o lido nas lojas.</p></div></li>
       <li><span class="ic"><svg class="icone" viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="15" rx="3"/><path d="M4 10h16M8 3v4M16 3v4"/></svg></span><div><b>Até quando</b><p>A conferência segue até a Cyber Monday, 30/11. Oferta muda rápido: antes de pagar, confira na loja se está escrito "sem juros".</p></div></li>
     </ul>
+  </div>
+</dialog>
+
+<dialog class="ajuda" id="avisos" aria-labelledby="avisos-t">
+  <div class="ajuda-in">
+    <button class="ajuda-x" id="avisos-x" type="button" aria-label="Fechar">×</button>
+    <h2 id="avisos-t">Meus avisos</h2>
+    <p class="lead" style="font-size:16px">Já deixei um aviso pronto. Você só mexe aqui se quiser. Quando um celular chegar no preço do aviso, a flor abre e você recebe uma mensagem no WhatsApp.</p>
+    <div class="av-lista" id="av-lista"></div>
+    <div class="av-acoes">
+      <button class="btn suave" id="av-mais" type="button">Adicionar aviso</button>
+      <button class="btn primary" id="av-salvar" type="button">Salvar avisos</button>
+      <span class="av-msg" id="av-msg" role="status"></span>
+    </div>
+    <p class="small" style="margin:14px 0 0">O preço é sempre o total parcelado sem juros. Até 3 avisos, entre R$ 2.500 e R$ 8.000.</p>
   </div>
 </dialog>
 
@@ -680,11 +728,27 @@ async function carregar(){
     $('#v-sub').textContent='Tenta de novo em alguns minutos. Se continuar, me avisa.';
   }
 }
+const AV=()=>{const a=D&&D.estado&&Array.isArray(D.estado.avisos)&&D.estado.avisos.length?D.estado.avisos:[{valor:5000,modelo:null}];return a.map(x=>({valor:+x.valor,modelo:x.modelo||null}));};
+const ehFin=m=>m.papel==='recomendado'||m.papel==='alternativa';
+const FIN=()=>D.modelos.filter(ehFin).map(m=>m.id);
+const valeP=(a,m)=>a.modelo?a.modelo===m.id:ehFin(m);
+function alvoDe(m){const v=AV().filter(a=>valeP(a,m)).map(a=>a.valor);return v.length?Math.max(...v):null;}
+const alvoGeral=()=>{const g=AV().filter(a=>!a.modelo).map(a=>a.valor);return g.length?Math.max(...g):Math.max(...AV().map(a=>a.valor));};
+const rotAviso=a=>a.modelo?(D.modelos.find(m=>m.id===a.modelo)||{nome:a.modelo}).nome:'os finalistas';
 function status(m,p){
-  if(p==null) return 'espera';
-  if(p<=m.alvo_bom) return 'go';
-  if(p<=m.alvo_bom*1.05) return 'quase';
+  const a=alvoDe(m);
+  if(p==null||a==null) return 'espera';
+  if(p<=a) return 'go';
+  if(p<=a*1.05) return 'quase';
   return 'espera';
+}
+function foco(){
+  // para cada aviso, a melhor oferta entre os celulares a que ele vale; escolhe o aviso atingido mais barato, ou o mais perto
+  const lin=AV().map(a=>{const ms=D.modelos.filter(m=>valeP(a,m)&&D.melhor[m.id]).sort((x,y)=>D.melhor[x.id].preco_parcelado-D.melhor[y.id].preco_parcelado);return {a,m:ms[0],o:ms[0]&&D.melhor[ms[0].id]};}).filter(x=>x.o);
+  if(!lin.length){const r=D.modelos.find(m=>m.papel==='recomendado');return {a:{valor:alvoGeral(),modelo:null},m:r,o:D.melhor[r.id]};}
+  const at=lin.filter(x=>+x.o.preco_parcelado<=x.a.valor).sort((x,y)=>x.o.preco_parcelado-y.o.preco_parcelado);
+  if(at.length) return at[0];
+  return lin.sort((x,y)=>x.o.preco_parcelado/x.a.valor-y.o.preco_parcelado/y.a.valor)[0];
 }
 function estat(id){
   const h=D.hist.filter(x=>x.modelo_id===id).map(x=>({d:x.dia,v:+x.preco_parcelado,e:x.estimado}));
@@ -709,45 +773,44 @@ function render(){
     $('#pill').classList.toggle('atrasado',horas>14);
   }
   veredito(); cards(); abasGrafico(); grafico(); simInit(); salto();
-  const r0=D.modelos.find(m=>m.papel==='recomendado'); if(r0) $('#aj-alvo').textContent=brl0(r0.alvo_bom);
+  $('#aj-alvo').textContent=brl0(alvoGeral());
   if(est.comprado){document.body.classList.add('comprado');comprado();}
   primeira=false;
 }
 
 /* ---------- veredito ---------- */
 function veredito(){
-  const rec=D.modelos.find(m=>m.papel==='recomendado'), alt=D.modelos.find(m=>m.papel==='alternativa');
-  const o=D.melhor[rec.id], p=o?+o.preco_parcelado:null, s=status(rec,p);
+  const F=foco(), rec=F.m, o=F.o, p=o?+o.preco_parcelado:null, A=F.a.valor;
+  const s=p==null?'espera':p<=A?'go':p<=A*1.05?'quase':'espera';
   $('#verdict').dataset.s=s; $('#cena').className='cena '+s;
   $('#v-estado').textContent='Hoje: '+NOME[s].toLowerCase();
-  const T={go:['A flor abriu. Pode comprar!','O preço chegou no valor que a gente combinou.'],
-           quase:['Quase lá. Ainda não compre.',''],espera:['Ainda não. Vamos esperar.','']};
-  $('#v-titulo').textContent=T[s][0];
-  const falta=p!=null?p-rec.alvo_bom:null, {min}=estat(rec.id), noMin=p!=null&&p<=min.v*1.005, acima=p!=null?p-min.v:0;
+  const T={go:'A flor abriu. Pode comprar!',quase:'Quase lá. Ainda não compre.',espera:'Ainda não. Vamos esperar.'};
+  $('#v-titulo').textContent=T[s];
+  const falta=p!=null?p-A:null, {min}=estat(rec.id), noMin=p!=null&&p<=min.v*1.005, acima=p!=null?p-min.v:0;
+  const doAviso=F.a.modelo?`do seu aviso para o ${rec.nome}`:'do seu aviso';
   $('#v-sub').innerHTML=p==null?'Nenhuma loja com oferta válida nas últimas horas.':
-    s==='go'?(noMin?'Chegou no valor combinado e é o menor preço dos últimos 6 meses.':`Chegou no valor combinado. Já custou ${brl0(acima)} a menos em ${dm(min.d)}, mas dentro do combinado vale comprar.`):
-    (noMin?`É o menor preço dos últimos 6 meses, mas ainda faltam <b>${brl0(falta)}</b> para o combinado.`:`Faltam <b>${brl0(falta)}</b> para o combinado, e ele já custou <b>${brl0(acima)}</b> a menos em ${dm(min.d)}. Vale esperar.`);
+    s==='go'?`O <b>${rec.nome}</b> chegou no preço ${doAviso}.`+(noMin?' E é o menor preço dos últimos 6 meses.':` Já custou ${brl0(acima)} a menos em ${dm(min.d)}, mas dentro do seu preço vale comprar.`):
+    (noMin?`O <b>${rec.nome}</b> está no menor preço dos últimos 6 meses, mas ainda faltam <b>${brl0(falta)}</b> para o preço ${doAviso}.`:`O mais perto é o <b>${rec.nome}</b>: faltam <b>${brl0(falta)}</b> para o preço ${doAviso}, e ele já custou <b>${brl0(acima)}</b> a menos em ${dm(min.d)}. Vale esperar.`);
   if(p!=null) $('#v-checks').innerHTML=
-    `<div class="chk ${falta<=0?'ok':s==='quase'?'meh':'no'}"><i>${falta<=0?'✓':s==='quase'?'≈':'!'}</i><div><b>Combinado: ${brl0(rec.alvo_bom)}</b>${falta<=0?`Chegou. Está ${brl0(-falta)} abaixo.`:`Ainda não. Faltam ${brl0(falta)}.`}</div></div>`+
+    `<div class="chk ${falta<=0?'ok':s==='quase'?'meh':'no'}"><i>${falta<=0?'✓':s==='quase'?'≈':'!'}</i><div><b>Seu aviso: ${brl0(A)}</b>${falta<=0?`Chegou. Está ${brl0(-falta)} abaixo.`:`Ainda não. Faltam ${brl0(falta)}.`}</div></div>`+
     `<div class="chk ${noMin?'ok':acima<=min.v*.05?'meh':'no'}"><i>${noMin?'✓':acima<=min.v*.05?'≈':'!'}</i><div><b><span class="dia"></span>Menor em 6 meses: ${brl0(min.v)}</b>${noMin?'Hoje é o menor preço do período.':`Hoje está ${brl0(acima)} acima do preço de ${dm(min.d)}.`}</div></div>`;
-  $('#v-lbl').textContent=`Melhor preço de hoje do ${rec.nome}`;
+  $('#v-lbl').textContent=`Melhor preço de hoje: ${rec.nome}`;
   if(o){
     const pe=$('#v-parc');
     if(o.parcelas){ sobe(pe,+o.valor_parcela,v=>`${o.parcelas}x de ${brl(v)}`); } else pe.textContent=brl(p);
-    $('#v-tot').textContent=`sem juros, ${brl(p)} no total, na ${o.loja}`;
+    $('#v-tot').textContent=o.parcelas?`sem juros, ${brl(p)} no total, na ${o.loja}`:`no cartão, na ${o.loja}. Confira as parcelas na loja.`;
     $('#v-link').href=o.url||'#celulares'; $('#v-link').textContent='Ver na '+o.loja;
-    const a=rec.alvo_bom,lo=a*.9,qz=a*1.05,hi=a*1.2;
+    const a=A,lo=a*.9,qz=a*1.05,hi=a*1.2;
     const posDe=v=>v<=a?Math.max(3,(v-lo)/(a-lo)*40):v<=qz?40+(v-a)/(qz-a)*25:Math.min(97,65+(v-qz)/(hi-qz)*35);
     const pos=posDe(p), mm=$('#marca-min'); mm.classList.toggle('on',!noMin); mm.title='Menor preço em 6 meses: '+brl0(min.v);
     requestAnimationFrame(()=>requestAnimationFrame(()=>{$('#marca').style.setProperty('--pos',pos+'%');mm.style.setProperty('--pos',posDe(min.v)+'%');}));
     $('#marca-v').textContent=brl0(p);
   }
-  $('#leg1').textContent='até '+brl0(rec.alvo_bom); $('#leg2').textContent='até '+brl0(rec.alvo_bom*1.05);
+  $('#leg1').textContent='até '+brl0(A); $('#leg2').textContent='até '+brl0(A*1.05);
   $('#fases').innerHTML=[['espera','Botão fechado','espera'],['quase','Abrindo','quase lá'],['go','Flor aberta','pode comprar']]
     .map(([k,a,b])=>`<div class="fase ${k===s?'atual':''}">${florSVG(ABRE[k])}<b>${a}</b>${b}</div>`).join('');
   $('#v-mao').textContent=s==='go'?'hoje: abriu!':s==='quase'?'hoje: abrindo, quase lá':'hoje: ainda fechada';
   setTimeout(()=>$('#v-flor .vflor').style.setProperty('--abre',ABRE[s]),primeira?700:0);
-  if(alt){const oa=D.melhor[alt.id]; if(oa&&status(alt,+oa.preco_parcelado)==='go'&&s!=='go') $('#v-sub').innerHTML+=` Mas olha: o <b>${alt.nome}</b> já chegou no preço dele, ${brl0(oa.preco_parcelado)} na ${oa.loja}.`;}
 }
 
 /* ---------- celulares ---------- */
@@ -762,14 +825,14 @@ function cardHTML(m,mini){
   }
   const vistos=new Set(), lojas=D.recentes.filter(x=>x.modelo_id===m.id).filter(x=>{const k=x.loja+'|'+(x.observacao||'').match(/\d+ GB/)?.[0]; if(vistos.has(k))return false; vistos.add(k); return true;})
     .sort((a,b)=>a.preco_parcelado-b.preco_parcelado).filter(x=>!o||x.loja!==o.loja||+x.preco_parcelado!==p).slice(0,3);
-  const falta=p!=null?p-m.alvo_bom:null, pct=p?Math.min(100,m.alvo_bom/p*100):0, rec=m.papel==='recomendado';
+  const A=alvoDe(m), falta=p!=null&&A!=null?p-A:null, pct=p&&A?Math.min(100,A/p*100):0, rec=m.papel==='recomendado';
   return `
       <div class="c-img"><span class="selo">${selo[m.papel]||''}</span><img loading="lazy" src="${FOTO('produto-'+m.id+'.jpg')}" alt="${m.nome}">${rec?'<div class="flores c-flor" data-b="cacho"></div>':''}</div>
       <div class="c-body">
         <h3>${m.nome}<small>${m.armazenamento}</small></h3>
         <p class="why">${m.por_que||''}</p>
-        <div class="c-preco">${florSVG(ABRE[s])}<div>${o?`<div class="parc num">${o.parcelas?`${o.parcelas}x de ${brl(o.valor_parcela)}`:brl(p)}</div><span>sem juros, ${brl(p)} no total, na ${o.loja}</span>`:'<span>Sem oferta válida nas últimas horas</span>'}</div></div>
-        ${p?`<div class="meta"><div class="meta-bar ${s==='go'?'ok':''}"><b ${mini?`style="width:${pct}%"`:`data-w="${pct}"`}></b></div><p>${falta>0?`<b>${NOME[s]}.</b> Faltam ${brl0(falta)} para o preço combinado de ${brl0(m.alvo_bom)}.`:`<b>${NOME[s]}!</b> Está ${brl0(-falta)} abaixo do preço combinado de ${brl0(m.alvo_bom)}.`}</p></div>`:''}
+        <div class="c-preco">${florSVG(ABRE[s])}<div>${o?`<div class="parc num">${o.parcelas?`${o.parcelas}x de ${brl(o.valor_parcela)}`:brl(p)}</div><span>${o.parcelas?`sem juros, ${brl(p)} no total`:'no cartão; confira as parcelas'}, na ${o.loja}</span>`:'<span>Sem oferta válida nas últimas horas</span>'}</div></div>
+        ${p&&A!=null?`<div class="meta"><div class="meta-bar ${s==='go'?'ok':''}"><b ${mini?`style="width:${pct}%"`:`data-w="${pct}"`}></b></div><p>${falta>0?`<b>${NOME[s]}.</b> Faltam ${brl0(falta)} para o seu aviso de ${brl0(A)}.`:`<b>${NOME[s]}!</b> Está ${brl0(-falta)} abaixo do seu aviso de ${brl0(A)}.`}</p></div>`:p?`<p class="small" style="margin:0">Sem aviso para este celular. Se quiser, crie um em <a href="#" data-abre-avisos>Meus avisos</a>.</p>`:''}
         ${fr}
         ${lojas.length?`<ul class="lojas">${lojas.map(x=>{const gb=(x.observacao||'').match(/\d+ GB/)?.[0];return `<li><a href="${x.url||'#'}" target="_blank" rel="noopener">${x.loja}${gb&&gb!==m.armazenamento?' ('+gb+')':''}</a><span class="num">${x.parcelas?x.parcelas+'x de '+brl(x.valor_parcela):''} (${brl0(x.preco_parcelado)})</span></li>`}).join('')}</ul>`:''}
         <details class="pc" ${rec?'open':''}><summary>Prós e contras</summary><div class="pc-grid">
@@ -814,10 +877,10 @@ function graficoCmp(){
   const st=$('#stats'); st.className='chips';
   st.innerHTML=D.modelos.map(m=>{const o=D.melhor[m.id];return `<button class="chip" style="--c:${COR[m.id]||'#8E8299'}" aria-pressed="${cmpSel.has(m.id)}" data-id="${m.id}"><i></i>${curto(m.nome)}${o?` <b>${brl0(o.preco_parcelado)}</b>`:''}</button>`}).join('');
   st.querySelectorAll('.chip').forEach(b=>b.onclick=()=>{const id=b.dataset.id; if(cmpSel.has(id)){if(cmpSel.size>1)cmpSel.delete(id);}else cmpSel.add(id); graficoCmp();});
-  const sel=D.modelos.filter(m=>cmpSel.has(m.id)), orc=D.modelos.find(m=>m.papel==='recomendado').alvo_bom;
+  const sel=D.modelos.filter(m=>cmpSel.has(m.id)), orc=alvoGeral();
   const series=sel.map(m=>{const pts=estat(m.id).h.map(p=>({...p,t:+new Date(p.d+'T12:00:00-03:00')}));return {m,pts,ult:pts[pts.length-1],cor:COR[m.id]||'#8E8299'}});
   const ord=[...series].sort((a,b)=>a.ult.v-b.ult.v), bar=ord[0], dentro=ord.filter(x=>x.ult.v<=orc);
-  $('#leitura').innerHTML=`Dos marcados, o mais barato hoje é o <b>${bar.m.nome}</b>, por <b>${brl0(bar.ult.v)}</b> parcelado. `+(dentro.length?`${dentro.length===1?'Só ele cabe':dentro.length+' cabem'} no orçamento de ${brl0(orc)}.`:`Nenhum está dentro do orçamento de ${brl0(orc)} ainda.`)+' Toque nos nomes para ligar ou desligar.';
+  $('#leitura').innerHTML=`Dos marcados, o mais barato hoje é o <b>${bar.m.nome}</b>, por <b>${brl0(bar.ult.v)}</b> parcelado. `+(dentro.length?`${dentro.length===1?'Só ele cabe':dentro.length+' cabem'} no seu aviso de ${brl0(orc)}.`:`Nenhum chegou no seu aviso de ${brl0(orc)} ainda.`)+' Toque nos nomes para ligar ou desligar.';
   const ch=$('#chart'), W=Math.max(300,Math.round(ch.clientWidth||860)), mob=W<600, H=mob?300:380, FS=mob?11.5:13, P={l:mob?40:54,r:mob?14:96,t:26,b:28};
   const todos=series.flatMap(x=>x.pts), x0=Math.min(...todos.map(p=>p.t)), x1=CM.getTime();
   let y0=Math.min(orc,...todos.map(p=>p.v)), y1=Math.max(...todos.map(p=>p.v)); const pad=(y1-y0)*.08; y0=Math.floor((y0-pad)/500)*500; y1=Math.ceil((y1+pad)/500)*500;
@@ -827,7 +890,7 @@ function graficoCmp(){
   for(let v=Math.ceil(y0/passo)*passo;v<=y1;v+=passo) s+=`<line x1="${P.l}" x2="${W-P.r}" y1="${Y(v)}" y2="${Y(v)}" stroke="#F0E8F5"/><text x="${P.l-8}" y="${Y(v)+4}" text-anchor="end" font-size="${FS}" fill="#8E8299" font-family="Figtree">${(v/1000).toLocaleString('pt-BR')} mil</text>`;
   const ms=['jan','fev','mar','abr','mai','jun','jul','ago','set','out','nov','dez'], d0=new Date(x0); d0.setDate(1); d0.setMonth(d0.getMonth()+1);
   for(;d0<=x1;d0.setMonth(d0.getMonth()+1)) s+=`<text x="${X(+d0)}" y="${H-6}" text-anchor="middle" font-size="${FS}" fill="#8E8299" font-family="Figtree">${ms[d0.getMonth()]}</text>`;
-  s+=`<rect x="${P.l}" y="${Y(orc)}" width="${W-P.l-P.r}" height="${Math.max(0,H-P.b-Y(orc))}" fill="#E6F4EA"/><line x1="${P.l}" x2="${W-P.r}" y1="${Y(orc)}" y2="${Y(orc)}" stroke="#3F8060" stroke-width="1.4" stroke-dasharray="5 4"/><text x="${P.l+8}" y="${H-P.b-9}" font-size="${FS}" fill="#3F8060" font-weight="700" font-family="Figtree" style="paint-order:stroke;stroke:#fff;stroke-width:4px">seu orçamento: ${brl0(orc)}</text>`;
+  s+=`<rect x="${P.l}" y="${Y(orc)}" width="${W-P.l-P.r}" height="${Math.max(0,H-P.b-Y(orc))}" fill="#E6F4EA"/><line x1="${P.l}" x2="${W-P.r}" y1="${Y(orc)}" y2="${Y(orc)}" stroke="#3F8060" stroke-width="1.4" stroke-dasharray="5 4"/><text x="${P.l+8}" y="${H-P.b-9}" font-size="${FS}" fill="#3F8060" font-weight="700" font-family="Figtree" style="paint-order:stroke;stroke:#fff;stroke-width:4px">seu aviso: ${brl0(orc)}</text>`;
   s+=`<rect x="${X(+BF)}" y="${P.t}" width="${Math.max(3,X(+CM)-X(+BF))}" height="${H-P.t-P.b}" fill="#FBEFD3" opacity=".85"/><text x="${X(+CM)}" y="${P.t-9}" text-anchor="end" font-size="${FS}" fill="#9A7430" font-weight="700" font-family="Figtree">Black Friday</text>`;
   series.forEach((x,i)=>{s+=`<polyline class="linha" style="animation-delay:${i*180}ms" pathLength="1" fill="none" stroke="${x.cor}" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round" points="${x.pts.map(p=>X(p.t).toFixed(1)+','+Y(p.v).toFixed(1)).join(' ')}"/>`;});
   let ant=-99; const rot=[...series].sort((a,b)=>Y(a.ult.v)-Y(b.ult.v)).map(x=>{let y=Math.max(Y(x.ult.v)+4,ant+15); ant=y; return {x,y};});
@@ -855,7 +918,8 @@ function grafico(){
   const pts=h.map(p=>({...p,t:+new Date(p.d+'T12:00:00-03:00')}));
   const hj=pts[pts.length-1];
   const x0=pts[0].t, x1=CM.getTime();
-  let y0=Math.min(min.v,m.alvo_bom), y1=Math.max(...pts.map(p=>p.v)); const pad=(y1-y0)*.12; y0=Math.floor((y0-pad*2.2)/250)*250; y1=Math.ceil((y1+pad/2)/250)*250;
+  const AL=alvoDe(m)||alvoGeral();
+  let y0=Math.min(min.v,AL), y1=Math.max(...pts.map(p=>p.v)); const pad=(y1-y0)*.12; y0=Math.floor((y0-pad*2.2)/250)*250; y1=Math.ceil((y1+pad/2)/250)*250;
   const X=t=>P.l+(t-x0)/(x1-x0)*(W-P.l-P.r), Y=v=>P.t+(1-(v-y0)/(y1-y0))*(H-P.t-P.b);
   let s=`<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Histórico de preço do ${m.nome}"><defs><linearGradient id="gA" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${cor}" stop-opacity=".22"/><stop offset="1" stop-color="${cor}" stop-opacity="0"/></linearGradient></defs>`;
   const passo=(y1-y0)>4500?1000:(y1-y0)>2000?500:250;
@@ -863,7 +927,7 @@ function grafico(){
   const ms=['jan','fev','mar','abr','mai','jun','jul','ago','set','out','nov','dez'], d0=new Date(x0); d0.setDate(1); d0.setMonth(d0.getMonth()+1);
   for(;d0<=x1;d0.setMonth(d0.getMonth()+1)) s+=`<text x="${X(+d0)}" y="${H-6}" text-anchor="middle" font-size="${FS}" fill="#8E8299" font-family="Figtree">${ms[d0.getMonth()]}</text>`;
   // zona de compra
-  s+=`<rect x="${P.l}" y="${Y(m.alvo_bom)}" width="${W-P.l-P.r}" height="${Math.max(0,H-P.b-Y(m.alvo_bom))}" fill="#E6F4EA"/><line x1="${P.l}" x2="${W-P.r}" y1="${Y(m.alvo_bom)}" y2="${Y(m.alvo_bom)}" stroke="#3F8060" stroke-width="1.4" stroke-dasharray="5 4"/><text x="${P.l+8}" y="${H-P.b-9}" font-size="${FS}" fill="#3F8060" font-weight="700" font-family="Figtree">${W<600?'zona de compra':'zona de compra: até '+brl0(m.alvo_bom)}</text>`;
+  s+=`<rect x="${P.l}" y="${Y(AL)}" width="${W-P.l-P.r}" height="${Math.max(0,H-P.b-Y(AL))}" fill="#E6F4EA"/><line x1="${P.l}" x2="${W-P.r}" y1="${Y(AL)}" y2="${Y(AL)}" stroke="#3F8060" stroke-width="1.4" stroke-dasharray="5 4"/><text x="${P.l+8}" y="${H-P.b-9}" font-size="${FS}" fill="#3F8060" font-weight="700" font-family="Figtree">${W<600?'seu aviso':'seu aviso: até '+brl0(AL)}</text>`;
   s+=`<rect x="${X(+BF)}" y="${P.t}" width="${Math.max(3,X(+CM)-X(+BF))}" height="${H-P.t-P.b}" fill="#FBEFD3" opacity=".85"/><text x="${X(+CM)}" y="${P.t-9}" text-anchor="end" font-size="${FS}" fill="#9A7430" font-weight="700" font-family="Figtree">Black Friday</text>`;
   const linha=pts.map(p=>X(p.t).toFixed(1)+','+Y(p.v).toFixed(1)).join(' ');
   s+=`<polygon class="area" fill="url(#gA)" points="${X(pts[0].t)},${H-P.b} ${linha} ${X(hj.t)},${H-P.b}"/>`;
@@ -950,17 +1014,75 @@ function sim(){
   $('#sim-note').textContent=`Total de ${brl(o.preco_parcelado)}, a melhor oferta de hoje, na ${o.loja}${o.parcelas?', que parcela em até '+o.parcelas+'x sem juros':''}.${o.parcelas&&sN>o.parcelas?' Nessa loja não dá para dividir em tantas vezes sem juros.':''}`;
 }
 
-/* ---------- salto ---------- */
-const SALTO={
-  s25u:[['Zoom óptico','não tem','3x e 5x'],['Câmera principal','108 MP','200 MP'],['Vídeo','4K a 30 quadros','4K a 120 quadros e 8K'],['Carregamento','25 W','45 W'],['S Pen','não tem','embutida no aparelho'],['Peso','176 g','218 g (mais pesado)']],
-  sig:[['Zoom óptico','não tem','3x'],['Câmera principal','108 MP','50 MP com sensor maior'],['Vídeo','4K a 30 quadros','4K a 60 quadros e 8K'],['Carregamento','25 W','90 W'],['Tela','120 Hz','165 Hz'],['Peso','176 g','186 g']]
+/* ---------- comparativo com o M53 ---------- */
+// fichas conferidas em 22/11/2026 (fabricantes, Tecnoblog, Oficina da Net, Zoom)
+const FICHA={
+  m53:{cam:'108 MP',zoom:'não tem',uw:'8 MP',self:'32 MP',video:'4K a 30 quadros',tela:'6,7", 120 Hz',ram:'6 ou 8 GB',arm:'128 GB',bat:'5.000 mAh',carga:'25 W',peso:'176 g',upd:'lançado em 2022, suporte perto do fim'},
+  s25u:{cam:['200 MP','up'],zoom:['3x e 5x','up'],uw:['50 MP','up'],self:['12 MP','down'],video:['8K e 4K a 120 quadros','up'],tela:['6,9", 120 Hz','eq'],ram:['12 GB','up'],arm:['256 GB','up'],bat:['5.000 mAh','eq'],carga:['45 W','up'],peso:['218 g, mais pesado','down'],upd:['7 anos de atualizações','up']},
+  sig:{cam:['50 MP, sensor maior','up'],zoom:['3x','up'],uw:['50 MP','up'],self:['50 MP','up'],video:['8K e 4K a 60 quadros','up'],tela:['6,8", 165 Hz','up'],ram:['12 GB','up'],arm:['512 GB','up'],bat:['5.200 mAh','up'],carga:['90 W','up'],peso:['186 g','eq'],upd:['7 versões do Android','up']},
+  x17t:{cam:['50 MP Leica','up'],zoom:['5x','up'],uw:['12 MP','up'],self:['32 MP','eq'],video:['4K a 60 quadros','up'],tela:['6,59", 120 Hz','eq'],ram:['12 GB','up'],arm:['512 GB','up'],bat:['6.500 mAh','up'],carga:['67 W','up'],peso:['200 g, mais pesado','down'],upd:['5 anos de sistema','up']},
+  s25:{cam:['50 MP','up'],zoom:['3x','up'],uw:['12 MP','up'],self:['12 MP','down'],video:['8K e 4K a 60 quadros','up'],tela:['6,2", 120 Hz, menor','down'],ram:['12 GB','up'],arm:['256 GB','up'],bat:['4.000 mAh','down'],carga:['25 W','eq'],peso:['162 g, mais leve','up'],upd:['7 anos de atualizações','up']},
+  ip17:{cam:['48 MP','up'],zoom:['2x por recorte, sem lente de zoom','eq'],uw:['48 MP','up'],self:['18 MP','down'],video:['4K a 60 quadros','up'],tela:['6,3", 120 Hz','eq'],ram:['8 GB','eq'],arm:['256 GB','up'],bat:['3.692 mAh','down'],carga:['até 25 W sem fio (MagSafe)','eq'],peso:['177 g','eq'],upd:['iOS, sem prazo oficial','up']},
+  s26u:{cam:['200 MP','up'],zoom:['3x e 5x','up'],uw:['50 MP','up'],self:['12 MP','down'],video:['8K e 4K a 120 quadros','up'],tela:['6,9", 120 Hz','eq'],ram:['12 GB','up'],arm:['256 GB','up'],bat:['5.000 mAh','eq'],carga:['60 W','up'],peso:['214 g, mais pesado','down'],upd:['7 anos de atualizações','up']}
 };
-let saM='s25u';
+const LINHAS=[['cam','Câmera principal'],['zoom','Zoom óptico'],['uw','Ultra-angular'],['self','Câmera de selfie'],['video','Vídeo'],['tela','Tela'],['ram','Memória RAM'],['arm','Armazenamento'],['bat','Bateria'],['carga','Carregamento'],['peso','Peso'],['upd','Atualizações']];
+const IC={up:'↑',down:'↓',eq:'='};
+let cmM='s25u';
 function salto(){
-  document.querySelectorAll('#salto-m button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.m===saM));
-  $('#salto').innerHTML=SALTO[saM].map(([r,a,b],i)=>`<div class="linha-s" style="animation:entra .4s ${i*60}ms both"><div class="rot">${r}</div><div class="de">${a}</div><div class="seta">→</div><div class="para">${b}</div></div>`).join('');
+  const el=$('#cmp-m'); el.innerHTML='';
+  D.modelos.filter(m=>FICHA[m.id]).forEach(m=>{const b=document.createElement('button');b.textContent=curto(m.nome);b.setAttribute('aria-pressed',m.id===cmM);b.onclick=()=>{cmM=m.id;salto();};el.appendChild(b);});
+  const f=FICHA[cmM]; if(!f) return;
+  $('#cmp').innerHTML=LINHAS.map(([k,r],i)=>`<div class="cmp-l ${f[k][1]}" style="animation:entra .4s ${i*45}ms both"><div class="rot">${r}</div><div class="de">${FICHA.m53[k]}</div><div class="ic" aria-label="${f[k][1]==='up'?'melhor':f[k][1]==='down'?'pior':'parecido'}">${IC[f[k][1]]}</div><div class="para">${f[k][0]}</div></div>`).join('');
 }
-document.querySelectorAll('#salto-m button').forEach(b=>b.onclick=()=>{saM=b.dataset.m;salto();});
+
+/* ---------- meus avisos ---------- */
+let rasc=[];
+const dlgAv=$('#avisos');
+function dicaAviso(a){
+  const ms=D.modelos.filter(m=>valeP(a,m));
+  const hoje=ms.filter(m=>D.melhor[m.id]&&+D.melhor[m.id].preco_parcelado<=a.valor);
+  if(hoje.length) return ['ok',`Hoje o ${hoje[0].nome} já está nesse preço. A flor abre assim que você salvar.`];
+  const hist=ms.map(m=>({m,min:estat(m.id).min})).filter(x=>x.min).sort((x,y)=>x.min.v-y.min.v)[0];
+  if(hist&&hist.min.v<=a.valor) return ['',`Já aconteceu: o ${hist.m.nome} chegou a ${brl0(hist.min.v)} em ${dm(hist.min.d)}.`];
+  if(hist) return ['alerta',`Nos últimos 6 meses, o menor foi ${brl0(hist.min.v)} (${hist.m.nome}). Esse aviso pode não tocar.`];
+  return ['',''];
+}
+function desenhaAvisos(){
+  const opts=`<option value="">Qualquer finalista</option>`+D.modelos.map(m=>`<option value="${m.id}">Só o ${m.nome}</option>`).join('');
+  $('#av-lista').innerHTML=rasc.map((a,i)=>{const [c,t]=dicaAviso(a);return `<div class="av-item" data-i="${i}">
+    <div class="av-linha"><div class="av-val"><button type="button" data-d="-100" aria-label="Diminuir R$ 100">−</button><input inputmode="numeric" aria-label="Valor do aviso" value="${brl0(a.valor)}"><button type="button" data-d="100" aria-label="Aumentar R$ 100">+</button></div>
+    <select aria-label="Para qual celular">${opts}</select>${rasc.length>1?`<button class="av-tira" type="button">Remover</button>`:''}</div>
+    <div class="av-dica ${c}">${t}</div></div>`;}).join('');
+  $('#av-lista').querySelectorAll('.av-item').forEach(el=>{
+    const i=+el.dataset.i, a=rasc[i], inp=el.querySelector('input'), sel=el.querySelector('select');
+    sel.value=a.modelo||'';
+    const fixa=()=>{a.valor=Math.min(8000,Math.max(2500,Math.round(a.valor/50)*50));desenhaAvisos();};
+    el.querySelectorAll('[data-d]').forEach(b=>b.onclick=()=>{a.valor+=+b.dataset.d;fixa();});
+    inp.onchange=()=>{const v=+inp.value.replace(/\D/g,'');if(v)a.valor=v;fixa();};
+    sel.onchange=()=>{a.modelo=sel.value||null;desenhaAvisos();};
+    const t=el.querySelector('.av-tira'); if(t) t.onclick=()=>{rasc.splice(i,1);desenhaAvisos();};
+  });
+  $('#av-mais').style.display=rasc.length>=3?'none':'';
+}
+function abreAvisos(e){
+  if(e) e.preventDefault(); if(!D) return;
+  rasc=AV().map(a=>({...a})); $('#av-msg').textContent=''; $('#av-msg').className='av-msg';
+  desenhaAvisos(); dlgAv.showModal?dlgAv.showModal():dlgAv.setAttribute('open','');
+}
+$('#btn-avisos').onclick=abreAvisos;
+document.addEventListener('click',e=>{const a=e.target.closest('[data-abre-avisos]'); if(a) abreAvisos(e);});
+$('#avisos-x').onclick=()=>dlgAv.close();
+dlgAv.addEventListener('click',e=>{if(e.target===dlgAv)dlgAv.close();});
+$('#av-mais').onclick=()=>{if(rasc.length<3){const ult=rasc[rasc.length-1];rasc.push({valor:Math.max(2500,(ult?ult.valor:5000)-500),modelo:null});desenhaAvisos();}};
+$('#av-salvar').onclick=async()=>{
+  const b=$('#av-salvar'), msg=$('#av-msg'); b.disabled=true; msg.className='av-msg'; msg.textContent='Salvando...';
+  try{
+    const r=await fetch(`${SB}/rest/v1/rpc/salvar_avisos`,{method:'POST',headers:{apikey:KEY,'Content-Type':'application/json'},body:JSON.stringify({p_avisos:rasc})});
+    const j=await r.json(); if(!r.ok) throw new Error(j.message||'erro');
+    D.estado.avisos=j; render(); msg.textContent='Avisos salvos.'; setTimeout(()=>dlgAv.close(),900);
+  }catch(e){ msg.className='av-msg erro'; msg.textContent='Não deu para salvar: '+e.message; }
+  b.disabled=false;
+};
 
 /* ---------- contagem ---------- */
 function contagem(){
